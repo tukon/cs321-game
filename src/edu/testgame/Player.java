@@ -1,19 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// PROJECT: Test Game -- prototype for CS413 project
+
 package edu.testgame;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 /**
  * Represents the player, or their opponent. It does not handle arrows, though.
@@ -30,7 +23,8 @@ public class Player extends Sprite
 	 */
 	BufferedImage arms;
 	
-	/** If `true`, the character will be mirrored (this is how the enemy is
+	/**
+	 * If `true`, the character will be mirrored (this is how the enemy is
 	 * displayed).
 	 */
 	boolean flip;
@@ -41,6 +35,13 @@ public class Player extends Sprite
 	/** Cached image. */
 	BufferedImage body, bodyDead, armsReady, armsRelaxed;
 	
+	/**
+	 * Creates a new Player object. The anchor point is the center of the
+	 * bottom of the player.
+	 * @param flip Whether or not to mirror the player’s body.
+	 * @param x Horizontal position
+	 * @param y Vertical position
+	 */
 	public Player(boolean flip, int x, int y)
 	{
 		super("player.png", x, y);
@@ -61,22 +62,23 @@ public class Player extends Sprite
 			img = body;
 		}
 		
-		reload();
-		setAngle(ang);
+		state = State.AIMING;
+		arms = armsReady;
+		imgTransformed = arms;
 	}
 	
 	/**
 	 * Mirrors the given image. TODO: move to Sprite?
-	 * @param img The image to mirror.
+	 * @param image The image to mirror.
 	 * @return The mirroed image.
 	 */
-	private BufferedImage flipImg(BufferedImage img)
+	private BufferedImage flipImg(BufferedImage image)
 	{
 		AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
-		tx.translate(-img.getWidth(null), 0);
+		tx.translate(-image.getWidth(null), 0);
 		AffineTransformOp op = new AffineTransformOp(tx, 
 			AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-		return op.filter(img, null);
+		return op.filter(image, null);
 	}
 	
 	/**
@@ -88,6 +90,9 @@ public class Player extends Sprite
 		final int ARMS_POS_X = pos.x;
 		final int ARMS_POS_Y = pos.y - img.getHeight(null)/2;
 		
+		// If the cursor is horizontally aligned with the player, set
+		// the angle to either the minimum or maximum (depending on the
+		// vertical position) to avoid a divide-by-zero error.
 		if (aimPos.x == ARMS_POS_X)
 		{
 			setAngle((aimPos.y < ARMS_POS_Y) ? Math.PI/2 :
@@ -95,31 +100,36 @@ public class Player extends Sprite
 		}
 		else
 		{
-			double ang = Math.atan((double)(aimPos.y - ARMS_POS_Y) /
+			double a = Math.atan((double)(aimPos.y - ARMS_POS_Y) /
 				(double)(aimPos.x - ARMS_POS_X));
-			if (flip)  ang = Math.PI - ang;
-			setAngle(ang);
+			if (flip)  a = Math.PI - a;
+			setAngle(a);
 		}
 	}
 	
 	/**
 	 * Sets the player’s aim angle.
-	 * @param angle Absolute aim angle, in radians.
+	 * @param angle Absolute aim angle, in radians. Will be clamped
+	 *              automatically.
 	 */
 	@Override
 	public void setAngle(double angle)
 	{
 		if (flip)
 		{
+			// Compensate for the fact that the image is mirrored
 			angle -= Math.PI;
 			angle *= -1;
 		}
+		
+		// Clamp angle
 		double MIN_ANG = -Math.PI/3;
 		double MAX_ANG = Math.PI/3;
 		if (angle < MIN_ANG)  ang = MIN_ANG;
 		else if (angle > MAX_ANG) ang = MAX_ANG;
 		else  ang = angle;
 		
+		// Transform the arms image & store the result in imgTransformed
 		double centerX = arms.getWidth(null) / 2;
 		double centerY = arms.getHeight(null) / 2;
 		
@@ -131,19 +141,36 @@ public class Player extends Sprite
 		imgTransformed = op.filter(arms, null);
 	}
 	
-	/** Returns the player’s aim angle. */
+	/**
+	 * Returns the angle that the player is holding their bow at.
+	 * @return Aim angle, in radians.
+	 */
 	public double getAngle() { return ang; }
 	
-	/** `true` if the player can fire, `false` if they cannot. */
+	/** 
+	 * See if the player can fire, i.e. if they are alive and their bow is
+	 * loaded.
+	 * @return `true` if the player can fire, `false` if they cannot.
+	 */
 	public boolean canFire() { return (state == State.AIMING); }
 	
-	/** Gets the player’s current state. */
+	/** 
+	 * Gets the player’s current state.
+	 * @return Player’s state
+	 * @see State
+	 */
 	public State getState() { return state; }
 	
-	/** `true`if the given point intersects the bounding box of the player’s
-	 * body. */
+	/**
+	 * Determines whether or not the given point intersects the player’s 
+	 * body.
+	 * @param p The point to check.
+	 * @return `true` if the given point intersects the bounding box of the 
+	 *         player’s body.
+	 */
 	public boolean intersects(Point p)
 	{
+		// Find the sides of the player’s bounding box.
 		int minX = pos.x - img.getWidth(null) / 2;
 		int maxX = pos.x + img.getWidth(null) / 2;
 		int minY = pos.y - img.getHeight(null);
@@ -196,6 +223,7 @@ public class Player extends Sprite
 	@Override
 	public void draw(Graphics g)
 	{
+		// Determine the coordinates to draw the arms at.
 		final int ARMS_POS_X = pos.x - arms.getWidth(null)/2;
 		final int ARMS_POS_Y = pos.y - img.getHeight(null)/2 - 
 			arms.getHeight(null)/2;
@@ -203,6 +231,7 @@ public class Player extends Sprite
 		g.drawImage(img, pos.x - img.getWidth(null)/2,
 			pos.y - img.getHeight(null), null);
 		
+		// Do not draw the arms if the player is dead.
 		if (state != State.DEAD)
 			g.drawImage(imgTransformed, ARMS_POS_X, ARMS_POS_Y, 
 				null);

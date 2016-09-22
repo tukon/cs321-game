@@ -1,8 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// PROJECT: Test Game -- prototype for CS413 project
+
 package edu.testgame;
 
 import java.awt.Graphics;
@@ -44,6 +41,8 @@ public class Sprite implements Drawable
 	public void setAngle(double angle)
 	{
 		ang = angle;
+		
+		// Rotate the image and save the result in imgTransformed:
 		double centerX = img.getWidth(null) / 2;
 		double centerY = img.getHeight(null) / 2;
 		
@@ -58,10 +57,14 @@ public class Sprite implements Drawable
 	/**
 	 * Loads the specified image from a file. The image is assumed to be in
 	 * the `res/` directory.
+	 * 
+	 * TODO: right now, `res/` probably has to be in the working directory.
+	 *       Fix that.
+	 * 
 	 * @param filename Name of the file to load, relative to `res/`
 	 * @return The loaded image, or null if it could not be loaded.
 	 */
-	protected BufferedImage loadImg(String filename)
+	protected final BufferedImage loadImg(String filename)
 	{
 		BufferedImage image = null;
 		File imgFile = new File("res/" + filename);

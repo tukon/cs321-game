@@ -1,8 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// PROJECT: Test Game -- prototype for CS413 project
+
 package edu.testgame;
 
 import java.awt.Dimension;
@@ -25,13 +22,18 @@ public class GamePanel extends JPanel
 	 */
 	private String debugText;
 	
+	/** Canvas width */
+	static final int WIDTH = 800;
+	/** Canvas height */
+	static final int HEIGHT = 600;
+	
 	public GamePanel()
 	{
 		super();
 		mSprites = new ArrayList<>();
 		// TODO: create constants for the size
-		setMinimumSize(new Dimension(800, 600));
-		setPreferredSize(new Dimension(800, 600));
+		setMinimumSize(new Dimension(WIDTH, HEIGHT));
+		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 	}
 	
 	/**

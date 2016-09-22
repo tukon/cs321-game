@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// PROJECT: Test Game -- prototype for CS413 project
+
 package edu.testgame;
 
-import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -61,7 +57,7 @@ public class TestGame implements ActionListener, MouseListener,
 		panel.addMouseListener(this);
 		panel.addMouseWheelListener(this);
 		frame.add(panel);
-		frame.pack();
+		frame.pack();  // Shrink to fit contents, i.e the panel.
 		frame.setResizable(false);
 		
 		timer = new Timer(1000/60, this);
@@ -73,9 +69,10 @@ public class TestGame implements ActionListener, MouseListener,
 		grass = new Sprite("grass.png", 0, 0);
 		panel.add(grass);
 		
-		player = new Player(false, 64, 500);
+		player = new Player(false, 64, GamePanel.HEIGHT-100);
 		panel.add(player);
-		enemy = new Player(true, 800-64, 500);
+		enemy = new Player(true, GamePanel.WIDTH-64,
+			GamePanel.HEIGHT-100);
 		panel.add(enemy);
 		
 		playerArrows = new ArrayList<>();
@@ -92,7 +89,6 @@ public class TestGame implements ActionListener, MouseListener,
 	{
 		frame.setVisible(true);
 		timer.start();
-		return;
 	}
 	
 	/**
@@ -106,13 +102,14 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
+		// Make the player’s character aim at the cursor
 		Point pt = panel.getMousePosition();
-		if (pt != null)
+		if (pt != null)  // null = not over the panel
 		{
 			player.aim(pt);
-			enemy.aim(pt);
 		}
 		
+		// Update the arrow’s position
 		Arrow lastArrow = null;
 		if (playerArrows.size() > 0)
 		{
@@ -124,9 +121,11 @@ public class TestGame implements ActionListener, MouseListener,
 			lastArrow.update(1000/60);
 			if (!lastArrow.isFlying())
 			{
+				// Arrow has hit the ground or left the screen--
+				// prepare to fire again
 				player.reload();
 			}
-			else
+			else  // See if the arrow hit the enemy
 			{
 				if (enemy.intersects(lastArrow.getTipPos()))
 				{
@@ -138,7 +137,7 @@ public class TestGame implements ActionListener, MouseListener,
 		panel.setDebugText("Power: " + Integer.toString(power) +
 			"  Angle: " + -(int)Math.toDegrees(player.getAngle()));
 		
-		panel.repaint();
+		panel.repaint();  // Redraw the window contents
 	}
 	
 	/**
@@ -151,6 +150,7 @@ public class TestGame implements ActionListener, MouseListener,
 	{
 		power -= e.getWheelRotation();
 		
+		// Clamp power between 0 and 50
 		if (power < 0)  power = 0;
 		if (power > 50) power = 50;
 	}
@@ -166,8 +166,9 @@ public class TestGame implements ActionListener, MouseListener,
 		{
 			player.fire();
 			Point p = player.getAimOrigin();
-			playerArrows.add(new Arrow(false, p.x, p.y,
-				player.getAngle(), power));
+			playerArrows.add(new Arrow(false, p.x, p.y, power));
+			playerArrows.get(playerArrows.size()-1).setAngle(
+				player.getAngle());
 			panel.add(playerArrows.get(playerArrows.size()-1));
 		}
 	}

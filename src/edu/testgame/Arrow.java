@@ -1,8 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// PROJECT: Test Game -- prototype for CS413 project
+
 package edu.testgame;
 
 import java.awt.Graphics;
@@ -16,27 +13,40 @@ public class Arrow extends Sprite
 {
 	private boolean flying;
 	private double velX, velY;
+	private double vel;
 	
 	/**
-	 * Creates a new arrow.
+	 * Creates a new arrow. Be sure to call setAngle() after this.
 	 * @param enemy True if this is an enemy arrow; this affects its 
 	 *              appearance.
 	 * @param posX Horizontal position of the arrow.
 	 * @param posY Vertical position of the arrow.
-	 * @param ang Initial angle of the arrow, in radians.
 	 * @param vel Initial velocity of the angle, in pixels per second.
 	 */
-	public Arrow(boolean enemy, int posX, int posY, double ang, int vel)
+	public Arrow(boolean enemy, int posX, int posY, int vel)
 	{
 		super((enemy) ? "arrow_enemy.png" : "arrow_player.png", posX,
 			posY);
-		setAngle(ang);
-		velX = Math.cos(ang) * vel;
-		velY = Math.sin(ang) * vel;
-		flying = true;
+		this.vel = vel;
 	}
 	
-	/** True if the arrow is flying; false if it has stuck somewhere */
+	/**
+	 * Set the angle of the arrow, and make it start flying.
+	 * @param ang Absolute angle, in radians.
+	 */
+	@Override
+	public void setAngle(double ang)
+	{
+		super.setAngle(ang);
+		velX = Math.cos(ang) * vel;
+		velY = Math.sin(ang) * vel;
+		flying = true;	
+	}
+	
+	/**
+	 * Determines whether or not the arrow is still flying through the air.
+	 * @return True if the arrow is flying; false if it has stuck somewhere.
+	 */
 	public boolean isFlying() { return flying; }
 	
 	/**
