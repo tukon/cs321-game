@@ -17,11 +17,6 @@ public class GamePanel extends JPanel
 	/** Array of objects to display */
 	private ArrayList<Drawable> mSprites;
 	
-	/**
-	 * Text shown in the upper left corner. TODO: rename this
-	 */
-	private String debugText;
-	
 	/** Canvas width */
 	static final int WIDTH = 800;
 	/** Canvas height */
@@ -55,17 +50,6 @@ public class GamePanel extends JPanel
 	}
 	
 	/**
-	 * Set the text to be displayed in the upper left corner.
-	 * 
-	 * TODO: rename this
-	 * @param text 
-	 */
-	public void setDebugText(String text)
-	{
-		debugText = text;
-	}
-	
-	/**
 	 * Draws all game objects. Should not be called directly -- use
 	 * `repaint()` instead.
 	 * @param g The graphics object to draw with.
@@ -76,8 +60,6 @@ public class GamePanel extends JPanel
 		super.paintComponent(g);
 		
 		mSprites.forEach(sprite -> sprite.draw(g));
-		
-		if (debugText != null)  g.drawString(debugText, 16, 16);
 	}
 }
 // EOF

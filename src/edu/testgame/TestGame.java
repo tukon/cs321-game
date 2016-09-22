@@ -2,6 +2,7 @@
 
 package edu.testgame;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,6 +31,8 @@ public class TestGame implements ActionListener, MouseListener,
 	
 	private Player player, enemy;
 	private ArrayList<Arrow> playerArrows, enemyArrows;
+	
+	private TextLabel playerStats;
 	
 	private int power;
 	
@@ -77,6 +80,11 @@ public class TestGame implements ActionListener, MouseListener,
 		
 		playerArrows = new ArrayList<>();
 		enemyArrows = new ArrayList<>();
+		
+		playerStats = new TextLabel("", new Point(32,
+			GamePanel.HEIGHT-50));
+		playerStats.setColor(Color.RED);
+		panel.add(playerStats);
 		
 		power = 50;
 	}
@@ -134,7 +142,7 @@ public class TestGame implements ActionListener, MouseListener,
 			}
 		}
 		
-		panel.setDebugText("Power: " + Integer.toString(power) +
+		playerStats.setText("Power: " + Integer.toString(power) +
 			"  Angle: " + -(int)Math.toDegrees(player.getAngle()));
 		
 		panel.repaint();  // Redraw the window contents
