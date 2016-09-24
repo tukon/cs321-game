@@ -30,14 +30,15 @@ public class TestGame implements ActionListener, MouseListener,
 	private Sprite backdrop;
 	private Sprite grass;
 	
-	private Player player, enemy;
-	private ArrayList<Arrow> playerArrows, enemyArrows;
+	private Player player1, player2;
 	private ArrayList<Point> debugPoints;
 	
 	private Rectangle infoPanel;
-	private TextLabel playerStats;
+	private TextLabel player1Stats, player2Stats;
 	
-	private int power;
+	private Player activePlayer, otherPlayer;
+	
+	private int maxPower = 50;
 	
 	/**
 	 * The program’s main entry point.
@@ -75,29 +76,33 @@ public class TestGame implements ActionListener, MouseListener,
 		grass = new Sprite("grass.png", 0, 0);
 		panel.add(grass);
 		
-		player = new Player(false, 64, GamePanel.HEIGHT-100);
-		panel.add(player);
-		enemy = new Player(true, GamePanel.WIDTH-64,
+		player1 = new Player(false, 64, GamePanel.HEIGHT-100);
+		panel.add(player1);
+		player2 = new Player(true, GamePanel.WIDTH-64,
 			GamePanel.HEIGHT-100);
-		panel.add(enemy);
-		
-		playerArrows = new ArrayList<>();
-		enemyArrows = new ArrayList<>();
+		panel.add(player2);
 		
 		infoPanel = new Rectangle(0, GamePanel.HEIGHT-75,
 			GamePanel.WIDTH, 75, null, Color.BLACK, false, true);
 		panel.add(infoPanel);
 		
-		playerStats = new TextLabel("", new Point(32,
+		player1Stats = new TextLabel("", new Point(32,
 			GamePanel.HEIGHT-50));
-		playerStats.setColor(Color.WHITE);
-		playerStats.setLineSpacing(1.5f);
-		panel.add(playerStats);
+		player1Stats.setColor(Color.CYAN);
+		player1Stats.setLineSpacing(1.5f);
+		panel.add(player1Stats);
+		
+		player2Stats = new TextLabel("",new Point(GamePanel.WIDTH-64-50,
+			GamePanel.HEIGHT-50));
+		player2Stats.setColor(Color.WHITE);
+		player2Stats.setLineSpacing(1.5f);
+		panel.add(player2Stats);
 		
 		debugPoints = new ArrayList<>();
 		panel.addDebugPoints(debugPoints);
 		
-		power = 50;
+		activePlayer = player1;
+		otherPlayer = player2;
 	}
 	
 	/**
@@ -125,16 +130,11 @@ public class TestGame implements ActionListener, MouseListener,
 		Point pt = panel.getMousePosition();
 		if (pt != null)  // null = not over the panel
 		{
-			player.aim(pt);
+			activePlayer.aim(pt);
 		}
 		
 		// Update the arrow’s position
-		Arrow lastArrow = null;
-		if (playerArrows.size() > 0)
-		{
-			lastArrow = playerArrows.get(
-			playerArrows.size() - 1);
-		}
+		Arrow lastArrow = activePlayer.getLastArrow();
 		if (lastArrow != null && lastArrow.isFlying())
 		{
 			lastArrow.update(1000/60);
@@ -143,21 +143,34 @@ public class TestGame implements ActionListener, MouseListener,
 			{
 				// Arrow has hit the ground or left the screen--
 				// prepare to fire again
-				player.reload();
+				activePlayer.reload();
+				
+				if (activePlayer == player1)
+				{
+					activePlayer = player2;
+					otherPlayer = player1;
+					player2Stats.setColor(Color.CYAN);
+					player1Stats.setColor(Color.WHITE);
+				}
+				else
+				{
+					activePlayer = player1;
+					otherPlayer = player2;
+					player2Stats.setColor(Color.WHITE);
+					player1Stats.setColor(Color.CYAN);
+				}
 			}
 			else  // See if the arrow hit the enemy
 			{
-				if (enemy.intersects(lastArrow.getTipPos()))
+				if (otherPlayer.intersects(lastArrow.getTipPos()))
 				{
-					enemy.kill();
+					otherPlayer.kill();
 				}
 			}
 		}
 		
-		playerStats.setText("Player 1\n" +
-			"    Power: " + Integer.toString(power) +
-			"%\n    Angle: " + -(int)Math.toDegrees(
-			player.getAngle()) + "°");
+		player1Stats.setText(player1.getStats());
+		player2Stats.setText(player2.getStats());
 		
 		panel.repaint();  // Redraw the window contents
 	}
@@ -170,11 +183,7 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e)
 	{
-		power -= e.getWheelRotation();
-		
-		// Clamp power between 0 and 50
-		if (power < 0)  power = 0;
-		if (power > 100) power = 100;
+		activePlayer.changePower(-e.getWheelRotation());
 	}
 	
 	/**
@@ -187,20 +196,14 @@ public class TestGame implements ActionListener, MouseListener,
 		// Button3 is the right button
 		if (e.getButton() == MouseEvent.BUTTON3)
 		{
-			enemy.revive();
+			activePlayer.revive();
 			return;
 		}
-		if (player.canFire())
+		if (activePlayer.canFire())
 		{
 			debugPoints.clear();
-			int maxPower = 50;
-			player.fire();
-			Point p = player.getAimOrigin();
-			playerArrows.add(new Arrow(false, p.x, p.y,
-				((int)floor((((double)power/100.0))*(double)maxPower))));
-			playerArrows.get(playerArrows.size()-1).setAngle(
-				player.getAngle());
-			panel.add(playerArrows.get(playerArrows.size()-1));
+			activePlayer.fire(maxPower);
+			panel.add(activePlayer.getLastArrow());
 		}
 	}
 	

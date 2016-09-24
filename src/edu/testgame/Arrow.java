@@ -14,20 +14,22 @@ public class Arrow extends Sprite
 	private boolean flying;
 	private double velX, velY;
 	private double vel;
+	private boolean mirror;
 	
 	/**
 	 * Creates a new arrow. Be sure to call setAngle() after this.
-	 * @param enemy True if this is an enemy arrow; this affects its 
+	 * @param mirror True if this is an enemy arrow; this affects its 
 	 *              appearance.
 	 * @param posX Horizontal position of the arrow.
 	 * @param posY Vertical position of the arrow.
 	 * @param vel Initial velocity of the angle, in pixels per second.
 	 */
-	public Arrow(boolean enemy, int posX, int posY, int vel)
+	public Arrow(boolean mirror, int posX, int posY, int vel)
 	{
-		super((enemy) ? "arrow_enemy.png" : "arrow_player.png", posX,
+		super((mirror) ? "arrow_enemy.png" : "arrow_player.png", posX,
 			posY);
 		this.vel = vel;
+		this.mirror = mirror;
 	}
 	
 	/**
@@ -38,6 +40,7 @@ public class Arrow extends Sprite
 	public void setAngle(double ang)
 	{
 		super.setAngle(ang);
+		double r = Math.toDegrees(ang);
 		velX = Math.cos(ang) * vel;
 		velY = Math.sin(ang) * vel;
 		flying = true;	
@@ -68,9 +71,11 @@ public class Arrow extends Sprite
 		pos.x += velX;
 		pos.y += velY;
 		
-		double vel = Math.sqrt(velX*velX + velY*velY);
+		vel = Math.abs(Math.sqrt(velX*velX + velY*velY));
 		
-		setAngle(Math.atan((velY/vel) / (velX/vel)));
+		ang = Math.atan(velY / velX);
+		if (mirror)  super.setAngle(ang + Math.PI);
+		else  super.setAngle(ang);
 		
 		// Find the position of the arrow’s tip
 		int tipX = (int)(pos.x + 16*Math.cos(ang));

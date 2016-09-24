@@ -7,6 +7,10 @@ import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import static java.lang.Math.cos;
+import static java.lang.Math.floor;
+import static java.lang.Math.sin;
+import java.util.ArrayList;
 
 /**
  * Represents the player, or their opponent. It does not handle arrows, though.
@@ -21,19 +25,24 @@ public class Player extends Sprite
 	 * The image representing the player’s arms and bow. This is rotated by
 	 * `ang`, which is inherited from Sprite.
 	 */
-	BufferedImage arms;
+	protected BufferedImage arms;
 	
 	/**
 	 * If `true`, the character will be mirrored (this is how the enemy is
 	 * displayed).
 	 */
-	boolean flip;
+	protected boolean flip;
 	
 	/** Current state of the player (aiming, firing, or dead). */
-	State state;
+	protected State state;
 	
 	/** Cached image. */
-	BufferedImage body, bodyDead, armsReady, armsRelaxed;
+	protected BufferedImage body, bodyDead, armsReady, armsRelaxed;
+	
+	/** Arrows that this player has fired. */
+	protected ArrayList<Arrow> arrows;
+	
+	private int power;
 	
 	/**
 	 * Creates a new Player object. The anchor point is the center of the
@@ -53,6 +62,8 @@ public class Player extends Sprite
 		armsReady = loadImg("bow_drawn.png");
 		armsRelaxed = loadImg("bow_fired.png");
 		
+		arrows = new ArrayList<>();
+		
 		if (flip)
 		{
 			body = flipImg(body);
@@ -65,6 +76,8 @@ public class Player extends Sprite
 		state = State.AIMING;
 		arms = armsReady;
 		imgTransformed = arms;
+		
+		power = 50;
 	}
 	
 	/**
@@ -139,6 +152,11 @@ public class Player extends Sprite
 			AffineTransformOp.TYPE_BILINEAR);
 		
 		imgTransformed = op.filter(arms, null);
+		
+		if (flip)
+		{
+			ang = Math.PI + ang;
+		}
 	}
 	
 	/**
@@ -146,6 +164,13 @@ public class Player extends Sprite
 	 * @return Aim angle, in radians.
 	 */
 	public double getAngle() { return ang; }
+	
+	public void changePower(int Δp)
+	{
+		power += Δp;
+		if (power < 0)  power = 0;
+		if (power > 100) power = 100;
+	}
 	
 	/** 
 	 * See if the player can fire, i.e. if they are alive and their bow is
@@ -160,6 +185,16 @@ public class Player extends Sprite
 	 * @see State
 	 */
 	public State getState() { return state; }
+	
+	public String getStats()
+	{
+		int a = (int)Math.toDegrees(ang);
+		if (flip)  a -= 180;
+		else  a *= -1;
+		return "Player\n" +
+			"    Power: " + power + "%\n" +
+			"    Angle: " + a + "°";
+	}
 	
 	/**
 	 * Determines whether or not the given point intersects the player’s 
@@ -189,14 +224,29 @@ public class Player extends Sprite
 		return new Point(pos.x, pos.y - img.getHeight(null)/2);
 	}
 	
-	/** Changes the player’s state to `FIRING`, if they are not dead. */
-	public void fire()
+	public Arrow getLastArrow()
 	{
-		if (state != State.DEAD)
-		{
-			state = State.FIRING;
-			arms = armsRelaxed;
-		}
+		return (arrows.size() == 0) ? null :
+			arrows.get(arrows.size() - 1);
+	}
+	
+	/** Changes the player’s state to `FIRING`, if they are not dead. */
+	public void fire(int maxPower)
+	{
+		if (state == State.DEAD)  return;
+		
+		state = State.FIRING;
+		arms = armsRelaxed;
+		
+		Point p = getAimOrigin();
+		
+		int actualPower = 
+			((int)floor((((double)power/100.0)) *
+				(double)maxPower));
+		
+		arrows.add(new Arrow(flip, p.x, p.y, actualPower));
+		Arrow lastArrow = getLastArrow();
+		lastArrow.setAngle(getAngle());
 	}
 	
 	/** Changes the player’s state to `AIMING`, if they are not dead. */
