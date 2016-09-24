@@ -39,7 +39,10 @@ public class Player extends Sprite
 	/** Cached image. */
 	protected BufferedImage body, bodyDead, armsReady, armsRelaxed;
 	
-	protected ArrayList<Arrow> arrows; 
+	/** Arrows that this player has fired. */
+	protected ArrayList<Arrow> arrows;
+	
+	private int power;
 	
 	/**
 	 * Creates a new Player object. The anchor point is the center of the
@@ -73,6 +76,8 @@ public class Player extends Sprite
 		state = State.AIMING;
 		arms = armsReady;
 		imgTransformed = arms;
+		
+		power = 50;
 	}
 	
 	/**
@@ -160,6 +165,13 @@ public class Player extends Sprite
 	 */
 	public double getAngle() { return ang; }
 	
+	public void changePower(int Δp)
+	{
+		power += Δp;
+		if (power < 0)  power = 0;
+		if (power > 100) power = 100;
+	}
+	
 	/** 
 	 * See if the player can fire, i.e. if they are alive and their bow is
 	 * loaded.
@@ -173,6 +185,16 @@ public class Player extends Sprite
 	 * @see State
 	 */
 	public State getState() { return state; }
+	
+	public String getStats()
+	{
+		int a = (int)Math.toDegrees(ang);
+		if (flip)  a -= 180;
+		else  a *= -1;
+		return "Player\n" +
+			"    Power: " + power + "%\n" +
+			"    Angle: " + a + "°";
+	}
 	
 	/**
 	 * Determines whether or not the given point intersects the player’s 
@@ -209,7 +231,7 @@ public class Player extends Sprite
 	}
 	
 	/** Changes the player’s state to `FIRING`, if they are not dead. */
-	public void fire(int power)
+	public void fire(int maxPower)
 	{
 		if (state == State.DEAD)  return;
 		
@@ -217,7 +239,12 @@ public class Player extends Sprite
 		arms = armsRelaxed;
 		
 		Point p = getAimOrigin();
-		arrows.add(new Arrow(flip, p.x, p.y, power));
+		
+		int actualPower = 
+			((int)floor((((double)power/100.0)) *
+				(double)maxPower));
+		
+		arrows.add(new Arrow(flip, p.x, p.y, actualPower));
 		Arrow lastArrow = getLastArrow();
 		lastArrow.setAngle(getAngle());
 	}

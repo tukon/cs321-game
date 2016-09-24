@@ -34,11 +34,11 @@ public class TestGame implements ActionListener, MouseListener,
 	private ArrayList<Point> debugPoints;
 	
 	private Rectangle infoPanel;
-	private TextLabel playerStats;
-	
-	private int power;
+	private TextLabel player1Stats, player2Stats;
 	
 	private Player activePlayer, otherPlayer;
+	
+	private int maxPower = 50;
 	
 	/**
 	 * The program’s main entry point.
@@ -86,16 +86,20 @@ public class TestGame implements ActionListener, MouseListener,
 			GamePanel.WIDTH, 75, null, Color.BLACK, false, true);
 		panel.add(infoPanel);
 		
-		playerStats = new TextLabel("", new Point(32,
+		player1Stats = new TextLabel("", new Point(32,
 			GamePanel.HEIGHT-50));
-		playerStats.setColor(Color.WHITE);
-		playerStats.setLineSpacing(1.5f);
-		panel.add(playerStats);
+		player1Stats.setColor(Color.CYAN);
+		player1Stats.setLineSpacing(1.5f);
+		panel.add(player1Stats);
+		
+		player2Stats = new TextLabel("",new Point(GamePanel.WIDTH-64-50,
+			GamePanel.HEIGHT-50));
+		player2Stats.setColor(Color.WHITE);
+		player2Stats.setLineSpacing(1.5f);
+		panel.add(player2Stats);
 		
 		debugPoints = new ArrayList<>();
 		panel.addDebugPoints(debugPoints);
-		
-		power = 50;
 		
 		activePlayer = player1;
 		otherPlayer = player2;
@@ -145,11 +149,15 @@ public class TestGame implements ActionListener, MouseListener,
 				{
 					activePlayer = player2;
 					otherPlayer = player1;
+					player2Stats.setColor(Color.CYAN);
+					player1Stats.setColor(Color.WHITE);
 				}
 				else
 				{
 					activePlayer = player1;
 					otherPlayer = player2;
+					player2Stats.setColor(Color.WHITE);
+					player1Stats.setColor(Color.CYAN);
 				}
 			}
 			else  // See if the arrow hit the enemy
@@ -161,10 +169,8 @@ public class TestGame implements ActionListener, MouseListener,
 			}
 		}
 		
-		playerStats.setText("Player 1\n" +
-			"    Power: " + Integer.toString(power) +
-			"%\n    Angle: " + -(int)Math.toDegrees(
-			player1.getAngle()) + "°");
+		player1Stats.setText(player1.getStats());
+		player2Stats.setText(player2.getStats());
 		
 		panel.repaint();  // Redraw the window contents
 	}
@@ -177,11 +183,7 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e)
 	{
-		power -= e.getWheelRotation();
-		
-		// Clamp power between 0 and 50
-		if (power < 0)  power = 0;
-		if (power > 100) power = 100;
+		activePlayer.changePower(-e.getWheelRotation());
 	}
 	
 	/**
@@ -194,15 +196,13 @@ public class TestGame implements ActionListener, MouseListener,
 		// Button3 is the right button
 		if (e.getButton() == MouseEvent.BUTTON3)
 		{
-			otherPlayer.revive();
+			activePlayer.revive();
 			return;
 		}
 		if (activePlayer.canFire())
 		{
 			debugPoints.clear();
-			int maxPower = 50;
-			activePlayer.fire(((int)floor((((double)power/100.0)) *
-				(double)maxPower)));
+			activePlayer.fire(maxPower);
 			panel.add(activePlayer.getLastArrow());
 		}
 	}
