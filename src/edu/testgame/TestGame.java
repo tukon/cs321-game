@@ -30,14 +30,15 @@ public class TestGame implements ActionListener, MouseListener,
 	private Sprite backdrop;
 	private Sprite grass;
 	
-	private Player player, enemy;
-	private ArrayList<Arrow> playerArrows, enemyArrows;
+	private Player player1, player2;
 	private ArrayList<Point> debugPoints;
 	
 	private Rectangle infoPanel;
 	private TextLabel playerStats;
 	
 	private int power;
+	
+	private Player activePlayer, otherPlayer;
 	
 	/**
 	 * The program’s main entry point.
@@ -75,14 +76,11 @@ public class TestGame implements ActionListener, MouseListener,
 		grass = new Sprite("grass.png", 0, 0);
 		panel.add(grass);
 		
-		player = new Player(false, 64, GamePanel.HEIGHT-100);
-		panel.add(player);
-		enemy = new Player(true, GamePanel.WIDTH-64,
+		player1 = new Player(false, 64, GamePanel.HEIGHT-100);
+		panel.add(player1);
+		player2 = new Player(true, GamePanel.WIDTH-64,
 			GamePanel.HEIGHT-100);
-		panel.add(enemy);
-		
-		playerArrows = new ArrayList<>();
-		enemyArrows = new ArrayList<>();
+		panel.add(player2);
 		
 		infoPanel = new Rectangle(0, GamePanel.HEIGHT-75,
 			GamePanel.WIDTH, 75, null, Color.BLACK, false, true);
@@ -98,6 +96,9 @@ public class TestGame implements ActionListener, MouseListener,
 		panel.addDebugPoints(debugPoints);
 		
 		power = 50;
+		
+		activePlayer = player1;
+		otherPlayer = player2;
 	}
 	
 	/**
@@ -125,16 +126,11 @@ public class TestGame implements ActionListener, MouseListener,
 		Point pt = panel.getMousePosition();
 		if (pt != null)  // null = not over the panel
 		{
-			player.aim(pt);
+			activePlayer.aim(pt);
 		}
 		
 		// Update the arrow’s position
-		Arrow lastArrow = null;
-		if (playerArrows.size() > 0)
-		{
-			lastArrow = playerArrows.get(
-			playerArrows.size() - 1);
-		}
+		Arrow lastArrow = activePlayer.getLastArrow();
 		if (lastArrow != null && lastArrow.isFlying())
 		{
 			lastArrow.update(1000/60);
@@ -143,13 +139,24 @@ public class TestGame implements ActionListener, MouseListener,
 			{
 				// Arrow has hit the ground or left the screen--
 				// prepare to fire again
-				player.reload();
+				activePlayer.reload();
+				
+				if (activePlayer == player1)
+				{
+					activePlayer = player2;
+					otherPlayer = player1;
+				}
+				else
+				{
+					activePlayer = player1;
+					otherPlayer = player2;
+				}
 			}
 			else  // See if the arrow hit the enemy
 			{
-				if (enemy.intersects(lastArrow.getTipPos()))
+				if (otherPlayer.intersects(lastArrow.getTipPos()))
 				{
-					enemy.kill();
+					otherPlayer.kill();
 				}
 			}
 		}
@@ -157,7 +164,7 @@ public class TestGame implements ActionListener, MouseListener,
 		playerStats.setText("Player 1\n" +
 			"    Power: " + Integer.toString(power) +
 			"%\n    Angle: " + -(int)Math.toDegrees(
-			player.getAngle()) + "°");
+			player1.getAngle()) + "°");
 		
 		panel.repaint();  // Redraw the window contents
 	}
@@ -187,20 +194,16 @@ public class TestGame implements ActionListener, MouseListener,
 		// Button3 is the right button
 		if (e.getButton() == MouseEvent.BUTTON3)
 		{
-			enemy.revive();
+			otherPlayer.revive();
 			return;
 		}
-		if (player.canFire())
+		if (activePlayer.canFire())
 		{
 			debugPoints.clear();
 			int maxPower = 50;
-			player.fire();
-			Point p = player.getAimOrigin();
-			playerArrows.add(new Arrow(false, p.x, p.y,
-				((int)floor((((double)power/100.0))*(double)maxPower))));
-			playerArrows.get(playerArrows.size()-1).setAngle(
-				player.getAngle());
-			panel.add(playerArrows.get(playerArrows.size()-1));
+			activePlayer.fire(((int)floor((((double)power/100.0)) *
+				(double)maxPower)));
+			panel.add(activePlayer.getLastArrow());
 		}
 	}
 	

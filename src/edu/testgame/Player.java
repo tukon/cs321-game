@@ -7,6 +7,10 @@ import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import static java.lang.Math.cos;
+import static java.lang.Math.floor;
+import static java.lang.Math.sin;
+import java.util.ArrayList;
 
 /**
  * Represents the player, or their opponent. It does not handle arrows, though.
@@ -21,19 +25,21 @@ public class Player extends Sprite
 	 * The image representing the player’s arms and bow. This is rotated by
 	 * `ang`, which is inherited from Sprite.
 	 */
-	BufferedImage arms;
+	protected BufferedImage arms;
 	
 	/**
 	 * If `true`, the character will be mirrored (this is how the enemy is
 	 * displayed).
 	 */
-	boolean flip;
+	protected boolean flip;
 	
 	/** Current state of the player (aiming, firing, or dead). */
-	State state;
+	protected State state;
 	
 	/** Cached image. */
-	BufferedImage body, bodyDead, armsReady, armsRelaxed;
+	protected BufferedImage body, bodyDead, armsReady, armsRelaxed;
+	
+	protected ArrayList<Arrow> arrows; 
 	
 	/**
 	 * Creates a new Player object. The anchor point is the center of the
@@ -52,6 +58,8 @@ public class Player extends Sprite
 		bodyDead = loadImg("player_dead.png");
 		armsReady = loadImg("bow_drawn.png");
 		armsRelaxed = loadImg("bow_fired.png");
+		
+		arrows = new ArrayList<>();
 		
 		if (flip)
 		{
@@ -139,6 +147,11 @@ public class Player extends Sprite
 			AffineTransformOp.TYPE_BILINEAR);
 		
 		imgTransformed = op.filter(arms, null);
+		
+		if (flip)
+		{
+			ang = Math.PI + ang;
+		}
 	}
 	
 	/**
@@ -189,14 +202,24 @@ public class Player extends Sprite
 		return new Point(pos.x, pos.y - img.getHeight(null)/2);
 	}
 	
-	/** Changes the player’s state to `FIRING`, if they are not dead. */
-	public void fire()
+	public Arrow getLastArrow()
 	{
-		if (state != State.DEAD)
-		{
-			state = State.FIRING;
-			arms = armsRelaxed;
-		}
+		return (arrows.size() == 0) ? null :
+			arrows.get(arrows.size() - 1);
+	}
+	
+	/** Changes the player’s state to `FIRING`, if they are not dead. */
+	public void fire(int power)
+	{
+		if (state == State.DEAD)  return;
+		
+		state = State.FIRING;
+		arms = armsRelaxed;
+		
+		Point p = getAimOrigin();
+		arrows.add(new Arrow(flip, p.x, p.y, power));
+		Arrow lastArrow = getLastArrow();
+		lastArrow.setAngle(getAngle());
 	}
 	
 	/** Changes the player’s state to `AIMING`, if they are not dead. */
