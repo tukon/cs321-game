@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import static java.lang.Math.floor;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.Timer;
@@ -31,7 +32,9 @@ public class TestGame implements ActionListener, MouseListener,
 	
 	private Player player, enemy;
 	private ArrayList<Arrow> playerArrows, enemyArrows;
+	private ArrayList<Point> debugPoints;
 	
+	private Rectangle infoPanel;
 	private TextLabel playerStats;
 	
 	private int power;
@@ -81,10 +84,18 @@ public class TestGame implements ActionListener, MouseListener,
 		playerArrows = new ArrayList<>();
 		enemyArrows = new ArrayList<>();
 		
+		infoPanel = new Rectangle(0, GamePanel.HEIGHT-75,
+			GamePanel.WIDTH, 75, null, Color.BLACK, false, true);
+		panel.add(infoPanel);
+		
 		playerStats = new TextLabel("", new Point(32,
 			GamePanel.HEIGHT-50));
-		playerStats.setColor(Color.RED);
+		playerStats.setColor(Color.WHITE);
+		playerStats.setLineSpacing(1.5f);
 		panel.add(playerStats);
+		
+		debugPoints = new ArrayList<>();
+		panel.addDebugPoints(debugPoints);
 		
 		power = 50;
 	}
@@ -127,6 +138,7 @@ public class TestGame implements ActionListener, MouseListener,
 		if (lastArrow != null && lastArrow.isFlying())
 		{
 			lastArrow.update(1000/60);
+			debugPoints.add(lastArrow.getTipPos());
 			if (!lastArrow.isFlying())
 			{
 				// Arrow has hit the ground or left the screen--
@@ -142,8 +154,10 @@ public class TestGame implements ActionListener, MouseListener,
 			}
 		}
 		
-		playerStats.setText("Power: " + Integer.toString(power) +
-			"  Angle: " + -(int)Math.toDegrees(player.getAngle()));
+		playerStats.setText("Player 1\n" +
+			"    Power: " + Integer.toString(power) +
+			"%\n    Angle: " + -(int)Math.toDegrees(
+			player.getAngle()) + "°");
 		
 		panel.repaint();  // Redraw the window contents
 	}
@@ -160,7 +174,7 @@ public class TestGame implements ActionListener, MouseListener,
 		
 		// Clamp power between 0 and 50
 		if (power < 0)  power = 0;
-		if (power > 50) power = 50;
+		if (power > 100) power = 100;
 	}
 	
 	/**
@@ -170,11 +184,20 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
+		// Button3 is the right button
+		if (e.getButton() == MouseEvent.BUTTON3)
+		{
+			enemy.revive();
+			return;
+		}
 		if (player.canFire())
 		{
+			debugPoints.clear();
+			int maxPower = 50;
 			player.fire();
 			Point p = player.getAimOrigin();
-			playerArrows.add(new Arrow(false, p.x, p.y, power));
+			playerArrows.add(new Arrow(false, p.x, p.y,
+				((int)floor((((double)power/100.0))*(double)maxPower))));
 			playerArrows.get(playerArrows.size()-1).setAngle(
 				player.getAngle());
 			panel.add(playerArrows.get(playerArrows.size()-1));

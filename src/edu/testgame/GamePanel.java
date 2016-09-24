@@ -2,8 +2,10 @@
 
 package edu.testgame;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
@@ -16,6 +18,7 @@ public class GamePanel extends JPanel
 {
 	/** Array of objects to display */
 	private ArrayList<Drawable> mSprites;
+	private ArrayList<Point> points;
 	
 	/** Canvas width */
 	static final int WIDTH = 800;
@@ -49,6 +52,11 @@ public class GamePanel extends JPanel
 		mSprites.remove(sprite);
 	}
 	
+	public void addDebugPoints(ArrayList<Point> points)
+	{
+		this.points = points;
+	}
+	
 	/**
 	 * Draws all game objects. Should not be called directly -- use
 	 * `repaint()` instead.
@@ -60,6 +68,13 @@ public class GamePanel extends JPanel
 		super.paintComponent(g);
 		
 		mSprites.forEach(sprite -> sprite.draw(g));
+		
+		g.setColor(Color.MAGENTA);
+		for (int ii = 0; ii < points.size()-1; ++ii)
+		{
+			g.drawLine(points.get(ii).x, points.get(ii).y, points.get(ii+1).x,
+				points.get(ii+1).y);
+		}
 	}
 }
 // EOF

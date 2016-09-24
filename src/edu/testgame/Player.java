@@ -216,6 +216,12 @@ public class Player extends Sprite
 		img = bodyDead;
 	}
 	
+	public void revive()
+	{
+		state = State.AIMING;
+		img = body;
+	}
+	
 	/**
 	 * Draws the player on the game window. This is called by GamePanel.
 	 * @param g 

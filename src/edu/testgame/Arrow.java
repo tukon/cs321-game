@@ -96,7 +96,7 @@ public class Arrow extends Sprite
 	public Point getTipPos()
 	{
 		return new Point((int)(pos.x + 16*Math.cos(ang)),
-			(int)(pos.y - 16*Math.sin(ang)));
+			(int)(pos.y + 16*Math.sin(ang)));
 	}
 	
 	/**
