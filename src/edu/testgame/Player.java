@@ -44,6 +44,8 @@ public class Player extends Sprite
 	
 	private int power;
 	
+	private String name;
+	
 	/**
 	 * Creates a new Player object. The anchor point is the center of the
 	 * bottom of the player.
@@ -51,11 +53,13 @@ public class Player extends Sprite
 	 * @param x Horizontal position
 	 * @param y Vertical position
 	 */
-	public Player(boolean flip, int x, int y)
+	public Player(boolean flip, int x, int y, String name)
 	{
 		super("player.png", x, y);
 		this.flip = flip;
 		ang = (flip) ? Math.PI : 0.0;
+		
+		this.name = name;
 		
 		body = img;
 		bodyDead = loadImg("player_dead.png");
@@ -191,7 +195,7 @@ public class Player extends Sprite
 		int a = (int)Math.toDegrees(ang);
 		if (flip)  a -= 180;
 		else  a *= -1;
-		return "Player\n" +
+		return name + "\n" +
 			"    Power: " + power + "%\n" +
 			"    Angle: " + a + "°";
 	}

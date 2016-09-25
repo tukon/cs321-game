@@ -39,6 +39,7 @@ public class TestGame implements ActionListener, MouseListener,
 	private Line panelTop;
 	
 	private Player activePlayer, otherPlayer;
+	private Polygon marker;
 	
 	private int maxPower = 50;
 	
@@ -78,10 +79,11 @@ public class TestGame implements ActionListener, MouseListener,
 		grass = new Sprite("grass.png", 0, 0);
 		panel.add(grass);
 		
-		player1 = new Player(false, 64, GamePanel.HEIGHT-100);
+		player1 = new Player(false, 64, GamePanel.HEIGHT-100,
+			"Player 1");
 		panel.add(player1);
 		player2 = new Player(true, GamePanel.WIDTH-64,
-			GamePanel.HEIGHT-100);
+			GamePanel.HEIGHT-100, "Player 2");
 		panel.add(player2);
 		
 		infoPanel = new Rectangle(0, GamePanel.HEIGHT-75,
@@ -105,7 +107,7 @@ public class TestGame implements ActionListener, MouseListener,
 		player1Stats.setLineSpacing(1.5f);
 		panel.add(player1Stats);
 		
-		player2Stats = new TextLabel("",new Point(GamePanel.WIDTH-64-50,
+		player2Stats = new TextLabel("",new Point(GamePanel.WIDTH/2+32,
 			GamePanel.HEIGHT-50));
 		player2Stats.setColor(Color.GRAY);
 		player2Stats.setLineSpacing(1.5f);
@@ -115,6 +117,13 @@ public class TestGame implements ActionListener, MouseListener,
 		
 		activePlayer = player1;
 		otherPlayer = player2;
+		
+		marker = new Polygon(64, GamePanel.HEIGHT-100-75,
+			new Color(0x30BACC), Color.CYAN, true, true);
+		marker.addPoint(-10, -20);
+		marker.addPoint(10, -20);
+		marker.addPoint(0, 0);
+		panel.add(marker);
 	}
 	
 	/**
@@ -166,6 +175,8 @@ public class TestGame implements ActionListener, MouseListener,
 					otherPlayer = player1;
 					player2Stats.setColor(Color.WHITE);
 					player1Stats.setColor(Color.GRAY);
+					marker.setPos(GamePanel.WIDTH-64,
+						marker.getPos().y);
 				}
 				else
 				{
@@ -173,6 +184,7 @@ public class TestGame implements ActionListener, MouseListener,
 					otherPlayer = player2;
 					player2Stats.setColor(Color.GRAY);
 					player1Stats.setColor(Color.WHITE);
+					marker.setPos(64, marker.getPos().y);
 				}
 			}
 			else  // See if the arrow hit the enemy
