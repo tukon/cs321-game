@@ -68,6 +68,8 @@ public class Arrow extends Sprite
 		
 		velY += GRAVITY * Δt/MILLISECONDS_PER_SECOND;
 		
+		int oldX = pos.x;
+		int oldY = pos.y;
 		pos.x += velX;
 		pos.y += velY;
 		
@@ -84,10 +86,8 @@ public class Arrow extends Sprite
 		if (tipY > 500 || tipX < 0-32 || tipX > 800+32)
 		{
 			flying = false;
-			int oldX = (int)(pos.x - velX);
-			int oldY = (int)(pos.y - velY);
 			
-			double ii = (500 - oldY) / (pos.y - oldY);
+			double ii = (500.0 - oldY) / (pos.y - oldY);
 			pos.x = (int)(oldX + (pos.x - oldX) * ii);
 			pos.y = 500;
 		}

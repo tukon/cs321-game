@@ -31,10 +31,12 @@ public class TestGame implements ActionListener, MouseListener,
 	private Sprite grass;
 	
 	private Player player1, player2;
-	private ArrayList<Point> debugPoints;
+	private ArrayList<Line> traceSegments;
 	
 	private Rectangle infoPanel;
 	private TextLabel player1Stats, player2Stats;
+	private Line panelDivider;
+	private Line panelTop;
 	
 	private Player activePlayer, otherPlayer;
 	
@@ -86,20 +88,30 @@ public class TestGame implements ActionListener, MouseListener,
 			GamePanel.WIDTH, 75, null, Color.BLACK, false, true);
 		panel.add(infoPanel);
 		
+		panelDivider = new Line(
+			new Point(GamePanel.WIDTH/2, GamePanel.HEIGHT - 65),
+			new Point(GamePanel.WIDTH/2, GamePanel.HEIGHT - 10),
+			Color.WHITE, 3);
+		panel.add(panelDivider);
+		panelTop = new Line(
+			new Point(0, GamePanel.HEIGHT - 75),
+			new Point(GamePanel.WIDTH, GamePanel.HEIGHT - 75),
+			Color.WHITE, 3);
+		panel.add(panelTop);
+		
 		player1Stats = new TextLabel("", new Point(32,
 			GamePanel.HEIGHT-50));
-		player1Stats.setColor(Color.CYAN);
+		player1Stats.setColor(Color.WHITE);
 		player1Stats.setLineSpacing(1.5f);
 		panel.add(player1Stats);
 		
 		player2Stats = new TextLabel("",new Point(GamePanel.WIDTH-64-50,
 			GamePanel.HEIGHT-50));
-		player2Stats.setColor(Color.WHITE);
+		player2Stats.setColor(Color.GRAY);
 		player2Stats.setLineSpacing(1.5f);
 		panel.add(player2Stats);
 		
-		debugPoints = new ArrayList<>();
-		panel.addDebugPoints(debugPoints);
+		traceSegments = new ArrayList<>();
 		
 		activePlayer = player1;
 		otherPlayer = player2;
@@ -138,7 +150,10 @@ public class TestGame implements ActionListener, MouseListener,
 		if (lastArrow != null && lastArrow.isFlying())
 		{
 			lastArrow.update(1000/60);
-			debugPoints.add(lastArrow.getTipPos());
+			traceSegments.add(new Line(traceSegments.get(
+				traceSegments.size()-1).getEndPos(),
+				lastArrow.getTipPos(), Color.MAGENTA, 1));
+			panel.add(traceSegments.get(traceSegments.size()-1));
 			if (!lastArrow.isFlying())
 			{
 				// Arrow has hit the ground or left the screen--
@@ -149,15 +164,15 @@ public class TestGame implements ActionListener, MouseListener,
 				{
 					activePlayer = player2;
 					otherPlayer = player1;
-					player2Stats.setColor(Color.CYAN);
-					player1Stats.setColor(Color.WHITE);
+					player2Stats.setColor(Color.WHITE);
+					player1Stats.setColor(Color.GRAY);
 				}
 				else
 				{
 					activePlayer = player1;
 					otherPlayer = player2;
-					player2Stats.setColor(Color.WHITE);
-					player1Stats.setColor(Color.CYAN);
+					player2Stats.setColor(Color.GRAY);
+					player1Stats.setColor(Color.WHITE);
 				}
 			}
 			else  // See if the arrow hit the enemy
@@ -201,7 +216,16 @@ public class TestGame implements ActionListener, MouseListener,
 		}
 		if (activePlayer.canFire())
 		{
-			debugPoints.clear();
+			/* Comment this out to prevent the traces from
+			 * disappearing:
+			 */
+			for (Line l : traceSegments)  panel.remove(l);
+			traceSegments.clear();
+			
+			traceSegments.add(new Line(activePlayer.getAimOrigin(),
+				activePlayer.getAimOrigin(), Color.MAGENTA, 1));
+			panel.add(traceSegments.get(traceSegments.size()-1));
+			
 			activePlayer.fire(maxPower);
 			panel.add(activePlayer.getLastArrow());
 		}
