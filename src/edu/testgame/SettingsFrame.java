@@ -30,13 +30,18 @@ public class SettingsFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         TraceShotCheckbox = new javax.swing.JCheckBox();
         ShotPreviewCheckbox = new javax.swing.JCheckBox();
-        jPanel2 = new javax.swing.JPanel();
-        GravityField = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        GravityStrengthTextField = new javax.swing.JTextField();
         GravityFieldLabel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        GameTimeFieldLabel = new javax.swing.JLabel();
+        TurnTimeFieldLabel = new javax.swing.JLabel();
         TurnTimeTextField = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         GameTimeTextField = new javax.swing.JTextField();
+        BackgroundField = new javax.swing.JTextField();
+        BackgroundFieldLabel = new javax.swing.JLabel();
+        SaveToFileButton = new javax.swing.JButton();
+        SetAsDefaultButton = new javax.swing.JButton();
+        LoadFromFileButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,105 +90,127 @@ public class SettingsFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        GravityField.setText("9.82");
-        GravityField.addActionListener(new java.awt.event.ActionListener() {
+        GravityStrengthTextField.setText("9.82");
+        GravityStrengthTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GravityFieldActionPerformed(evt);
+                GravityStrengthTextFieldActionPerformed(evt);
             }
         });
-        GravityField.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        GravityStrengthTextField.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                GravityFieldPropertyChange(evt);
+                GravityStrengthTextFieldPropertyChange(evt);
             }
         });
 
         GravityFieldLabel.setText("Gravity");
 
-        jLabel1.setText("Turn Time");
+        GameTimeFieldLabel.setText("Game Time");
+
+        TurnTimeFieldLabel.setText("Turn Time");
 
         TurnTimeTextField.setText("10");
 
-        jLabel2.setText("Game Time");
-
         GameTimeTextField.setText("600");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(GameTimeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(GravityFieldLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(GravityField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TurnTimeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GameTimeFieldLabel)
+                    .addComponent(TurnTimeFieldLabel)
+                    .addComponent(GravityFieldLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(GameTimeTextField)
+                    .addComponent(TurnTimeTextField)
+                    .addComponent(GravityStrengthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(GravityFieldLabel)
-                    .addComponent(GravityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(GravityStrengthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TurnTimeFieldLabel)
                     .addComponent(TurnTimeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GameTimeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(0, 35, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(GameTimeFieldLabel)
+                    .addComponent(GameTimeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
+
+        BackgroundField.setText("background");
+        BackgroundField.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                BackgroundFieldPropertyChange(evt);
+            }
+        });
+
+        BackgroundFieldLabel.setText("Background");
+
+        SaveToFileButton.setText("Save to File");
+
+        SetAsDefaultButton.setText("Set as Default");
+
+        LoadFromFileButton.setText("Load from File");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(51, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(138, 138, 138))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(238, 238, 238))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(94, 94, 94))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(BackgroundFieldLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BackgroundField, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                .addGap(41, 41, 41)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(114, 114, 114))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(SaveToFileButton)
+                .addGap(18, 18, 18)
+                .addComponent(SetAsDefaultButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(LoadFromFileButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BackgroundField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BackgroundFieldLabel))))
+                .addGap(48, 48, 48)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SaveToFileButton)
+                    .addComponent(SetAsDefaultButton)
+                    .addComponent(LoadFromFileButton))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void GravityFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GravityFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_GravityFieldActionPerformed
-
-    private void GravityFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_GravityFieldPropertyChange
-        // TODO add your handling code here:
-        double temp = Double.parseDouble(GravityField.getText());
-        settings.setGravity(temp);
-        
-    }//GEN-LAST:event_GravityFieldPropertyChange
 
     private void ShotPreviewCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShotPreviewCheckboxActionPerformed
         // TODO add your handling code here:
@@ -210,6 +237,23 @@ public class SettingsFrame extends javax.swing.JFrame {
         if (settings.setTraceShot(TraceShotCheckbox.isSelected()) == false)
         System.out.print("Error, setTraceShot failed");
     }//GEN-LAST:event_TraceShotCheckboxStateChanged
+
+    private void GravityStrengthTextFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldPropertyChange
+        // TODO add your handling code here:
+        double temp = Double.parseDouble(GravityStrengthTextField.getText());
+        settings.setGravity(temp);
+
+    }//GEN-LAST:event_GravityStrengthTextFieldPropertyChange
+
+    private void GravityStrengthTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GravityStrengthTextFieldActionPerformed
+
+    private void BackgroundFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_BackgroundFieldPropertyChange
+        // TODO add your handling code here:
+        String temp = BackgroundField.getText();
+        settings.setBackground(temp);
+    }//GEN-LAST:event_BackgroundFieldPropertyChange
 
     /**
      * @param args the command line arguments
@@ -247,15 +291,20 @@ public class SettingsFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField BackgroundField;
+    private javax.swing.JLabel BackgroundFieldLabel;
+    private javax.swing.JLabel GameTimeFieldLabel;
     private javax.swing.JTextField GameTimeTextField;
-    private javax.swing.JTextField GravityField;
     private javax.swing.JLabel GravityFieldLabel;
+    private javax.swing.JTextField GravityStrengthTextField;
+    private javax.swing.JButton LoadFromFileButton;
+    private javax.swing.JButton SaveToFileButton;
+    private javax.swing.JButton SetAsDefaultButton;
     private javax.swing.JCheckBox ShotPreviewCheckbox;
     private javax.swing.JCheckBox TraceShotCheckbox;
+    private javax.swing.JLabel TurnTimeFieldLabel;
     private javax.swing.JTextField TurnTimeTextField;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }

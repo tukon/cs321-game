@@ -20,7 +20,8 @@ public class SettingsMenu {
     }
     public boolean setBackground(String temp)
     {
-        s_SettingsBackgroundName = temp;
+        //Add controls for background field including .png vs not including .png
+        s_SettingsBackgroundName = temp + ".png";
         if (s_SettingsBackgroundName.equals(temp)) return true;
         else return false;
     }
