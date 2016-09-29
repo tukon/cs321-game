@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import static java.lang.Math.floor;
@@ -20,9 +21,9 @@ import javax.swing.Timer;
  * @author adam
  */
 public class TestGame implements ActionListener, MouseListener, 
-	MouseWheelListener
+	MouseWheelListener, MouseMotionListener, ButtonListener
 {
-
+	private int gameRunning;
 	private JFrame frame;
 	private GamePanel panel;
 	private Timer timer;
@@ -42,6 +43,13 @@ public class TestGame implements ActionListener, MouseListener,
 	private Polygon marker;
 	
 	private int maxPower = 50;
+	
+	private Sprite menuBackdrop;
+	private Button startBtn;
+	private Button settingsBtn;
+	
+	public static final int BTN_START_ID = 0;
+	public static final int BTN_SETTINGS_ID = 1;
 	
 	/**
 	 * The program’s main entry point.
@@ -66,12 +74,37 @@ public class TestGame implements ActionListener, MouseListener,
 		panel.setOpaque(false);
 		panel.addMouseListener(this);
 		panel.addMouseWheelListener(this);
+		panel.addMouseMotionListener(this);
 		frame.add(panel);
 		frame.pack();  // Shrink to fit contents, i.e the panel.
 		frame.setResizable(false);
 		
 		timer = new Timer(1000/60, this);
 		timer.setRepeats(true);
+	}
+	
+	private void setUpMenu()
+	{
+		gameRunning = 0;
+		menuBackdrop = new Sprite("menu_bg.png", 0, 0);
+		panel.add(menuBackdrop);
+		startBtn = new Button(BTN_START_ID,
+			GamePanel.WIDTH/2-100,
+			GamePanel.HEIGHT/2, 200, 40, "Start");
+		startBtn.setListener(this);
+		panel.add(startBtn);
+		settingsBtn = new Button(BTN_SETTINGS_ID,
+			GamePanel.WIDTH/2-100,
+			GamePanel.HEIGHT/2+40+10, 200, 40, "Settings…");
+		settingsBtn.setListener(this);
+		panel.add(settingsBtn);
+	}
+	
+	private void setUpGame()
+	{
+		panel.remove(settingsBtn);
+		panel.remove(startBtn);
+		panel.remove(menuBackdrop);
 		
 		backdrop = new Sprite("backdrop.png", 0, 0);
 		panel.add(backdrop);
@@ -124,6 +157,7 @@ public class TestGame implements ActionListener, MouseListener,
 		marker.addPoint(10, -20);
 		marker.addPoint(0, 0);
 		panel.add(marker);
+		gameRunning = 1;
 	}
 	
 	/**
@@ -134,6 +168,7 @@ public class TestGame implements ActionListener, MouseListener,
 	{
 		frame.setVisible(true);
 		timer.start();
+		setUpMenu();
 	}
 	
 	/**
@@ -147,6 +182,13 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
+		if (gameRunning == 0)
+		{
+			// Just redraw the screen
+			panel.repaint();
+			return;
+		}
+		
 		// Make the player’s character aim at the cursor
 		Point pt = panel.getMousePosition();
 		if (pt != null)  // null = not over the panel
@@ -202,6 +244,14 @@ public class TestGame implements ActionListener, MouseListener,
 		panel.repaint();  // Redraw the window contents
 	}
 	
+	@Override
+	public void clicked(int id)
+	{
+		if (id == BTN_START_ID)  setUpGame();
+		else if (id == BTN_SETTINGS_ID)  new SettingsFrame().setVisible(
+			true);
+	}
+	
 	/**
 	 * Changes the power of the shot when the scroll wheel is turned.
 	 * @param e Indicates how many clicks the scroll wheel was turned, and
@@ -220,6 +270,15 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
+		startBtn.update(e);
+		settingsBtn.update(e);
+		if (gameRunning == 1)
+		{
+			gameRunning = 2;
+			return;
+		}
+		else if (gameRunning == 0)  return;
+		
 		// Button3 is the right button
 		if (e.getButton() == MouseEvent.BUTTON3)
 		{
@@ -243,19 +302,41 @@ public class TestGame implements ActionListener, MouseListener,
 		}
 	}
 	
-	/**
-	 * Required, but unused
-	 * @param e 
-	 */
 	@Override
-	public void mousePressed(MouseEvent e) { }
+	public void mouseMoved(MouseEvent e)
+	{ 
+		startBtn.update(e);
+		settingsBtn.update(e);
+	}
+	
+	@Override
+	public void mouseDragged(MouseEvent e)
+	{ 
+		startBtn.update(e);
+		settingsBtn.update(e);
+	}
 	
 	/**
 	 * Required, but unused
 	 * @param e 
 	 */
 	@Override
-	public void mouseReleased(MouseEvent e) { }
+	public void mousePressed(MouseEvent e)
+	{ 
+		startBtn.update(e);
+		settingsBtn.update(e);
+	}
+	
+	/**
+	 * Required, but unused
+	 * @param e 
+	 */
+	@Override
+	public void mouseReleased(MouseEvent e)
+	{ 
+		startBtn.update(e);
+		settingsBtn.update(e);
+	}
 	
 	/**
 	 * Required, but unused

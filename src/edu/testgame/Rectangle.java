@@ -29,6 +29,10 @@ public class Rectangle implements Drawable
 		this.drawFill = drawFill;
 	}
 	
+	public void setFillColor(Color fill) { this.fill = fill; }
+	
+	public void setOutlineColor(Color outline) { this.outline = outline; }
+	
 	@Override
 	public void draw(Graphics g)
 	{
