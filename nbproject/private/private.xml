@@ -5,9 +5,12 @@
         <group>
             <file>file:/home/adam/Projects/Coding/Classes/CS321/TestGame/src/edu/testgame/Player.java</file>
             <file>file:/home/adam/Projects/Coding/Classes/CS321/TestGame/src/edu/testgame/TextLabel.java</file>
+            <file>file:/home/adam/Projects/Coding/Classes/CS321/TestGame/src/edu/testgame/Line.java</file>
             <file>file:/home/adam/Projects/Coding/Classes/CS321/TestGame/src/edu/testgame/Arrow.java</file>
             <file>file:/home/adam/Projects/Coding/Classes/CS321/TestGame/src/edu/testgame/TestGame.java</file>
             <file>file:/home/adam/Projects/Coding/Classes/CS321/TestGame/src/edu/testgame/GamePanel.java</file>
+            <file>file:/home/adam/Projects/Coding/Classes/CS321/TestGame/src/edu/testgame/Rectangle.java</file>
+            <file>file:/home/adam/Projects/Coding/Classes/CS321/TestGame/src/edu/testgame/Polygon.java</file>
             <file>file:/home/adam/Projects/Coding/Classes/CS321/TestGame/src/edu/testgame/Sprite.java</file>
         </group>
     </open-files>
