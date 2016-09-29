@@ -15,6 +15,7 @@ public class Arrow extends Sprite
 	private double velX, velY;
 	private double vel;
 	private boolean mirror;
+	private int damage;
 	
 	/**
 	 * Creates a new arrow. Be sure to call setAngle() after this.
@@ -30,6 +31,7 @@ public class Arrow extends Sprite
 			posY);
 		this.vel = vel;
 		this.mirror = mirror;
+		damage = 3;
 	}
 	
 	/**
@@ -45,6 +47,8 @@ public class Arrow extends Sprite
 		velY = Math.sin(ang) * vel;
 		flying = true;	
 	}
+	
+	public int getDamage() { return damage; }
 	
 	/**
 	 * Determines whether or not the arrow is still flying through the air.

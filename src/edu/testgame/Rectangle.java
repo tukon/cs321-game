@@ -33,6 +33,32 @@ public class Rectangle implements Drawable
 	
 	public void setOutlineColor(Color outline) { this.outline = outline; }
 	
+	/** Set the rectangle’s width.
+	 * @param width The new width, in pixels.
+	 */
+	public void setWidth(int width) { this.width = width; }
+	
+	/** Set the rectangle’s height.
+	 * @param height The new height, in pixels.
+	 */
+	public void setHeight(int height) { this.height = height; }
+	
+	/**
+	 * Sets the rectangle’s horizontal position.
+	 * @param x The new horizontal position, on the canvas.
+	 */
+	public void setX(int x) { this.x = x; }
+	
+	/**
+	 * Sets the rectangle’s vertical position.
+	 * @param y The new horizontal position, on the canvas.
+	 */
+	public void setY(int y) { this.y = y; }
+	
+	/**
+	 * Draws the rectangle on the canvas. This is called by GamePanel.
+	 * @param g Graphics object to draw with.
+	 */
 	@Override
 	public void draw(Graphics g)
 	{

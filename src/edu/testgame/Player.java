@@ -7,9 +7,7 @@ import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import static java.lang.Math.cos;
 import static java.lang.Math.floor;
-import static java.lang.Math.sin;
 import java.util.ArrayList;
 
 /**
@@ -42,9 +40,17 @@ public class Player extends Sprite
 	/** Arrows that this player has fired. */
 	protected ArrayList<Arrow> arrows;
 	
+	/** Strength to fire the arrow at. */
 	private int power;
 	
+	/** Name of this character. */
 	private String name;
+	
+	/** Current number of hitpoints. */
+	private int health;
+	
+	/** Maximum number of hitpoints. */
+	private final int maxHealth;
 	
 	/**
 	 * Creates a new Player object. The anchor point is the center of the
@@ -82,6 +88,8 @@ public class Player extends Sprite
 		imgTransformed = arms;
 		
 		power = 50;
+		maxHealth = 10;
+		health = maxHealth;
 	}
 	
 	/**
@@ -100,7 +108,7 @@ public class Player extends Sprite
 	
 	/**
 	 * Aim at the given point.
-	 * @param aimPos the point to aim at.
+	 * @param aimPos the point on the screen to aim at.
 	 */
 	public void aim(Point aimPos)
 	{
@@ -127,7 +135,7 @@ public class Player extends Sprite
 	/**
 	 * Sets the player’s aim angle.
 	 * @param angle Absolute aim angle, in radians. Will be clamped
-	 *              automatically.
+	 *              automatically. Zero = right, positive = CW.
 	 */
 	@Override
 	public void setAngle(double angle)
@@ -169,6 +177,10 @@ public class Player extends Sprite
 	 */
 	public double getAngle() { return ang; }
 	
+	/**
+	 * Changes the player’s aim angle.
+	 * @param Δp Amount to change by, in radians. Negative = CCW
+	 */
 	public void changePower(int Δp)
 	{
 		power += Δp;
@@ -190,6 +202,11 @@ public class Player extends Sprite
 	 */
 	public State getState() { return state; }
 	
+	/**
+	 * Gets the player’s current aim angle and power, as a string.
+	 * @return A multi-line string with the player’s name, aim angle, and
+	 *         power.
+	 */
 	public String getStats()
 	{
 		int a = (int)Math.toDegrees(ang);
@@ -201,21 +218,36 @@ public class Player extends Sprite
 	}
 	
 	/**
-	 * Determines whether or not the given point intersects the player’s 
-	 * body.
-	 * @param p The point to check.
-	 * @return `true` if the given point intersects the bounding box of the 
-	 *         player’s body.
+	 * Retrieves the player’s current health.
+	 * @see getMaxHealth()
+	 * @return How many hitpoints the player has left.
 	 */
-	public boolean intersects(Point p)
+	public int getHealth() { return health; }
+	
+	/**
+	 * Retrieves the player’s maximum health.
+	 * @see getHealth()
+	 * @return The maximum number of hitpoints the player can have.
+	 */
+	public int getMaxHealth() { return maxHealth; }
+	
+	/**
+	 * Lowers the player’s health, if the given arrow intersects their body.
+	 * @param a The arrow to check.
+	 */
+	public void hitCheck(Arrow a)
 	{
+		Point p = a.getTipPos();
 		// Find the sides of the player’s bounding box.
 		int minX = pos.x - img.getWidth(null) / 2;
 		int maxX = pos.x + img.getWidth(null) / 2;
 		int minY = pos.y - img.getHeight(null);
 		int maxY = pos.y;
 		
-		return (p.x > minX && p.x < maxX && p.y > minY && p.y < maxY);
+		boolean hit = (p.x > minX && p.x < maxX &&
+			p.y > minY && p.y < maxY);
+		if (hit && state != State.DEAD) health -= a.getDamage();
+		if (health <= 0)  kill();
 	}
 	
 	/**
@@ -228,9 +260,13 @@ public class Player extends Sprite
 		return new Point(pos.x, pos.y - img.getHeight(null)/2);
 	}
 	
+	/**
+	 * Returns the last arrow the player fired.
+	 * @return Last arrow that was fired
+	 */
 	public Arrow getLastArrow()
 	{
-		return (arrows.size() == 0) ? null :
+		return (arrows.isEmpty()) ? null :
 			arrows.get(arrows.size() - 1);
 	}
 	
@@ -266,12 +302,17 @@ public class Player extends Sprite
 	/** Changes the player’s state to `DEAD`. */
 	public void kill()
 	{
+		health = 0;
 		state = State.DEAD;
 		img = bodyDead;
 	}
 	
+	/**
+	 * Brings the player back to life.
+	 */
 	public void revive()
 	{
+		health = maxHealth;
 		state = State.AIMING;
 		img = body;
 	}

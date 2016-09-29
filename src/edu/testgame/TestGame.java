@@ -42,6 +42,9 @@ public class TestGame implements ActionListener, MouseListener,
 	private Player activePlayer, otherPlayer;
 	private Polygon marker;
 	
+	private Rectangle p1Health, p1HealthOutline;
+	private Rectangle p2Health, p2HealthOutline;
+	
 	private int maxPower = 50;
 	
 	private Sprite menuBackdrop;
@@ -140,11 +143,27 @@ public class TestGame implements ActionListener, MouseListener,
 		player1Stats.setLineSpacing(1.5f);
 		panel.add(player1Stats);
 		
+		p1Health = new Rectangle(150, GamePanel.HEIGHT-75/2-10, 200, 20,
+			Color.WHITE, Color.RED, false, true);
+		p1HealthOutline = new Rectangle(150, GamePanel.HEIGHT-75/2-10,
+			200, 20, Color.WHITE, Color.BLACK, true, false);
+		panel.add(p1Health);
+		panel.add(p1HealthOutline);
+		
 		player2Stats = new TextLabel("",new Point(GamePanel.WIDTH/2+32,
 			GamePanel.HEIGHT-50));
 		player2Stats.setColor(Color.GRAY);
 		player2Stats.setLineSpacing(1.5f);
 		panel.add(player2Stats);
+		
+		p2Health = new Rectangle(GamePanel.WIDTH/2+150,
+			GamePanel.HEIGHT-75/2-10, 200, 20,
+			Color.WHITE, Color.RED, false, true);
+		p2HealthOutline = new Rectangle(GamePanel.WIDTH/2+150,
+			GamePanel.HEIGHT-75/2-10,
+			200, 20, Color.WHITE, Color.BLACK, true, false);
+		panel.add(p2Health);
+		panel.add(p2HealthOutline);
 		
 		traceSegments = new ArrayList<>();
 		
@@ -231,10 +250,13 @@ public class TestGame implements ActionListener, MouseListener,
 			}
 			else  // See if the arrow hit the enemy
 			{
-				if (otherPlayer.intersects(lastArrow.getTipPos()))
-				{
-					otherPlayer.kill();
-				}
+				otherPlayer.hitCheck(lastArrow);
+				p1Health.setWidth((int)(200.0 * 
+					player1.getHealth() /
+					player1.getMaxHealth()));
+				p2Health.setWidth((int)(200.0 * 
+					player2.getHealth() /
+					player2.getMaxHealth()));
 			}
 		}
 		
