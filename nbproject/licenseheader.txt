@@ -1,2 +1,2 @@
-// PROJECT: Test Game -- prototype for CS413 project
+// PROJECT: Test Game -- prototype for CS 321 project
 

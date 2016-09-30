@@ -1,11 +1,9 @@
-// PROJECT: Test Game -- prototype for CS413 project
+// PROJECT: Test Game -- prototype for CS 321 project
 
 package edu.testgame;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
@@ -28,7 +26,6 @@ public class GamePanel extends JPanel
 	{
 		super();
 		mSprites = new ArrayList<>();
-		// TODO: create constants for the size
 		setMinimumSize(new Dimension(WIDTH, HEIGHT));
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 	}

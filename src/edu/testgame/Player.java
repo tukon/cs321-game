@@ -1,4 +1,4 @@
-// PROJECT: Test Game -- prototype for CS413 project
+// PROJECT: Test Game -- prototype for CS 321 project
 
 package edu.testgame;
 
@@ -270,7 +270,10 @@ public class Player extends Sprite
 			arrows.get(arrows.size() - 1);
 	}
 	
-	/** Changes the player’s state to `FIRING`, if they are not dead. */
+	/**
+	 * Fires the player’s bow, if they are not dead.
+	 * @param maxPower Maximum power the player can fire at.
+	 */
 	public void fire(int maxPower)
 	{
 		if (state == State.DEAD)  return;
@@ -319,7 +322,7 @@ public class Player extends Sprite
 	
 	/**
 	 * Draws the player on the game window. This is called by GamePanel.
-	 * @param g 
+	 * @param g Graphics device to draw with.
 	 */
 	@Override
 	public void draw(Graphics g)

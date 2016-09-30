@@ -1,4 +1,4 @@
-// PROJECT: Test Game -- prototype for CS413 project
+// PROJECT: Test Game -- prototype for CS 321 project
 
 package edu.testgame;
 
@@ -11,10 +11,22 @@ import java.awt.Point;
  */
 public class Arrow extends Sprite
 {
+	/**
+	 * `true` when the arrow is soaring through the air; `false` when it is
+	 * stuck in the ground.
+	 */
 	private boolean flying;
+	
+	/** Velocity components. */
 	private double velX, velY;
+	
+	/** Velocity mangnitude. */
 	private double vel;
+	
+	/** `true` to flip the arrow horizontally. */
 	private boolean mirror;
+	
+	/** How many hitpoints a player will lose if they are hit by this. */
 	private int damage;
 	
 	/**
@@ -48,6 +60,10 @@ public class Arrow extends Sprite
 		flying = true;	
 	}
 	
+	/** Gets how much damage this arrow does.
+	 * @return How many hitpoints a player will lose if they are hit by this
+	 *         arrow.
+	 */
 	public int getDamage() { return damage; }
 	
 	/**

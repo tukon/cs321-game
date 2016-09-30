@@ -1,14 +1,13 @@
-// PROJECT: Test Game -- prototype for CS413 project
+// PROJECT: Test Game -- prototype for CS 321 project
 
 package edu.testgame;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.util.ArrayList;
 
 /**
- * Represents text that can be displayed onscreen.
+ * A Drawable text object that can be displayed on a GamePanel.
  * @author adam
  */
 public class TextLabel implements Drawable
@@ -16,6 +15,8 @@ public class TextLabel implements Drawable
 	private String[] text;
 	private Point pos;
 	private Color color;
+	
+	/** Relative line spacing, e.g. `2.0f` for double spacing. */
 	private float lineSpacing;
 	
 	/**
@@ -59,7 +60,7 @@ public class TextLabel implements Drawable
 	
 	/**
 	 * Draws the text on the game window. This is called by GamePanel.
-	 * @param g 
+	 * @param g Graphics device to draw withs
 	 */
 	@Override
 	public void draw(Graphics g)

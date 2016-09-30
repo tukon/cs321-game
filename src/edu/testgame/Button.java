@@ -1,28 +1,43 @@
-// PROJECT: Test Game -- prototype for CS413 project
+// PROJECT: Test Game -- prototype for CS 321 project
 package edu.testgame;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 
 /**
- *
+ * A Drawable, clickable button. An event handler is called when it is clicked.
+ * @see ButtonListener
  * @author adam
  */
 public class Button implements Drawable
 {
+	/** States a button can be in. */
 	public enum State { UNFOCUSED, FOCUSED, PRESSED };
 	
+	/** The button’s current state. */
 	protected State state;
+	
+	/** Position of the button’s top left corner. */
 	protected Point pos;
+	
+	/** Size of the button. */
 	protected Point size;
+	
+	/** Text displayed on the button. */
 	protected String text;
 	
+	/** Used by the click handler to identify which button was clicked. */
 	private int id;
+	
+	/** The main body of the button. */
 	private Rectangle body;
+	
+	/** The text label shown on the button. */
 	private TextLabel label;
+	
+	/** Reacts when the button is clicked. */
 	private ButtonListener handler;
 	private static final Color OUTLINE = Color.WHITE;
 	private static final Color FILL = new Color(0xC5C5C5);
@@ -34,6 +49,15 @@ public class Button implements Drawable
 	private static final Color PRESS_FILL = new Color(0xADADAD);
 	private static final Color PRESS_TEXT = TEXT;
 	
+	/**
+	 * Creates a new button.
+	 * @param id Used by the click listener to tell which button was clicked
+	 * @param x Horizontal position of the top left corner
+	 * @param y Vertical position of the top left corner
+	 * @param w Width
+	 * @param h Height
+	 * @param text Text shown on the button
+	 */
 	public Button(int id, int x, int y, int w, int h, String text)
 	{
 		this.id = id;

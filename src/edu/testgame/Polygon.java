@@ -1,4 +1,4 @@
-// PROJECT: Test Game -- prototype for CS413 project
+// PROJECT: Test Game -- prototype for CS 321 project
 package edu.testgame;
 
 import java.awt.Color;
@@ -12,9 +12,19 @@ import java.util.ArrayList;
  */
 public class Polygon implements Drawable
 {
+	/** The polygon’s position. */
 	private int posX, posY;
+	
+	/** The vertices that define the polygon. */
 	private ArrayList<Integer> pXs, pYs;
+	
+	/**
+	 * The vertices’ actual position onscreen. This is “cached” in these
+	 * arrays so we do not have to recompute these points every time this
+	 * thing is drawn.
+	 */
 	private ArrayList<Integer> actualXs, actualYs;
+	
 	private Color outline;
 	private Color fill;
 	private boolean drawOutline;
@@ -65,7 +75,7 @@ public class Polygon implements Drawable
 	 */
 	public void setPos(int x, int y)
 	{
-		posX = x;  posY = posY;
+		posX = x;  posY = y;
 		for (int ii = 0; ii < actualXs.size(); ++ii)
 		{
 			actualXs.set(ii, posX + pXs.get(ii));
@@ -81,7 +91,7 @@ public class Polygon implements Drawable
 	
 	/**
 	 * Called by GamePanel to draw the polygon.
-	 * @param g Graphics device
+	 * @param g Graphics device to draw with
 	 */
 	@Override
 	public void draw(Graphics g)

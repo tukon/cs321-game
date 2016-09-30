@@ -1,4 +1,4 @@
-// PROJECT: Test Game -- prototype for CS413 project
+// PROJECT: Test Game -- prototype for CS 321 project
 
 package edu.testgame;
 
@@ -11,7 +11,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import static java.lang.Math.floor;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.Timer;
@@ -23,35 +22,76 @@ import javax.swing.Timer;
 public class TestGame implements ActionListener, MouseListener, 
 	MouseWheelListener, MouseMotionListener, ButtonListener
 {
+	/**
+	 * 0 on the tile screen, 2 when the game is running.
+	 * 
+	 * It is an `int` to work arount a logic bug in the button/mouse
+	 * listeners. The button listener sets it to 1, then the mouse listener
+	 * sets it to 2 and returns -- without firing an arrow.
+	 */
 	private int gameRunning;
+	
+	/** The game window. */
 	private JFrame frame;
+	
+	/** The canvas the game is drawn on. */
 	private GamePanel panel;
+	
+	/** The primary timer that updates the arrows and repaints the canvas.*/
 	private Timer timer;
 	
+	/** The game background images. */
 	private Sprite backdrop;
 	private Sprite grass;
 	
+	/** The players’ avatars; P1 on the left, and P2 on the right. */
 	private Player player1, player2;
+	
+	/** These line segments trace the path of the last arrow fired. */
 	private ArrayList<Line> traceSegments;
 	
+	/** The panel at the bottom of the screen, showing health, etc. */
 	private Rectangle infoPanel;
+	
+	/** Text labels showing the players’ names, aim angles, etc. */
 	private TextLabel player1Stats, player2Stats;
+	
+	/** The line down the middle of the info panel. */
 	private Line panelDivider;
+	
+	/** The top border of the info panel. */
 	private Line panelTop;
 	
-	private Player activePlayer, otherPlayer;
+	/** Reference to the player whose turn it is. */
+	private Player activePlayer;
+	
+	/** Reference to the player whose turn it isn’t. */
+	private Player otherPlayer;
+	
+	/** Arrow over the head of the active player. */
 	private Polygon marker;
 	
+	/** Player 1’s health bar. */
 	private Rectangle p1Health, p1HealthOutline;
+	
+	/** Player 2’s health bar. */
 	private Rectangle p2Health, p2HealthOutline;
 	
 	private int maxPower = 50;
 	
+	/** Background image of the main menu. */
 	private Sprite menuBackdrop;
+	
+	/** Button to start the game. */
 	private Button startBtn;
+	
+	/** Button to change settings. */
 	private Button settingsBtn;
 	
+	/** ID of the “start game” button, used by the click handler. */
 	public static final int BTN_START_ID = 0;
+	
+	/** ID of the “settings” button, used by the click handler. */
 	public static final int BTN_SETTINGS_ID = 1;
 	
 	/**
@@ -86,6 +126,7 @@ public class TestGame implements ActionListener, MouseListener,
 		timer.setRepeats(true);
 	}
 	
+	/** Initialize and show the main menu screen. */
 	private void setUpMenu()
 	{
 		gameRunning = 0;
@@ -103,6 +144,10 @@ public class TestGame implements ActionListener, MouseListener,
 		panel.add(settingsBtn);
 	}
 	
+	/**
+	 * Hide the main menu items, initialize the game items, and start the
+	 * game.
+	 */
 	private void setUpGame()
 	{
 		panel.remove(settingsBtn);
@@ -180,8 +225,8 @@ public class TestGame implements ActionListener, MouseListener,
 	}
 	
 	/**
-	 * Starts running the game. This function returns immediately; it does
-	 * not block until the game exits.
+	 * Starts the game at the main menu. This function returns immediately;
+	 * it does not block until the game exits.
 	 */
 	public void run()
 	{
@@ -266,6 +311,10 @@ public class TestGame implements ActionListener, MouseListener,
 		panel.repaint();  // Redraw the window contents
 	}
 	
+	/**
+	 * Called when a Button is clicked.
+	 * @param id ID of the button that was clicked.
+	 */
 	@Override
 	public void clicked(int id)
 	{
@@ -324,6 +373,10 @@ public class TestGame implements ActionListener, MouseListener,
 		}
 	}
 	
+	/**
+	 * Reacts to the mouse being moved, with no buttons pressed.
+	 * @param e Contains mouse state
+	 */
 	@Override
 	public void mouseMoved(MouseEvent e)
 	{ 
@@ -331,6 +384,10 @@ public class TestGame implements ActionListener, MouseListener,
 		settingsBtn.update(e);
 	}
 	
+	/**
+	 * Reacts to the mouse being moved while a button is held down.
+	 * @param e Contains mouse state
+	 */
 	@Override
 	public void mouseDragged(MouseEvent e)
 	{ 
@@ -339,8 +396,8 @@ public class TestGame implements ActionListener, MouseListener,
 	}
 	
 	/**
-	 * Required, but unused
-	 * @param e 
+	 * Reacts to the mouse buttons being pressed.
+	 * @param e Contains mouse state
 	 */
 	@Override
 	public void mousePressed(MouseEvent e)
@@ -350,8 +407,8 @@ public class TestGame implements ActionListener, MouseListener,
 	}
 	
 	/**
-	 * Required, but unused
-	 * @param e 
+	 * Reacts to the mouse buttons being released.
+	 * @param e Contains mouse state
 	 */
 	@Override
 	public void mouseReleased(MouseEvent e)
@@ -361,15 +418,15 @@ public class TestGame implements ActionListener, MouseListener,
 	}
 	
 	/**
-	 * Required, but unused
-	 * @param e 
+	 * Reacts to the mouse moving onto the game panel.
+	 * @param e Contains mouse state
 	 */
 	@Override
 	public void mouseEntered(MouseEvent e) { }
 	
 	/**
-	 * Required, but unused
-	 * @param e 
+	 * Reacts to the mouse moving off of the game panel.
+	 * @param e Contains mouse state
 	 */
 	@Override
 	public void mouseExited(MouseEvent e) { }

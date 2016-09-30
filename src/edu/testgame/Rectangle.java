@@ -1,4 +1,4 @@
-// PROJECT: Test Game -- prototype for CS413 project
+// PROJECT: Test Game -- prototype for CS 321 project
 package edu.testgame;
 
 import java.awt.Color;
@@ -16,6 +16,17 @@ public class Rectangle implements Drawable
 	private boolean drawOutline;
 	private boolean drawFill;
 	
+	/**
+	 * Creates a new rectangle.
+	 * @param x Horizontal positon (of the top left corner) on the canvas.
+	 * @param y Vertical positon (of the top left corner) on the canvas.
+	 * @param width Width of the rectangle
+	 * @param height Height of the rectangle
+	 * @param outline Outline color
+	 * @param fill Fill color
+	 * @param drawOutline Whether or not to draw the outline.
+	 * @param drawFill Whether or not to fill the rectangle.
+	 */
 	public Rectangle(int x, int y, int width, int height, Color outline,
 		Color fill, boolean drawOutline, boolean drawFill)
 	{
@@ -29,9 +40,29 @@ public class Rectangle implements Drawable
 		this.drawFill = drawFill;
 	}
 	
+	/**
+	 * Sets the rectangle’s fill color.
+	 * @param fill The new fill color.
+	 */
 	public void setFillColor(Color fill) { this.fill = fill; }
 	
+	/**
+	 * Sets the rectangle’s outline color.
+	 * @param outline The new outline color.
+	 */
 	public void setOutlineColor(Color outline) { this.outline = outline; }
+	
+	/**
+	 * Sets whether or not the rectangle shall be filled.
+	 * @param enable Set to `true` to fill the rectangle.
+	 */
+	public void toggleFill(boolean enable) { drawFill = enable; }
+	
+	/**
+	 * Sets whether or not the outline should be drawn.
+	 * @param enable Set to `true` to draw the outline.
+	 */
+	public void toggleOutline(boolean enable) { drawOutline = enable; }
 	
 	/** Set the rectangle’s width.
 	 * @param width The new width, in pixels.
