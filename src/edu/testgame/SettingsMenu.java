@@ -6,70 +6,72 @@ package edu.testgame;
  * @author blasek0
  */
 public class SettingsMenu {
-    private String s_SettingsBackgroundName = "backdrop.png";
-    private double d_SettingsGravity = 9.82;
-    private boolean b_SettingsTraceShot = true;
-    private boolean b_SettingsPreviewShot = true;
-    private int i_SettingsTurnTime = 10;
-    private int i_SettingsGameTime = 600;
+    private static String s_SettingsBackgroundName = "backdrop.png";
+    private static double d_SettingsGravity = 9.82;
+    private static boolean b_SettingsTraceShot = true;
+    private static boolean b_SettingsPreviewShot = true;
+    private static int i_SettingsTurnTime = 10;
+    private static int i_SettingsGameTime = 600;
     
     //List of get & set functions for altering settings values
-    public String getBackground()
+    public static String getBackground()
     {
         return s_SettingsBackgroundName;
     }
-    public boolean setBackground(String temp)
+    public static boolean setBackground(String temp)
     {
         //Add controls for background field including .png vs not including .png
         s_SettingsBackgroundName = temp + ".png";
         if (s_SettingsBackgroundName.equals(temp)) return true;
         else return false;
     }
-    public double getGravity()
+    public static double getGravity()
     {
         return d_SettingsGravity;
     }
-    public boolean setGravity(double temp)
+    public static boolean setGravity(double temp)
     {
+        System.out.println("Set Gravity reached " + d_SettingsGravity);
         d_SettingsGravity = temp;
+        System.out.println("Set Gravity set " + d_SettingsGravity);
         if (d_SettingsGravity == temp) return true;
         else return false;
     }
-    public boolean getTraceShotEnabled()
+    public static boolean getTraceShotEnabled()
     {
         return b_SettingsTraceShot;
     }
-    public boolean setTraceShot(boolean temp)
+    public static boolean setTraceShot(boolean temp)
     {
         b_SettingsTraceShot = temp;
         if (b_SettingsTraceShot == temp) return true;
         else return false;
     }
-    public boolean getPreviewShotEnabled()
+    public static boolean getPreviewShotEnabled()
     {
         return b_SettingsPreviewShot;
     }
-    public boolean setPreviewShot(boolean temp)
+    public static boolean setPreviewShot(boolean temp)
     {
         b_SettingsPreviewShot = temp;
         if (b_SettingsPreviewShot == temp) return true;
         else return false;        
     }
-    public int getMaxTurnTime()
+    public static int getMaxTurnTime()
     {
         return i_SettingsTurnTime;
     }
-    public boolean setMaxTurnTime(int temp)
+    public static boolean setMaxTurnTime(int temp)
     {
         i_SettingsTurnTime = temp;
         if (i_SettingsTurnTime == temp) return true;
         else return false;
     }
-    public int getMaxGameTime()
+    public static int getMaxGameTime()
     {
         return i_SettingsGameTime;
     }
-    public boolean setMaxGameTime(int temp)
+    public static boolean setMaxGameTime(int temp)
     {
         i_SettingsGameTime = temp;
         if (i_SettingsTurnTime == temp) return true;

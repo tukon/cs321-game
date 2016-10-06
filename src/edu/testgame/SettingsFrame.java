@@ -10,7 +10,6 @@ import java.util.Set;
  */
 public class SettingsFrame extends javax.swing.JFrame {
 
-    SettingsMenu settings = new SettingsMenu();
     /**
      * Creates new form SettingsFrame
      */
@@ -221,7 +220,7 @@ public class SettingsFrame extends javax.swing.JFrame {
 
     private void ShotPreviewCheckboxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ShotPreviewCheckboxStateChanged
         // TODO add your handling code here:
-        if (settings.setPreviewShot(ShotPreviewCheckbox.isSelected()) == false)
+        if (SettingsMenu.setPreviewShot(ShotPreviewCheckbox.isSelected()) == false)
         System.out.print("Error, setShotPreviewShot failed");
     }//GEN-LAST:event_ShotPreviewCheckboxStateChanged
 
@@ -234,25 +233,27 @@ public class SettingsFrame extends javax.swing.JFrame {
 
     private void TraceShotCheckboxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_TraceShotCheckboxStateChanged
         // TODO add your handling code here:
-        if (settings.setTraceShot(TraceShotCheckbox.isSelected()) == false)
+        if (SettingsMenu.setTraceShot(TraceShotCheckbox.isSelected()) == false)
         System.out.print("Error, setTraceShot failed");
     }//GEN-LAST:event_TraceShotCheckboxStateChanged
 
     private void GravityStrengthTextFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldPropertyChange
         // TODO add your handling code here:
         double temp = Double.parseDouble(GravityStrengthTextField.getText());
-        settings.setGravity(temp);
+        SettingsMenu.setGravity(temp);
 
     }//GEN-LAST:event_GravityStrengthTextFieldPropertyChange
 
     private void GravityStrengthTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldActionPerformed
         // TODO add your handling code here:
+        double temp = Double.parseDouble(GravityStrengthTextField.getText());
+        SettingsMenu.setGravity(temp);
     }//GEN-LAST:event_GravityStrengthTextFieldActionPerformed
 
     private void BackgroundFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_BackgroundFieldPropertyChange
         // TODO add your handling code here:
         String temp = BackgroundField.getText();
-        settings.setBackground(temp);
+        SettingsMenu.setBackground(temp);
     }//GEN-LAST:event_BackgroundFieldPropertyChange
 
     /**

@@ -105,6 +105,7 @@ public class TestGame implements ActionListener, MouseListener,
 	public static void main(String[] args)
 	{
 		TestGame game = new TestGame(args);
+                
 		game.run();
 	}
 	
@@ -116,7 +117,6 @@ public class TestGame implements ActionListener, MouseListener,
 	{
 		frame = new JFrame("Test Game");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 		panel = new GamePanel();
 		panel.setOpaque(false);
 		panel.addMouseListener(this);
