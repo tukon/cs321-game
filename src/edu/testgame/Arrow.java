@@ -75,6 +75,9 @@ public class Arrow extends Sprite
 	 */
 	public boolean isFlying() { return flying; }
 	
+	/** Setting this to `false` will make the arrow stop moving. */
+	public void setFlying(boolean flying) { this.flying = flying; }
+	
 	/**
 	 * Update the arrow’s position, velocity, and angle.
 	 * @param Δt Elapsed time, in milliseconds, since the last update.

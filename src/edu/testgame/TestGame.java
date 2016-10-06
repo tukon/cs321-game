@@ -338,7 +338,13 @@ public class TestGame implements ActionListener, MouseListener,
 		}
 		else  // See if the arrow hit the enemy
 		{
-			otherPlayer.hitCheck(lastArrow);
+			if (otherPlayer.hitCheck(lastArrow))
+			{
+				lastArrow.setFlying(false);
+				panel.remove(lastArrow);
+				activePlayer.reload();
+				swapPlayers();
+			}
 			
 			// Update health bar sizes:
 			p1Health.setWidth((int)(200.0 * player1.getHealth() /

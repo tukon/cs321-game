@@ -241,7 +241,7 @@ public class Player extends Sprite
 	 * Lowers the player’s health, if the given arrow intersects their body.
 	 * @param a The arrow to check.
 	 */
-	public void hitCheck(Arrow a)
+	public boolean hitCheck(Arrow a)
 	{
 		Point p1 = a.getPrevTipPos();
 		Point p2 = a.getTipPos();
@@ -282,6 +282,8 @@ public class Player extends Sprite
 		}
 		if (hit && state != State.DEAD) health -= a.getDamage();
 		if (health <= 0)  kill();
+		
+		return hit;
 	}
 	
 	/**
