@@ -406,7 +406,7 @@ public class TestGame implements ActionListener, MouseListener,
 	{
 		if (!btnClicked)
 		{
-			btnClicked = true;
+			btnClicked = (state == GameState.PLAYING);
 			return;
 		}
 		
