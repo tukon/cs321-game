@@ -184,7 +184,7 @@ public class Player extends Sprite
 	public void changePower(int Δp)
 	{
 		power += Δp;
-		if (power < 0)  power = 0;
+		if (power < 10)  power = 10;
 		if (power > 100) power = 100;
 	}
 	
@@ -216,6 +216,12 @@ public class Player extends Sprite
 			"    Power: " + power + "%\n" +
 			"    Angle: " + a + "°";
 	}
+	
+	/**
+	 * Sets the player’s name.
+	 * @param name The new name.
+	 */
+	public void setName(String name) { this.name = name; }
 	
 	/**
 	 * Retrieves the player’s current health.

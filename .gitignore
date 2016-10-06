@@ -1,3 +1,4 @@
 build/*
 *.swp
 nbproject/private/*
+/dist/
