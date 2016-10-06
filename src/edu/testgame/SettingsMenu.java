@@ -10,8 +10,8 @@ public class SettingsMenu {
     private static double d_SettingsGravity = 9.82;
     private static boolean b_SettingsTraceShot = true;
     private static boolean b_SettingsPreviewShot = true;
-    private static int i_SettingsTurnTime = 10;
-    private static int i_SettingsGameTime = 600;
+    private static double i_SettingsTurnTime = 10;
+    private static double i_SettingsGameTime = 600;
     
     //List of get & set functions for altering settings values
     public static String getBackground()
@@ -20,7 +20,6 @@ public class SettingsMenu {
     }
     public static boolean setBackground(String temp)
     {
-        //Add controls for background field including .png vs not including .png
         s_SettingsBackgroundName = temp + ".png";
         if (s_SettingsBackgroundName.equals(temp)) return true;
         else return false;
@@ -31,9 +30,7 @@ public class SettingsMenu {
     }
     public static boolean setGravity(double temp)
     {
-        System.out.println("Set Gravity reached " + d_SettingsGravity);
         d_SettingsGravity = temp;
-        System.out.println("Set Gravity set " + d_SettingsGravity);
         if (d_SettingsGravity == temp) return true;
         else return false;
     }
@@ -57,21 +54,21 @@ public class SettingsMenu {
         if (b_SettingsPreviewShot == temp) return true;
         else return false;        
     }
-    public static int getMaxTurnTime()
+    public static double getMaxTurnTime()
     {
         return i_SettingsTurnTime;
     }
-    public static boolean setMaxTurnTime(int temp)
+    public static boolean setMaxTurnTime(double temp)
     {
         i_SettingsTurnTime = temp;
         if (i_SettingsTurnTime == temp) return true;
         else return false;
     }
-    public static int getMaxGameTime()
+    public static double getMaxGameTime()
     {
         return i_SettingsGameTime;
     }
-    public static boolean setMaxGameTime(int temp)
+    public static boolean setMaxGameTime(double temp)
     {
         i_SettingsGameTime = temp;
         if (i_SettingsTurnTime == temp) return true;
