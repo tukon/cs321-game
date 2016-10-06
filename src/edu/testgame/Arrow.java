@@ -29,6 +29,9 @@ public class Arrow extends Sprite
 	/** How many hitpoints a player will lose if they are hit by this. */
 	private int damage;
 	
+	/** Previous tip position, used in hit detection */
+	private Point prevTipPos;
+	
 	/**
 	 * Creates a new arrow. Be sure to call setAngle() after this.
 	 * @param mirror True if this is an enemy arrow; this affects its 
@@ -93,6 +96,7 @@ public class Arrow extends Sprite
 		
 		vel = Math.abs(Math.sqrt(velX*velX + velY*velY));
 		
+		double oldAng = ang;
 		ang = Math.atan(velY / velX);
 		if (mirror)  super.setAngle(ang + Math.PI);
 		else  super.setAngle(ang);
@@ -101,14 +105,21 @@ public class Arrow extends Sprite
 		int tipX = (int)(pos.x + 16*Math.cos(ang));
 		int tipY = (int)(pos.y - 16*Math.sin(ang));
 		// See if the arrow is stuck in the ground, or offscreen
-		if (tipY > 500 || tipX < 0-32 || tipX > 800+32)
+		if (tipX < 0-32 || tipX > GamePanel.WIDTH+32)
+		{
+			flying = false;
+		}
+		else if (tipY > GamePanel.HEIGHT-100)
 		{
 			flying = false;
 			
-			double ii = (500.0 - oldY) / (pos.y - oldY);
+			double ii = (GamePanel.HEIGHT-100.0 - oldY) /
+				(pos.y - oldY);
 			pos.x = (int)(oldX + (pos.x - oldX) * ii);
-			pos.y = 500;
+			pos.y = GamePanel.HEIGHT-100;
 		}
+		prevTipPos = new Point((int)(oldX + 16*Math.cos(oldAng)),
+			(int)(oldY + 16*Math.sin(oldAng)));
 	}
 	
 	/**
@@ -121,6 +132,8 @@ public class Arrow extends Sprite
 		return new Point((int)(pos.x + 16*Math.cos(ang)),
 			(int)(pos.y + 16*Math.sin(ang)));
 	}
+	
+	public Point getPrevTipPos() { return prevTipPos; }
 	
 	/**
 	 * Draws the arrow on the game window. This is called by GamePanel.
