@@ -46,6 +46,8 @@ public class TestGame implements ActionListener, MouseListener,
 	
 	/** The players’ avatars; P1 on the left, and P2 on the right. */
 	private Player player1, player2;
+	/** The platforms under the players. */
+	private Sprite platform1, platform2;
 	
 	/** These line segments trace the path of the last arrow fired. */
 	private ArrayList<Line> traceSegments;
@@ -73,11 +75,13 @@ public class TestGame implements ActionListener, MouseListener,
 	
 	/** Player 1’s health bar. */
 	private Rectangle p1Health, p1HealthOutline;
+	private TextLabel p1HealthLabel;
 	
 	/** Player 2’s health bar. */
 	private Rectangle p2Health, p2HealthOutline;
+	private TextLabel p2HealthLabel;
 	
-	private int maxPower = 50;
+	private int maxPower = 100;
 	
 	/** Background image of the main menu. */
 	private Sprite menuBackdrop;
@@ -157,15 +161,22 @@ public class TestGame implements ActionListener, MouseListener,
 		backdrop = new Sprite("backdrop.png", 0, 0);
 		panel.add(backdrop);
 		
-		grass = new Sprite("grass.png", 0, 0);
-		panel.add(grass);
+		//grass = new Sprite("grass.png", 0, 0);
+		//panel.add(grass);
 		
-		player1 = new Player(false, 64, GamePanel.HEIGHT-100,
+		player1 = new Player(false, 64, GamePanel.HEIGHT-150,
 			"Player 1");
 		panel.add(player1);
 		player2 = new Player(true, GamePanel.WIDTH-64,
-			GamePanel.HEIGHT-100, "Player 2");
+			GamePanel.HEIGHT-150, "Player 2");
 		panel.add(player2);
+		
+		platform1 = new Sprite("platform.png", 0, GamePanel.HEIGHT-150);
+		panel.add(platform1);
+		
+		platform2 = new Sprite("platform.png", GamePanel.WIDTH-64-64,
+			GamePanel.HEIGHT-150);
+		panel.add(platform2);
 		
 		infoPanel = new Rectangle(0, GamePanel.HEIGHT-75,
 			GamePanel.WIDTH, 75, null, Color.BLACK, false, true);
@@ -188,12 +199,16 @@ public class TestGame implements ActionListener, MouseListener,
 		player1Stats.setLineSpacing(1.5f);
 		panel.add(player1Stats);
 		
-		p1Health = new Rectangle(150, GamePanel.HEIGHT-75/2-10, 200, 20,
+		p1Health = new Rectangle(200, GamePanel.HEIGHT-75/2-10, 200, 20,
 			Color.WHITE, Color.RED, false, true);
-		p1HealthOutline = new Rectangle(150, GamePanel.HEIGHT-75/2-10,
+		p1HealthOutline = new Rectangle(200, GamePanel.HEIGHT-75/2-10,
 			200, 20, Color.WHITE, Color.BLACK, true, false);
+		p1HealthLabel = new TextLabel("Health:", new Point(150,
+			GamePanel.HEIGHT-75/2+5));
+		p1HealthLabel.setColor(Color.WHITE);
 		panel.add(p1Health);
 		panel.add(p1HealthOutline);
+		panel.add(p1HealthLabel);
 		
 		player2Stats = new TextLabel("",new Point(GamePanel.WIDTH/2+32,
 			GamePanel.HEIGHT-50));
@@ -201,21 +216,26 @@ public class TestGame implements ActionListener, MouseListener,
 		player2Stats.setLineSpacing(1.5f);
 		panel.add(player2Stats);
 		
-		p2Health = new Rectangle(GamePanel.WIDTH/2+150,
+		p2Health = new Rectangle(GamePanel.WIDTH/2+200,
 			GamePanel.HEIGHT-75/2-10, 200, 20,
 			Color.WHITE, Color.RED, false, true);
-		p2HealthOutline = new Rectangle(GamePanel.WIDTH/2+150,
+		p2HealthOutline = new Rectangle(GamePanel.WIDTH/2+200,
 			GamePanel.HEIGHT-75/2-10,
 			200, 20, Color.WHITE, Color.BLACK, true, false);
+		p2HealthLabel = new TextLabel("Health:", new Point(
+			GamePanel.WIDTH/2+150,
+			GamePanel.HEIGHT-75/2+5));
+		p2HealthLabel.setColor(Color.GRAY);
 		panel.add(p2Health);
 		panel.add(p2HealthOutline);
+		panel.add(p2HealthLabel);
 		
 		traceSegments = new ArrayList<>();
 		
 		activePlayer = player1;
 		otherPlayer = player2;
 		
-		marker = new Polygon(64, GamePanel.HEIGHT-100-75,
+		marker = new Polygon(64, GamePanel.HEIGHT-150-75,
 			new Color(0x30BACC), Color.CYAN, true, true);
 		marker.addPoint(-10, -20);
 		marker.addPoint(10, -20);
@@ -280,7 +300,9 @@ public class TestGame implements ActionListener, MouseListener,
 					activePlayer = player2;
 					otherPlayer = player1;
 					player2Stats.setColor(Color.WHITE);
+					p2HealthLabel.setColor(Color.WHITE);
 					player1Stats.setColor(Color.GRAY);
+					p1HealthLabel.setColor(Color.GRAY);
 					marker.setPos(GamePanel.WIDTH-64,
 						marker.getPos().y);
 				}
@@ -289,7 +311,9 @@ public class TestGame implements ActionListener, MouseListener,
 					activePlayer = player1;
 					otherPlayer = player2;
 					player2Stats.setColor(Color.GRAY);
+					p2HealthLabel.setColor(Color.GRAY);
 					player1Stats.setColor(Color.WHITE);
+					p1HealthLabel.setColor(Color.WHITE);
 					marker.setPos(64, marker.getPos().y);
 				}
 			}
@@ -341,14 +365,17 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		startBtn.update(e);
-		settingsBtn.update(e);
 		if (gameRunning == 1)
 		{
 			gameRunning = 2;
 			return;
 		}
-		else if (gameRunning == 0)  return;
+		else if (gameRunning == 0)
+		{
+			startBtn.update(e);
+			settingsBtn.update(e);
+			return;
+		}
 		
 		// Button3 is the right button
 		if (e.getButton() == MouseEvent.BUTTON3)
@@ -380,8 +407,11 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void mouseMoved(MouseEvent e)
 	{ 
-		startBtn.update(e);
-		settingsBtn.update(e);
+		if (gameRunning == 0)
+		{
+			startBtn.update(e);
+			settingsBtn.update(e);
+		}
 	}
 	
 	/**
@@ -391,8 +421,11 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void mouseDragged(MouseEvent e)
 	{ 
-		startBtn.update(e);
-		settingsBtn.update(e);
+		if (gameRunning == 0)
+		{
+			startBtn.update(e);
+			settingsBtn.update(e);
+		}
 	}
 	
 	/**
@@ -402,8 +435,11 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void mousePressed(MouseEvent e)
 	{ 
-		startBtn.update(e);
-		settingsBtn.update(e);
+		if (gameRunning == 0)
+		{
+			startBtn.update(e);
+			settingsBtn.update(e);
+		}
 	}
 	
 	/**
@@ -413,8 +449,11 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void mouseReleased(MouseEvent e)
 	{ 
-		startBtn.update(e);
-		settingsBtn.update(e);
+		if (gameRunning == 0)
+		{
+			startBtn.update(e);
+			settingsBtn.update(e);
+		}
 	}
 	
 	/**

@@ -18,9 +18,9 @@ public class GamePanel extends JPanel
 	private ArrayList<Drawable> mSprites;
 	
 	/** Canvas width */
-	static final int WIDTH = 800;
+	static final int WIDTH = 1280;
 	/** Canvas height */
-	static final int HEIGHT = 600;
+	static final int HEIGHT = 720;
 	
 	public GamePanel()
 	{
