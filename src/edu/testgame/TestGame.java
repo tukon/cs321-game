@@ -22,6 +22,7 @@ import javax.swing.Timer;
 public class TestGame implements ActionListener, MouseListener, 
 	MouseWheelListener, MouseMotionListener, ButtonListener
 {
+	private enum GameState { INIT, TITLE_SCREEN, PLAYING };
 	/**
 	 * -1 during initalization, 0 on the tile screen, 2 when the game is 
 	 * running.
@@ -30,7 +31,7 @@ public class TestGame implements ActionListener, MouseListener,
 	 * listeners. The button listener sets it to 1, then the mouse listener
 	 * sets it to 2 and returns -- without firing an arrow.
 	 */
-	private int gameRunning;
+	private GameState state;
 	
 	/** The game window. */
 	private JFrame frame;
@@ -93,6 +94,12 @@ public class TestGame implements ActionListener, MouseListener,
 	/** Button to change settings. */
 	private Button settingsBtn;
 	
+	/**
+	 * Clicking the start button also fires an arrow; this is used to
+	 * ignore the first click
+	 */
+	private boolean btnClicked = false;
+	
 	/** ID of the “start game” button, used by the click handler. */
 	public static final int BTN_START_ID = 0;
 	
@@ -116,7 +123,7 @@ public class TestGame implements ActionListener, MouseListener,
 	 */
 	public TestGame(String[] args)
 	{
-		gameRunning = -1;
+		state = GameState.INIT;
 		frame = new JFrame("Test Game");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel = new GamePanel();
@@ -135,7 +142,6 @@ public class TestGame implements ActionListener, MouseListener,
 	/** Initialize and show the main menu screen. */
 	private void setUpMenu()
 	{
-		gameRunning = 0;
 		menuBackdrop = new Sprite("menu_bg.png", 0, 0);
 		panel.add(menuBackdrop);
 		startBtn = new Button(BTN_START_ID,
@@ -149,7 +155,7 @@ public class TestGame implements ActionListener, MouseListener,
 		settingsBtn.setListener(this);
 		panel.add(settingsBtn);
 		
-		gameRunning = 0;
+		state = GameState.TITLE_SCREEN;
 	}
 	
 	/**
@@ -162,46 +168,37 @@ public class TestGame implements ActionListener, MouseListener,
 		panel.remove(startBtn);
 		panel.remove(menuBackdrop);
 		
+		// Load backdrop
 		backdrop = new Sprite("backdrop.png", 0, 0);
 		panel.add(backdrop);
 		
-		//grass = new Sprite("grass.png", 0, 0);
-		//panel.add(grass);
-		
+		// Load players and their platforms
 		player1 = new Player(false, 64, GamePanel.HEIGHT-150,
 			"Player 1");
-		panel.add(player1);
+		platform1 = new Sprite("platform.png", 0, GamePanel.HEIGHT-150);
+		
 		player2 = new Player(true, GamePanel.WIDTH-64,
 			GamePanel.HEIGHT-150, "Player 2");
-		panel.add(player2);
-		
-		platform1 = new Sprite("platform.png", 0, GamePanel.HEIGHT-150);
-		panel.add(platform1);
-		
 		platform2 = new Sprite("platform.png", GamePanel.WIDTH-64-64,
 			GamePanel.HEIGHT-150);
-		panel.add(platform2);
 		
+		// Create the bottom panel
 		infoPanel = new Rectangle(0, GamePanel.HEIGHT-75,
 			GamePanel.WIDTH, 75, null, Color.BLACK, false, true);
-		panel.add(infoPanel);
-		
 		panelDivider = new Line(
 			new Point(GamePanel.WIDTH/2, GamePanel.HEIGHT - 65),
 			new Point(GamePanel.WIDTH/2, GamePanel.HEIGHT - 10),
 			Color.WHITE, 3);
-		panel.add(panelDivider);
 		panelTop = new Line(
 			new Point(0, GamePanel.HEIGHT - 75),
 			new Point(GamePanel.WIDTH, GamePanel.HEIGHT - 75),
 			Color.WHITE, 3);
-		panel.add(panelTop);
 		
+		// Create player 1’s stats stuff
 		player1Stats = new TextLabel("", new Point(32,
 			GamePanel.HEIGHT-50));
 		player1Stats.setColor(Color.WHITE);
 		player1Stats.setLineSpacing(1.5f);
-		panel.add(player1Stats);
 		
 		p1Health = new Rectangle(200, GamePanel.HEIGHT-75/2-10, 200, 20,
 			Color.WHITE, Color.RED, false, true);
@@ -210,15 +207,12 @@ public class TestGame implements ActionListener, MouseListener,
 		p1HealthLabel = new TextLabel("Health:", new Point(150,
 			GamePanel.HEIGHT-75/2+5));
 		p1HealthLabel.setColor(Color.WHITE);
-		panel.add(p1Health);
-		panel.add(p1HealthOutline);
-		panel.add(p1HealthLabel);
 		
+		// …and player 2’s
 		player2Stats = new TextLabel("",new Point(GamePanel.WIDTH/2+32,
 			GamePanel.HEIGHT-50));
 		player2Stats.setColor(Color.GRAY);
 		player2Stats.setLineSpacing(1.5f);
-		panel.add(player2Stats);
 		
 		p2Health = new Rectangle(GamePanel.WIDTH/2+200,
 			GamePanel.HEIGHT-75/2-10, 200, 20,
@@ -230,22 +224,47 @@ public class TestGame implements ActionListener, MouseListener,
 			GamePanel.WIDTH/2+150,
 			GamePanel.HEIGHT-75/2+5));
 		p2HealthLabel.setColor(Color.GRAY);
-		panel.add(p2Health);
-		panel.add(p2HealthOutline);
-		panel.add(p2HealthLabel);
 		
-		traceSegments = new ArrayList<>();
-		
-		activePlayer = player1;
-		otherPlayer = player2;
-		
+		// Create the current player marker
 		marker = new Polygon(64, GamePanel.HEIGHT-150-75,
 			new Color(0x30BACC), Color.CYAN, true, true);
 		marker.addPoint(-10, -20);
 		marker.addPoint(10, -20);
 		marker.addPoint(0, 0);
+		
+		// Initialize trace points list
+		traceSegments = new ArrayList<>();
+		
+		// Add everything to the panel:
+		panel.add(player1);
+		panel.add(platform1);
+		panel.add(player2);
+		panel.add(platform2);
+
+		panel.add(infoPanel);
+		panel.add(panelDivider);
+		panel.add(panelTop);
+		
+		panel.add(player1Stats);		
+		panel.add(p1Health);
+		panel.add(p1HealthOutline);
+		panel.add(p1HealthLabel);
+		
+		panel.add(player2Stats);
+		panel.add(p2Health);
+		panel.add(p2HealthOutline);
+		panel.add(p2HealthLabel);
+		
 		panel.add(marker);
-		gameRunning = 1;
+		
+		activePlayer = player1;
+		otherPlayer = player2;
+		
+		// Delete the titlescreen buttons
+		startBtn = null;
+		settingsBtn = null;
+		
+		state = GameState.PLAYING;
 	}
 	
 	/**
@@ -270,7 +289,8 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		if (gameRunning == 0)
+		if (state == GameState.INIT)  return;  // Nothing to do yet
+		if (state == GameState.TITLE_SCREEN)
 		{
 			// Just redraw the screen
 			panel.repaint();
@@ -288,55 +308,70 @@ public class TestGame implements ActionListener, MouseListener,
 		Arrow lastArrow = activePlayer.getLastArrow();
 		if (lastArrow != null && lastArrow.isFlying())
 		{
-			lastArrow.update(1000/60);
-			traceSegments.add(new Line(traceSegments.get(
-				traceSegments.size()-1).getEndPos(),
-				lastArrow.getTipPos(), Color.MAGENTA, 1));
-			panel.add(traceSegments.get(traceSegments.size()-1));
-			if (!lastArrow.isFlying())
-			{
-				// Arrow has hit the ground or left the screen--
-				// prepare to fire again
-				activePlayer.reload();
-				
-				if (activePlayer == player1)
-				{
-					activePlayer = player2;
-					otherPlayer = player1;
-					player2Stats.setColor(Color.WHITE);
-					p2HealthLabel.setColor(Color.WHITE);
-					player1Stats.setColor(Color.GRAY);
-					p1HealthLabel.setColor(Color.GRAY);
-					marker.setPos(GamePanel.WIDTH-64,
-						marker.getPos().y);
-				}
-				else
-				{
-					activePlayer = player1;
-					otherPlayer = player2;
-					player2Stats.setColor(Color.GRAY);
-					p2HealthLabel.setColor(Color.GRAY);
-					player1Stats.setColor(Color.WHITE);
-					p1HealthLabel.setColor(Color.WHITE);
-					marker.setPos(64, marker.getPos().y);
-				}
-			}
-			else  // See if the arrow hit the enemy
-			{
-				otherPlayer.hitCheck(lastArrow);
-				p1Health.setWidth((int)(200.0 * 
-					player1.getHealth() /
-					player1.getMaxHealth()));
-				p2Health.setWidth((int)(200.0 * 
-					player2.getHealth() /
-					player2.getMaxHealth()));
-			}
+			updateArrow(lastArrow);
 		}
 		
 		player1Stats.setText(player1.getStats());
 		player2Stats.setText(player2.getStats());
 		
 		panel.repaint();  // Redraw the window contents
+	}
+	
+	/** Updates the arrow’s position and checks if it hit the other player*/
+	private void updateArrow(Arrow lastArrow)
+	{
+		lastArrow.update(1000/60);
+		if (SettingsMenu.getTraceShotEnabled())
+		{
+			traceSegments.add(new Line(traceSegments.get(
+				traceSegments.size()-1).getEndPos(),
+				lastArrow.getTipPos(), Color.MAGENTA, 1));
+			panel.add(traceSegments.get(traceSegments.size()-1));
+		}
+		
+		if (!lastArrow.isFlying())
+		{
+			// Arrow has hit the ground or left the screen--prepare
+			// to fire again
+			activePlayer.reload();
+			swapPlayers();
+		}
+		else  // See if the arrow hit the enemy
+		{
+			otherPlayer.hitCheck(lastArrow);
+			
+			// Update health bar sizes:
+			p1Health.setWidth((int)(200.0 * player1.getHealth() /
+				player1.getMaxHealth()));
+			p2Health.setWidth((int)(200.0 * player2.getHealth() /
+				player2.getMaxHealth()));
+		}
+	}
+	
+	/** Changes the active player from P1 to P2, or vise versa. */
+	private void swapPlayers()
+	{
+		if (activePlayer == player1)
+		{
+			activePlayer = player2;
+			otherPlayer = player1;
+			player2Stats.setColor(Color.WHITE);
+			p2HealthLabel.setColor(Color.WHITE);
+			player1Stats.setColor(Color.GRAY);
+			p1HealthLabel.setColor(Color.GRAY);
+			marker.setPos(GamePanel.WIDTH-64,
+				marker.getPos().y);
+		}
+		else
+		{
+			activePlayer = player1;
+			otherPlayer = player2;
+			player2Stats.setColor(Color.GRAY);
+			p2HealthLabel.setColor(Color.GRAY);
+			player1Stats.setColor(Color.WHITE);
+			p1HealthLabel.setColor(Color.WHITE);
+			marker.setPos(64, marker.getPos().y);
+		}
 	}
 	
 	/**
@@ -369,24 +404,21 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		if (gameRunning == 1)
+		if (!btnClicked)
 		{
-			gameRunning = 2;
-			return;
-		}
-		else if (gameRunning == 0)
-		{
-			startBtn.update(e);
-			settingsBtn.update(e);
+			btnClicked = true;
 			return;
 		}
 		
-		// Button3 is the right button
+		// DEBUG: Revive the player when the right mouse button
+		// (Button3) is clicked
 		if (e.getButton() == MouseEvent.BUTTON3)
 		{
 			activePlayer.revive();
 			return;
 		}
+		
+		// Fire the player’s bow, if possible
 		if (activePlayer.canFire())
 		{
 			/* Comment this out to prevent the traces from
@@ -411,11 +443,8 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void mouseMoved(MouseEvent e)
 	{ 
-		if (gameRunning == 0)
-		{
-			startBtn.update(e);
-			settingsBtn.update(e);
-		}
+		if (startBtn != null)  startBtn.update(e);
+		if (settingsBtn != null)  settingsBtn.update(e);
 	}
 	
 	/**
@@ -425,11 +454,8 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void mouseDragged(MouseEvent e)
 	{ 
-		if (gameRunning == 0)
-		{
-			startBtn.update(e);
-			settingsBtn.update(e);
-		}
+		if (startBtn != null)  startBtn.update(e);
+		if (settingsBtn != null)  settingsBtn.update(e);
 	}
 	
 	/**
@@ -439,11 +465,8 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void mousePressed(MouseEvent e)
 	{ 
-		if (gameRunning == 0)
-		{
-			startBtn.update(e);
-			settingsBtn.update(e);
-		}
+		if (startBtn != null)  startBtn.update(e);
+		if (settingsBtn != null)  settingsBtn.update(e);
 	}
 	
 	/**
@@ -453,11 +476,8 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void mouseReleased(MouseEvent e)
 	{ 
-		if (gameRunning == 0)
-		{
-			startBtn.update(e);
-			settingsBtn.update(e);
-		}
+		if (startBtn != null)  startBtn.update(e);
+		if (settingsBtn != null)  settingsBtn.update(e);
 	}
 	
 	/**
