@@ -243,15 +243,43 @@ public class Player extends Sprite
 	 */
 	public void hitCheck(Arrow a)
 	{
-		Point p = a.getTipPos();
+		Point p1 = a.getPrevTipPos();
+		Point p2 = a.getTipPos();
+		
 		// Find the sides of the player’s bounding box.
 		int minX = pos.x - img.getWidth(null) / 2;
 		int maxX = pos.x + img.getWidth(null) / 2;
 		int minY = pos.y - img.getHeight(null);
 		int maxY = pos.y;
 		
-		boolean hit = (p.x > minX && p.x < maxX &&
-			p.y > minY && p.y < maxY);
+		// Outcodes for both points
+		int out1 = 0x00;
+		int out2 = 0x00;
+		final int TOP = 0x01;
+		final int RIGHT = 0x02;
+		final int BOTTOM = 0x04;
+		final int LEFT = 0x08;
+		
+		// First, see if the arrow’s tip is inside the player
+		boolean hit = (p1.x > minX && p1.x < maxX &&
+			p1.y > minY && p1.y < maxY);
+		
+		// If not, set the outcodes:
+		if (!hit)
+		{
+			if (p1.y < minY)  out1 |= TOP;
+			if (p1.y > maxY)  out1 |= BOTTOM;
+			if (p1.x < minX)  out1 |= LEFT;
+			if (p1.x > maxX)  out1 |= RIGHT;
+
+			if (p2.y < minY)  out2 |= TOP;
+			if (p2.y > maxY)  out2 |= BOTTOM;
+			if (p2.x < minX)  out2 |= LEFT;
+			if (p2.x > maxX)  out2 |= RIGHT;
+			
+			// If out1 & out2 == 0, the line crosses the player
+			hit = ((out1 & out2) == 0);
+		}
 		if (hit && state != State.DEAD) health -= a.getDamage();
 		if (health <= 0)  kill();
 	}
