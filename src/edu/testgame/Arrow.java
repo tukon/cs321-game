@@ -82,10 +82,8 @@ public class Arrow extends Sprite
 		
 		// Characters are 32px, or 1.7m, tall
 		final double PIXELS_PER_METER = 32/1.7;
-		final double GRAVITY = 9.81 * PIXELS_PER_METER;
-		
+		final double GRAVITY = SettingsMenu.getGravity() * PIXELS_PER_METER;
 		final int MILLISECONDS_PER_SECOND = 1000;
-		
 		velY += GRAVITY * Δt/MILLISECONDS_PER_SECOND;
 		
 		int oldX = pos.x;
