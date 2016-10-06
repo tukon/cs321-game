@@ -23,7 +23,8 @@ public class TestGame implements ActionListener, MouseListener,
 	MouseWheelListener, MouseMotionListener, ButtonListener
 {
 	/**
-	 * 0 on the tile screen, 2 when the game is running.
+	 * -1 during initalization, 0 on the tile screen, 2 when the game is 
+	 * running.
 	 * 
 	 * It is an `int` to work arount a logic bug in the button/mouse
 	 * listeners. The button listener sets it to 1, then the mouse listener
@@ -115,6 +116,7 @@ public class TestGame implements ActionListener, MouseListener,
 	 */
 	public TestGame(String[] args)
 	{
+		gameRunning = -1;
 		frame = new JFrame("Test Game");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel = new GamePanel();
@@ -146,6 +148,8 @@ public class TestGame implements ActionListener, MouseListener,
 			GamePanel.HEIGHT/2+40+10, 200, 40, "Settings…");
 		settingsBtn.setListener(this);
 		panel.add(settingsBtn);
+		
+		gameRunning = 0;
 	}
 	
 	/**
