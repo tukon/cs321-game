@@ -169,7 +169,7 @@ public class TestGame implements ActionListener, MouseListener,
 		panel.remove(menuBackdrop);
 		
 		// Load backdrop
-		backdrop = new Sprite("backdrop.png", 0, 0);
+		backdrop = new Sprite(SettingsMenu.getBackground(), 0, 0);
 		panel.add(backdrop);
 		
 		// Load players and their platforms

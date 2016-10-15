@@ -6,7 +6,7 @@ package edu.testgame;
  * @author blasek0
  */
 public class SettingsMenu {
-    private static String s_SettingsBackgroundName = "backdrop.png";
+    private static String s_SettingsBackgroundName = "backdrop1.png";
     private static double d_SettingsGravity = 9.82;
     private static boolean b_SettingsTraceShot = true;
     private static boolean b_SettingsPreviewShot = true;
@@ -18,11 +18,45 @@ public class SettingsMenu {
     {
         return s_SettingsBackgroundName;
     }
-    public static boolean setBackground(String temp)
+    public static boolean setBackground(int temp)
     {
-        s_SettingsBackgroundName = temp + ".png";
+/*        if (temp + ".png" == temp)
+            s_SettingsBackgroundName = temp;
+        else
+            s_SettingsBackgroundName = temp + ".png";
         if (s_SettingsBackgroundName.equals(temp)) return true;
         else return false;
+*/        
+        switch (temp) {
+            case 0:
+                s_SettingsBackgroundName = "backdrop" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 1:
+                s_SettingsBackgroundName = "backdrop" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 2:
+                s_SettingsBackgroundName = "backdrop" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 3:
+                s_SettingsBackgroundName = "backdrop" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 4:
+                s_SettingsBackgroundName = "backdrop" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 5:
+                s_SettingsBackgroundName = "backdrop" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            default:
+                s_SettingsBackgroundName = "backdrop1.png";
+                System.out.println("Error");
+        }
+        return true;
     }
     public static double getGravity()
     {
