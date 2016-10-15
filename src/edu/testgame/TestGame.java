@@ -6,6 +6,8 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -20,7 +22,7 @@ import javax.swing.Timer;
  * @author adam
  */
 public class TestGame implements ActionListener, MouseListener, 
-	MouseWheelListener, MouseMotionListener, ButtonListener
+	MouseWheelListener, MouseMotionListener, ButtonListener, KeyListener
 {
 	private enum GameState { INIT, TITLE_SCREEN, PLAYING };
 	/**
@@ -94,12 +96,6 @@ public class TestGame implements ActionListener, MouseListener,
 	/** Button to change settings. */
 	private Button settingsBtn;
 	
-	/**
-	 * Clicking the start button also fires an arrow; this is used to
-	 * ignore the first click
-	 */
-	private boolean btnClicked = false;
-	
 	/** ID of the “start game” button, used by the click handler. */
 	public static final int BTN_START_ID = 0;
 	
@@ -131,6 +127,9 @@ public class TestGame implements ActionListener, MouseListener,
 		panel.addMouseListener(this);
 		panel.addMouseWheelListener(this);
 		panel.addMouseMotionListener(this);
+		panel.addKeyListener(this);
+		panel.setFocusable(true);
+		panel.setFocusTraversalKeysEnabled(false);
 		frame.add(panel);
 		frame.pack();  // Shrink to fit contents, i.e the panel.
 		frame.setResizable(false);
@@ -410,11 +409,8 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		if (!btnClicked)
-		{
-			btnClicked = (state == GameState.PLAYING);
-			return;
-		}
+		if (activePlayer == null)  return;
+		if (state != GameState.PLAYING)  return;
 		
 		// DEBUG: Revive the player when the right mouse button
 		// (Button3) is clicked
@@ -484,6 +480,24 @@ public class TestGame implements ActionListener, MouseListener,
 	{ 
 		if (startBtn != null)  startBtn.update(e);
 		if (settingsBtn != null)  settingsBtn.update(e);
+	}
+
+	@Override
+	public void keyTyped(KeyEvent ke) {
+		if (ke.getKeyChar() == '')
+		{
+			setUpMenu();
+		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent ke) {
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent ke) {
+		
 	}
 	
 	/**
