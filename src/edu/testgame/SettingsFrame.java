@@ -1,8 +1,15 @@
 // PROJECT: Test Game -- prototype for CS 321 project
 package edu.testgame;
 
+import java.awt.FlowLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 
 /**
  *
@@ -36,11 +43,11 @@ public class SettingsFrame extends javax.swing.JFrame {
         TurnTimeFieldLabel = new javax.swing.JLabel();
         TurnTimeTextField = new javax.swing.JTextField();
         GameTimeTextField = new javax.swing.JTextField();
-        BackgroundField = new javax.swing.JTextField();
         BackgroundFieldLabel = new javax.swing.JLabel();
         SaveToFileButton = new javax.swing.JButton();
         SetAsDefaultButton = new javax.swing.JButton();
         LoadFromFileButton = new javax.swing.JButton();
+        SettingsBackgroundComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -156,18 +163,6 @@ public class SettingsFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        BackgroundField.setText("background");
-        BackgroundField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BackgroundFieldActionPerformed(evt);
-            }
-        });
-        BackgroundField.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                BackgroundFieldPropertyChange(evt);
-            }
-        });
-
         BackgroundFieldLabel.setText("Background");
 
         SaveToFileButton.setText("Save to File");
@@ -175,6 +170,19 @@ public class SettingsFrame extends javax.swing.JFrame {
         SetAsDefaultButton.setText("Set as Default");
 
         LoadFromFileButton.setText("Load from File");
+
+        SettingsBackgroundComboBox.setMaximumRowCount(6);
+        SettingsBackgroundComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Peaceful Meadow", "Night In The Wilderness", "Wonderland", "Fantasy Castle", "Beach At Sunrise", "Gates Of Atlantis" }));
+        SettingsBackgroundComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                SettingsBackgroundComboBoxItemStateChanged(evt);
+            }
+        });
+        SettingsBackgroundComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettingsBackgroundComboBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -184,16 +192,16 @@ public class SettingsFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(94, 94, 94))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(BackgroundFieldLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BackgroundField, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BackgroundFieldLabel)
+                    .addComponent(SettingsBackgroundComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(114, 114, 114))
             .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
+                .addGap(32, 32, 32)
                 .addComponent(SaveToFileButton)
                 .addGap(18, 18, 18)
                 .addComponent(SetAsDefaultButton)
@@ -204,23 +212,23 @@ public class SettingsFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BackgroundField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BackgroundFieldLabel))))
+                        .addGap(63, 63, 63)
+                        .addComponent(BackgroundFieldLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(SettingsBackgroundComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(48, 48, 48)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(SaveToFileButton)
                     .addComponent(SetAsDefaultButton)
                     .addComponent(LoadFromFileButton))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
 
         pack();
@@ -228,7 +236,7 @@ public class SettingsFrame extends javax.swing.JFrame {
 
     private void ShotPreviewCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShotPreviewCheckboxActionPerformed
         // TODO add your handling code here:
-        System.out.println(ShotPreviewCheckbox.isSelected());
+        //System.out.println(ShotPreviewCheckbox.isSelected());
     }//GEN-LAST:event_ShotPreviewCheckboxActionPerformed
 
     private void ShotPreviewCheckboxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ShotPreviewCheckboxStateChanged
@@ -237,7 +245,7 @@ public class SettingsFrame extends javax.swing.JFrame {
 
     private void TraceShotCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TraceShotCheckboxActionPerformed
         // TODO add your handling code here:
-        System.out.println(TraceShotCheckbox.isSelected());
+        //System.out.println(TraceShotCheckbox.isSelected());
     }//GEN-LAST:event_TraceShotCheckboxActionPerformed
 
     private void TraceShotCheckboxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_TraceShotCheckboxStateChanged
@@ -256,18 +264,6 @@ public class SettingsFrame extends javax.swing.JFrame {
         double temp = Double.parseDouble(GravityStrengthTextField.getText());
         SettingsMenu.setGravity(temp);
     }//GEN-LAST:event_GravityStrengthTextFieldActionPerformed
-
-    private void BackgroundFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_BackgroundFieldPropertyChange
-        // TODO add your handling code here:
-        String temp = BackgroundField.getText();
-        SettingsMenu.setBackground(temp);
-    }//GEN-LAST:event_BackgroundFieldPropertyChange
-
-    private void BackgroundFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackgroundFieldActionPerformed
-        // TODO add your handling code here:
-        String temp = BackgroundField.getText();
-        SettingsMenu.setBackground(temp);
-    }//GEN-LAST:event_BackgroundFieldActionPerformed
     private void TurnTimeTextFieldPropertyChange(java.beans.PropertyChangeEvent evt) {                                               
         // TODO add your handling code here:
         double temp = Double.parseDouble(TurnTimeTextField.getText());
@@ -288,6 +284,38 @@ public class SettingsFrame extends javax.swing.JFrame {
         double temp = Double.parseDouble(GameTimeTextField.getText());
         SettingsMenu.setMaxGameTime(temp);
     }//GEN-LAST:event_GameTimeTextFieldActionPerformed
+
+    private void SettingsBackgroundComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsBackgroundComboBoxActionPerformed
+    // TODO add your handling code here:
+/*
+    String selectedItemStr = null;
+    Object selectedItem = SettingsBackgroundComboBox.getSelectedItem();
+    if (selectedItem != null)
+    {
+        selectedItemStr = selectedItem.toString();
+    }
+    SettingsMenu.setBackground(selectedItemStr);
+    */
+
+    int temp = SettingsBackgroundComboBox.getSelectedIndex();
+    SettingsMenu.setBackground(temp);
+    }//GEN-LAST:event_SettingsBackgroundComboBoxActionPerformed
+
+    private void SettingsBackgroundComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_SettingsBackgroundComboBoxItemStateChanged
+    // TODO add your handling code here:
+/*
+    String selectedItemStr = null;
+    Object selectedItem = SettingsBackgroundComboBox.getSelectedItem();
+    if (selectedItem != null)
+    {
+        selectedItemStr = selectedItem.toString();
+    }
+    SettingsMenu.setBackground(selectedItemStr);
+    */
+
+    int temp = SettingsBackgroundComboBox.getSelectedIndex();
+    SettingsMenu.setBackground(temp);
+    }//GEN-LAST:event_SettingsBackgroundComboBoxItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -325,7 +353,6 @@ public class SettingsFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField BackgroundField;
     private javax.swing.JLabel BackgroundFieldLabel;
     private javax.swing.JLabel GameTimeFieldLabel;
     private javax.swing.JTextField GameTimeTextField;
@@ -334,6 +361,7 @@ public class SettingsFrame extends javax.swing.JFrame {
     private javax.swing.JButton LoadFromFileButton;
     private javax.swing.JButton SaveToFileButton;
     private javax.swing.JButton SetAsDefaultButton;
+    private javax.swing.JComboBox<String> SettingsBackgroundComboBox;
     private javax.swing.JCheckBox ShotPreviewCheckbox;
     private javax.swing.JCheckBox TraceShotCheckbox;
     private javax.swing.JLabel TurnTimeFieldLabel;
