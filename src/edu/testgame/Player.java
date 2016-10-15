@@ -38,7 +38,7 @@ public class Player extends Sprite
 	protected BufferedImage body, bodyDead, armsReady, armsRelaxed;
 	
 	/** Arrows that this player has fired. */
-	protected ArrayList<Arrow> arrows;
+	protected ArrayList<Projectile> arrows;
 	
 	/** Strength to fire the arrow at. */
 	private int power;
@@ -148,8 +148,8 @@ public class Player extends Sprite
 		}
 		
 		// Clamp angle
-		double MIN_ANG = -Math.PI/3;
-		double MAX_ANG = Math.PI/3;
+		double MIN_ANG = -89;//-Math.PI/3;
+		double MAX_ANG = 89;//Math.PI/3;
 		if (angle < MIN_ANG)  ang = MIN_ANG;
 		else if (angle > MAX_ANG) ang = MAX_ANG;
 		else  ang = angle;
@@ -241,7 +241,7 @@ public class Player extends Sprite
 	 * Lowers the player’s health, if the given arrow intersects their body.
 	 * @param a The arrow to check.
 	 */
-	public boolean hitCheck(Arrow a)
+	public boolean hitCheck(Projectile a)
 	{
 		Point p1 = a.getPrevTipPos();
 		Point p2 = a.getTipPos();
@@ -300,7 +300,7 @@ public class Player extends Sprite
 	 * Returns the last arrow the player fired.
 	 * @return Last arrow that was fired
 	 */
-	public Arrow getLastArrow()
+	public Projectile getLastArrow()
 	{
 		return (arrows.isEmpty()) ? null :
 			arrows.get(arrows.size() - 1);
@@ -323,8 +323,9 @@ public class Player extends Sprite
 			((int)floor((((double)power/100.0)) *
 				(double)maxPower));
 		
-		arrows.add(new Arrow(flip, p.x, p.y, actualPower));
-		Arrow lastArrow = getLastArrow();
+		arrows.add(new Projectile(Projectile.Type.ARROW, flip, p.x, p.y,
+			actualPower));
+		Projectile lastArrow = getLastArrow();
 		lastArrow.setAngle(getAngle());
 	}
 	

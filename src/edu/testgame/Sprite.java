@@ -66,6 +66,8 @@ public class Sprite implements Drawable
 	 */
 	protected final BufferedImage loadImg(String filename)
 	{
+		if (filename == null || filename.equals(""))  return null;
+		
 		BufferedImage image = null;
 		File imgFile = new File("res/" + filename);
 		try

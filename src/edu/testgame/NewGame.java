@@ -26,14 +26,16 @@ public class NewGame extends javax.swing.JFrame {
     private boolean Trace = true;
     private int turnTime = 10;
     private int gameTime = 600;
+    private TestGame game;
     
     
-    private Panel1 backdrop;
+    //private Panel1 backdrop;
     /**
      * Creates new form NewGame
      */
-    public NewGame() {
+    public NewGame(TestGame game) {
         initComponents();
+	this.game = game;
     }
 
     /**
@@ -64,7 +66,7 @@ public class NewGame extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconImages(getIconImages());
 
         nameField.setText("Player1");
@@ -181,7 +183,7 @@ public class NewGame extends javax.swing.JFrame {
         String settings4=String.valueOf(gameTime);
 
 
-        playerName = nameField.getText()+".txt";
+        playerName = nameField.getText()+".sav";
         playerPassword = playerField.getText();
         System.out.println(playerName);
         nameAndPassword = (playerName+" "+playerPassword);
@@ -232,7 +234,10 @@ public class NewGame extends javax.swing.JFrame {
         }
         
         String[] args={};
-        TestGame.main(args);
+        //TestGame.main(args);
+	String player1 = nameField.getText();
+	game.setUpGame(player1);
+	this.setVisible(false);
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -242,7 +247,7 @@ public class NewGame extends javax.swing.JFrame {
 
     private void Backdropbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Backdropbutton1ActionPerformed
         Icon image = null;
-        Panel1.setIcon(image);
+       // Panel1.setIcon(image);
     }//GEN-LAST:event_Backdropbutton1ActionPerformed
 
     private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsButtonActionPerformed
@@ -251,9 +256,9 @@ public class NewGame extends javax.swing.JFrame {
         SettingsMenu mySettings;
         mySettings= new SettingsMenu();
         g = mySettings.getGravity();
-        turnTime= mySettings.getMaxTurnTime();
+        //turnTime= mySettings.getMaxTurnTime();
         Trace= mySettings.setTraceShot(Trace);
-        gameTime= mySettings.getMaxGameTime();
+        //gameTime= mySettings.getMaxGameTime();
         
         
         /*
@@ -308,7 +313,8 @@ bg1.add(Backdropbutton4);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewGame().setVisible(true);
+                //new NewGame().setVisible(true);
+		System.out.println("don't use this");
             }
         });
     }

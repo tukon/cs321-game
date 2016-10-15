@@ -72,7 +72,7 @@ public class TestGame implements ActionListener, MouseListener,
 	/** Reference to the player whose turn it isn’t. */
 	private Player otherPlayer;
 	
-	/** Arrow over the head of the active player. */
+	/** Projectile over the head of the active player. */
 	private Polygon marker;
 	
 	/** Player 1’s health bar. */
@@ -162,7 +162,7 @@ public class TestGame implements ActionListener, MouseListener,
 	 * Hide the main menu items, initialize the game items, and start the
 	 * game.
 	 */
-	private void setUpGame()
+	public void setUpGame(String p1Name)
 	{
 		panel.remove(settingsBtn);
 		panel.remove(startBtn);
@@ -174,7 +174,7 @@ public class TestGame implements ActionListener, MouseListener,
 		
 		// Load players and their platforms
 		player1 = new Player(false, 64, GamePanel.HEIGHT-150,
-			"Player 1");
+			p1Name);
 		platform1 = new Sprite("platform.png", 0, GamePanel.HEIGHT-150);
 		
 		player2 = new Player(true, GamePanel.WIDTH-64,
@@ -305,7 +305,7 @@ public class TestGame implements ActionListener, MouseListener,
 		}
 		
 		// Update the arrow’s position
-		Arrow lastArrow = activePlayer.getLastArrow();
+		Projectile lastArrow = activePlayer.getLastArrow();
 		if (lastArrow != null && lastArrow.isFlying())
 		{
 			updateArrow(lastArrow);
@@ -318,7 +318,7 @@ public class TestGame implements ActionListener, MouseListener,
 	}
 	
 	/** Updates the arrow’s position and checks if it hit the other player*/
-	private void updateArrow(Arrow lastArrow)
+	private void updateArrow(Projectile lastArrow)
 	{
 		lastArrow.update(1000/60);
 		if (SettingsMenu.getTraceShotEnabled())
@@ -331,8 +331,8 @@ public class TestGame implements ActionListener, MouseListener,
 		
 		if (!lastArrow.isFlying())
 		{
-			// Arrow has hit the ground or left the screen--prepare
-			// to fire again
+			// Projectile has hit the ground or left the screen--
+			// prepare to fire again
 			activePlayer.reload();
 			swapPlayers();
 		}
@@ -387,7 +387,7 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void clicked(int id)
 	{
-		if (id == BTN_START_ID)  setUpGame();
+		if (id == BTN_START_ID)  new NewGame(this).setVisible(true);
 		else if (id == BTN_SETTINGS_ID)  new SettingsFrame().setVisible(
 			true);
 	}
