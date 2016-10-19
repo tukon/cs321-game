@@ -173,11 +173,11 @@ public class TestGame implements ActionListener, MouseListener,
 		
 		// Load players and their platforms
 		player1 = new Player(false, 64, GamePanel.HEIGHT-150,
-			p1Name);
+			p1Name, Projectile.Type.LASER);
 		platform1 = new Sprite("platform.png", 0, GamePanel.HEIGHT-150);
 		
 		player2 = new Player(true, GamePanel.WIDTH-64,
-			GamePanel.HEIGHT-150, "Player 2");
+			GamePanel.HEIGHT-150, "Player 2", Projectile.Type.ROCK);
 		platform2 = new Sprite("platform.png", GamePanel.WIDTH-64-64,
 			GamePanel.HEIGHT-150);
 		

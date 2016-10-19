@@ -43,6 +43,8 @@ public class Projectile extends Sprite
 	{
 		ARROW,
 		ROCK,
+		LASER,
+		TRIDENT,
 	}
 	
 	/**
@@ -70,6 +72,16 @@ public class Projectile extends Sprite
 			name = "rock";
 			damage = 40;
 			tipOffset = new Point(0, 0);
+			break;
+		case LASER:
+			name = "laser";
+			damage = 5;
+			tipOffset = new Point(20, 0);
+			break;
+		case TRIDENT:
+			name = "trident";
+			damage = 4;
+			tipOffset = new Point(41, 0);
 			break;
 		default:
 			System.out.println("FIXME:unrecognized projectile type");
@@ -187,8 +199,6 @@ public class Projectile extends Sprite
 	{
 		g.drawImage(imgTransformed, pos.x - img.getWidth(null)/2,
 			pos.y - img.getHeight(null)/2, null);
-		g.drawLine(pos.x-2, pos.y-2, pos.x+2, pos.y+2);
-		g.drawLine(pos.x+2, pos.y-2, pos.x-2, pos.y+2);
 	}
 }
 // EOF

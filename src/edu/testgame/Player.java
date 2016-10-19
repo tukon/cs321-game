@@ -52,6 +52,8 @@ public class Player extends Sprite
 	/** Maximum number of hitpoints. */
 	private final int maxHealth;
 	
+	private Projectile.Type weapon;
+	
 	/**
 	 * Creates a new Player object. The anchor point is the center of the
 	 * bottom of the player.
@@ -59,7 +61,8 @@ public class Player extends Sprite
 	 * @param x Horizontal position
 	 * @param y Vertical position
 	 */
-	public Player(boolean flip, int x, int y, String name)
+	public Player(boolean flip, int x, int y, String name,
+		Projectile.Type weapon)
 	{
 		super("player.png", x, y);
 		this.flip = flip;
@@ -69,8 +72,27 @@ public class Player extends Sprite
 		
 		body = img;
 		bodyDead = loadImg("player_dead.png");
-		armsReady = loadImg("bow_drawn.png");
-		armsRelaxed = loadImg("bow_fired.png");
+		
+		this.weapon = weapon;
+		switch (weapon)
+		{
+		case ARROW:
+			armsReady = loadImg("bow_drawn.png");
+			armsRelaxed = loadImg("bow_fired.png");
+			break;
+		case ROCK:
+			armsReady = loadImg("rock_ready.png");
+			armsRelaxed = loadImg("thrown.png");
+			break;
+		case LASER:
+			armsReady = loadImg("laser2.png");
+			armsRelaxed = armsReady;
+			break;
+		case TRIDENT:
+			armsReady = loadImg("trident_ready.png");
+			armsRelaxed = loadImg("thrown.png");
+			break;
+		}
 		
 		arrows = new ArrayList<>();
 		
@@ -323,7 +345,7 @@ public class Player extends Sprite
 			((int)floor((((double)power/100.0)) *
 				(double)maxPower));
 		
-		arrows.add(new Projectile(Projectile.Type.ARROW, flip, p.x, p.y,
+		arrows.add(new Projectile(weapon, flip, p.x, p.y,
 			actualPower));
 		Projectile lastArrow = getLastArrow();
 		lastArrow.setAngle(getAngle());
