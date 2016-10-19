@@ -160,8 +160,13 @@ public class TestGame implements ActionListener, MouseListener,
 	/**
 	 * Hide the main menu items, initialize the game items, and start the
 	 * game.
+	 * @param p1Name  Player 1’s name
+	 * @param p2Name  Player 2’s name
+	 * @param weapon1 Player 1’s weapon
+	 * @param weapon2 Player 2’s weapon
 	 */
-	public void setUpGame(String p1Name)
+	public void setUpGame(String p1Name, String p2Name,
+		Projectile.Type weapon1, Projectile.Type weapon2)
 	{
 		panel.remove(settingsBtn);
 		panel.remove(startBtn);
@@ -173,11 +178,11 @@ public class TestGame implements ActionListener, MouseListener,
 		
 		// Load players and their platforms
 		player1 = new Player(false, 64, GamePanel.HEIGHT-150,
-			p1Name, Projectile.Type.LASER);
+			p1Name, weapon1);
 		platform1 = new Sprite("platform.png", 0, GamePanel.HEIGHT-150);
 		
 		player2 = new Player(true, GamePanel.WIDTH-64,
-			GamePanel.HEIGHT-150, "Player 2", Projectile.Type.ROCK);
+			GamePanel.HEIGHT-150, p2Name, weapon2);
 		platform2 = new Sprite("platform.png", GamePanel.WIDTH-64-64,
 			GamePanel.HEIGHT-150);
 		

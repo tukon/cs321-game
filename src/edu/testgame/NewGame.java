@@ -236,7 +236,11 @@ public class NewGame extends javax.swing.JFrame {
         String[] args={};
         //TestGame.main(args);
 	String player1 = nameField.getText();
-	game.setUpGame(player1);
+	// TODO: pass in the correct values from the GUI
+	game.setUpGame(player1,  // Player 1’s name
+		"Player 2",      // Player 2’s name
+		Projectile.Type.ARROW,   // Player 1’s weapon
+		Projectile.Type.ARROW);  // Player 2’s weapon
 	this.setVisible(false);
         
     }//GEN-LAST:event_jButton1ActionPerformed
