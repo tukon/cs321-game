@@ -60,26 +60,26 @@ public class Projectile extends Sprite
 		int vel)
 	{
 		super(null, posX, posY);
-		String name = null;
+		String name = "/projectiles/";
 		switch (type)
 		{
 		case ARROW:
-			name = "arrow";
+			name += "arrow";
 			damage = 3;
 			tipOffset = new Point(13, 0);
 			break;
 		case ROCK:
-			name = "rock";
+			name += "rock";
 			damage = 40;
 			tipOffset = new Point(0, 0);
 			break;
 		case LASER:
-			name = "laser";
+			name += "laser";
 			damage = 5;
 			tipOffset = new Point(20, 0);
 			break;
 		case TRIDENT:
-			name = "trident";
+			name += "trident";
 			damage = 4;
 			tipOffset = new Point(41, 0);
 			break;
@@ -87,11 +87,11 @@ public class Projectile extends Sprite
 			System.out.println("FIXME:unrecognized projectile type");
 		}
 		
-		img = loadImg(name + (mirror ? "_enemy.png" : "_player.png"));
+		img = ResourceLoader.loadImage(name +
+			(mirror ? "_enemy.png" : "_player.png"));
 		imgTransformed = img;
 		this.vel = vel;
 		this.mirror = mirror;
-		this.damage = damage;
 	}
 	
 	/**

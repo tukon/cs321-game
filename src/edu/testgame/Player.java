@@ -64,33 +64,33 @@ public class Player extends Sprite
 	public Player(boolean flip, int x, int y, String name,
 		Projectile.Type weapon)
 	{
-		super("player.png", x, y);
+		super("/avatars/player.png", x, y);
 		this.flip = flip;
 		ang = (flip) ? Math.PI : 0.0;
 		
 		this.name = name;
 		
 		body = img;
-		bodyDead = loadImg("player_dead.png");
+		bodyDead = ResourceLoader.loadImage("/avatars/player_dead.png");
 		
 		this.weapon = weapon;
 		switch (weapon)
 		{
 		case ARROW:
-			armsReady = loadImg("bow_drawn.png");
-			armsRelaxed = loadImg("bow_fired.png");
+			armsReady = ResourceLoader.loadImage("/weapons/bow_drawn.png");
+			armsRelaxed = ResourceLoader.loadImage("/weapons/bow_fired.png");
 			break;
 		case ROCK:
-			armsReady = loadImg("rock_ready.png");
-			armsRelaxed = loadImg("thrown.png");
+			armsReady = ResourceLoader.loadImage("/weapons/rock_ready.png");
+			armsRelaxed = ResourceLoader.loadImage("/weapons/thrown.png");
 			break;
 		case LASER:
-			armsReady = loadImg("laser2.png");
+			armsReady = ResourceLoader.loadImage("/weapons/laser2.png");
 			armsRelaxed = armsReady;
 			break;
 		case TRIDENT:
-			armsReady = loadImg("trident_ready.png");
-			armsRelaxed = loadImg("thrown.png");
+			armsReady = ResourceLoader.loadImage("/weapons/trident_ready.png");
+			armsRelaxed = ResourceLoader.loadImage("/weapons/thrown.png");
 			break;
 		}
 		

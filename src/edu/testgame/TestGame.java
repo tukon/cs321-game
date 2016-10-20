@@ -140,24 +140,14 @@ public class TestGame implements ActionListener, MouseListener,
 		
 		// Load and set frame icon
 		ArrayList<BufferedImage> icons = new ArrayList<>();
-		File imgFile = null;
 		String name = "";
-		try
+		// Load each size: 16, 32, 64, 128, 256
+		// 1 << ii is 2^ii; 16 is 2^4; 256 is 2^8
+		for (int ii = 4; ii <= 8; ++ii)
 		{
-			// Load each size: 16, 32, 64, 128, 256
-			// 1 << ii is 2^ii; 16 is 2^4; 256 is 2^8
-			for (int ii = 4; ii <= 8; ++ii)
-			{
-				name = "res/icons/" + Integer.toString(1 << ii)+ 
-					".png";
-				imgFile = new File(name);
-				icons.add(ImageIO.read(imgFile));
-			}
-		}
-		catch (IOException e)
-		{
-			System.err.println("Error loading icon “" + name + 
-				"”, ignoring");
+			name = "/icons/" + Integer.toString(1 << ii)+ 
+				".png";
+			icons.add(ResourceLoader.loadImage(name));
 		}
 		if (!icons.isEmpty())  frame.setIconImages(icons);
 		
@@ -168,7 +158,7 @@ public class TestGame implements ActionListener, MouseListener,
 	/** Initialize and show the main menu screen. */
 	private void setUpMenu()
 	{
-		menuBackdrop = new Sprite("title.png", 0, 0);
+		menuBackdrop = new Sprite("/backdrops/title.png", 0, 0);
 		panel.add(menuBackdrop);
 		startBtn = new Button(BTN_START_ID,
 			650, 270,
@@ -206,11 +196,11 @@ public class TestGame implements ActionListener, MouseListener,
 		// Load players and their platforms
 		player1 = new Player(false, 64, GamePanel.HEIGHT-150,
 			p1Name, weapon1);
-		platform1 = new Sprite("platform.png", 0, GamePanel.HEIGHT-150);
+		platform1 = new Sprite("/platform.png", 0, GamePanel.HEIGHT-150);
 		
 		player2 = new Player(true, GamePanel.WIDTH-64,
 			GamePanel.HEIGHT-150, p2Name, weapon2);
-		platform2 = new Sprite("platform.png", GamePanel.WIDTH-64-64,
+		platform2 = new Sprite("/platform.png", GamePanel.WIDTH-64-64,
 			GamePanel.HEIGHT-150);
 		
 		// Create the bottom panel

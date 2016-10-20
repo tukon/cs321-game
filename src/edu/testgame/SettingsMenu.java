@@ -6,7 +6,7 @@ package edu.testgame;
  * @author blasek0
  */
 public class SettingsMenu {
-    private static String s_SettingsBackgroundName = "backdrop1.png";
+    private static String s_SettingsBackgroundName = "/backdrops/1.png";
     private static double d_SettingsGravity = 9.82;
     private static boolean b_SettingsTraceShot = true;
     private static boolean b_SettingsPreviewShot = true;
@@ -29,31 +29,31 @@ public class SettingsMenu {
 */        
         switch (temp) {
             case 0:
-                s_SettingsBackgroundName = "backdrop" + (temp+1) + ".png";
+                s_SettingsBackgroundName = "/backdrops/" + (temp+1) + ".png";
                 System.out.println(s_SettingsBackgroundName);
                 break;
             case 1:
-                s_SettingsBackgroundName = "backdrop" + (temp+1) + ".png";
+                s_SettingsBackgroundName = "/backdrops/" + (temp+1) + ".png";
                 System.out.println(s_SettingsBackgroundName);
                 break;
             case 2:
-                s_SettingsBackgroundName = "backdrop" + (temp+1) + ".png";
+                s_SettingsBackgroundName = "/backdrops/" + (temp+1) + ".png";
                 System.out.println(s_SettingsBackgroundName);
                 break;
             case 3:
-                s_SettingsBackgroundName = "backdrop" + (temp+1) + ".png";
+                s_SettingsBackgroundName = "/backdrops/" + (temp+1) + ".png";
                 System.out.println(s_SettingsBackgroundName);
                 break;
             case 4:
-                s_SettingsBackgroundName = "backdrop" + (temp+1) + ".png";
+                s_SettingsBackgroundName = "/backdrops/" + (temp+1) + ".png";
                 System.out.println(s_SettingsBackgroundName);
                 break;
             case 5:
-                s_SettingsBackgroundName = "backdrop" + (temp+1) + ".png";
+                s_SettingsBackgroundName = "/backdrops/" + (temp+1) + ".png";
                 System.out.println(s_SettingsBackgroundName);
                 break;
             default:
-                s_SettingsBackgroundName = "backdrop1.png";
+                s_SettingsBackgroundName = "/backdrops/1.png";
                 System.out.println("Error");
         }
         return true;

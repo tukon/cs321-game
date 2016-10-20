@@ -30,7 +30,14 @@ public class Sprite implements Drawable
 	{
 		pos = new Point(posX, posY);
 		ang = 0.0;
-		img = loadImg(imgFilename);
+		if (imgFilename != null)
+		{
+			img = ResourceLoader.loadImage(imgFilename);
+		}
+		else
+		{
+			img = null;
+		}
 		imgTransformed = img;
 	}
 	
@@ -63,7 +70,7 @@ public class Sprite implements Drawable
 	 * 
 	 * @param filename Name of the file to load, relative to `res/`
 	 * @return The loaded image, or null if it could not be loaded.
-	 */
+	 
 	protected final BufferedImage loadImg(String filename)
 	{
 		if (filename == null || filename.equals(""))  return null;
@@ -82,7 +89,7 @@ public class Sprite implements Drawable
 			System.exit(1);
 		}
 		return image;
-	}
+	}*/
 	
 	/**
 	 * Draws the sprite on the game window. This is called by GamePanel.
@@ -91,7 +98,10 @@ public class Sprite implements Drawable
 	@Override
 	public void draw(Graphics g)
 	{
-		g.drawImage(imgTransformed, pos.x, pos.y, null);
+		if (imgTransformed != null)
+		{
+			g.drawImage(imgTransformed, pos.x, pos.y, null);
+		}
 	}
 }
 // EOF
