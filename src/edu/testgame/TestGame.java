@@ -168,16 +168,16 @@ public class TestGame implements ActionListener, MouseListener,
 	/** Initialize and show the main menu screen. */
 	private void setUpMenu()
 	{
-		menuBackdrop = new Sprite("menu_bg.png", 0, 0);
+		menuBackdrop = new Sprite("title.png", 0, 0);
 		panel.add(menuBackdrop);
 		startBtn = new Button(BTN_START_ID,
-			GamePanel.WIDTH/2-100,
-			GamePanel.HEIGHT/2, 200, 40, "Start");
+			650, 270,
+			200, 40, "Start");
 		startBtn.setListener(this);
 		panel.add(startBtn);
 		settingsBtn = new Button(BTN_SETTINGS_ID,
-			GamePanel.WIDTH/2-100,
-			GamePanel.HEIGHT/2+40+10, 200, 40, "Settings…");
+			650, 270+40+10,
+			200, 40, "Settings…");
 		settingsBtn.setListener(this);
 		panel.add(settingsBtn);
 		
