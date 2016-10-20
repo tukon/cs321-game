@@ -13,7 +13,11 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
@@ -120,7 +124,7 @@ public class TestGame implements ActionListener, MouseListener,
 	public TestGame(String[] args)
 	{
 		state = GameState.INIT;
-		frame = new JFrame("Test Game");
+		frame = new JFrame("Archer Game");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel = new GamePanel();
 		panel.setOpaque(false);
@@ -133,6 +137,29 @@ public class TestGame implements ActionListener, MouseListener,
 		frame.add(panel);
 		frame.pack();  // Shrink to fit contents, i.e the panel.
 		frame.setResizable(false);
+		
+		// Load and set frame icon
+		ArrayList<BufferedImage> icons = new ArrayList<>();
+		File imgFile = null;
+		String name = "";
+		try
+		{
+			// Load each size: 16, 32, 64, 128, 256
+			// 1 << ii is 2^ii; 16 is 2^4; 256 is 2^8
+			for (int ii = 4; ii <= 8; ++ii)
+			{
+				name = "res/icons/" + Integer.toString(1 << ii)+ 
+					".png";
+				imgFile = new File(name);
+				icons.add(ImageIO.read(imgFile));
+			}
+		}
+		catch (IOException e)
+		{
+			System.err.println("Error loading icon “" + name + 
+				"”, ignoring");
+		}
+		if (!icons.isEmpty())  frame.setIconImages(icons);
 		
 		timer = new Timer(1000/60, this);
 		timer.setRepeats(true);
