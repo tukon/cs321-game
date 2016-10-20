@@ -16,7 +16,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="icon_large.svg">
+   sodipodi:docname="icon_large.svg"
+   inkscape:export-filename="/tmp/icon_24.png"
+   inkscape:export-xdpi="16.875"
+   inkscape:export-ydpi="16.875">
   <defs
      id="defs4">
     <linearGradient
@@ -149,9 +152,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4"
-     inkscape:cx="86.992305"
-     inkscape:cy="71.148671"
+     inkscape:zoom="0.5"
+     inkscape:cx="2.9349709"
+     inkscape:cy="140.53998"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
