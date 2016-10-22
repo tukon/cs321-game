@@ -28,7 +28,7 @@ import javax.swing.Timer;
 public class TestGame implements ActionListener, MouseListener, 
 	MouseWheelListener, MouseMotionListener, ButtonListener, KeyListener
 {
-	private enum GameState { INIT, TITLE_SCREEN, PLAYING };
+	private enum GameState { INIT, TITLE_SCREEN, PLAYING, GAME_OVER };
 	/**
 	 * -1 during initalization, 0 on the tile screen, 2 when the game is 
 	 * running.
@@ -100,11 +100,24 @@ public class TestGame implements ActionListener, MouseListener,
 	/** Button to change settings. */
 	private Button settingsBtn;
 	
+	/** The “Game Over” screen. */
+	private GameOverScreen gameOver;
+	
+	private int p1Shots;
+	private int p1Hits;
+	
+	private int p2Shots;
+	private int p2Hits;
+	
 	/** ID of the “start game” button, used by the click handler. */
 	public static final int BTN_START_ID = 0;
 	
 	/** ID of the “settings” button, used by the click handler. */
 	public static final int BTN_SETTINGS_ID = 1;
+	
+	public static final int BTN_REMATCH_ID = 2;
+	
+	public static final int BTN_TITLESCR_ID = 3;
 	
 	/**
 	 * The program’s main entry point.
@@ -288,6 +301,15 @@ public class TestGame implements ActionListener, MouseListener,
 		state = GameState.PLAYING;
 	}
 	
+	public void showGameOverScreen()
+	{
+		gameOver = new GameOverScreen(activePlayer.getName(),
+			player1.getName(), p1Shots, (double)p1Hits/p1Shots,
+			player2.getName(), p2Shots, (double)p2Hits/p2Shots, this);
+		panel.add(gameOver);
+		state = GameState.GAME_OVER;
+	}
+	
 	/**
 	 * Starts the game at the main menu. This function returns immediately;
 	 * it does not block until the game exits.
@@ -311,7 +333,7 @@ public class TestGame implements ActionListener, MouseListener,
 	public void actionPerformed(ActionEvent e)
 	{
 		if (state == GameState.INIT)  return;  // Nothing to do yet
-		if (state == GameState.TITLE_SCREEN)
+		if (state != GameState.PLAYING)
 		{
 			// Just redraw the screen
 			panel.repaint();
@@ -363,8 +385,16 @@ public class TestGame implements ActionListener, MouseListener,
 			{
 				lastArrow.setFlying(false);
 				panel.remove(lastArrow);
-				activePlayer.reload();
-				swapPlayers();
+				
+				if (activePlayer == player1)  ++p1Hits;
+				else ++p2Hits;
+				
+				if (otherPlayer.getHealth() > 0)
+				{
+					activePlayer.reload();
+					swapPlayers();
+				}
+				else  showGameOverScreen();
 			}
 			
 			// Update health bar sizes:
@@ -408,9 +438,22 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void clicked(int id)
 	{
-		if (id == BTN_START_ID)  new NewGame(this).setVisible(true);
-		else if (id == BTN_SETTINGS_ID)  new SettingsFrame().setVisible(
-			true);
+		switch (id)
+		{
+		case BTN_START_ID:
+			new NewGame(this).setVisible(true);
+			break;
+		case BTN_SETTINGS_ID:
+			new SettingsFrame().setVisible(true);
+			break;
+		case BTN_REMATCH_ID:
+			setUpGame(player1.getName(), player2.getName(),
+				player1.getWeapon(), player2.getWeapon());
+			break;
+		case BTN_TITLESCR_ID:
+			setUpMenu();
+			break;
+		} 
 	}
 	
 	/**
@@ -457,6 +500,9 @@ public class TestGame implements ActionListener, MouseListener,
 			
 			activePlayer.fire(maxPower);
 			panel.add(activePlayer.getLastArrow());
+			
+			if (activePlayer == player1)  ++p1Shots;
+			else  ++p2Shots;
 		}
 	}
 	
@@ -469,6 +515,10 @@ public class TestGame implements ActionListener, MouseListener,
 	{ 
 		if (startBtn != null)  startBtn.update(e);
 		if (settingsBtn != null)  settingsBtn.update(e);
+		if (state == GameState.GAME_OVER)
+		{
+			gameOver.updateButtons(e);
+		}
 	}
 	
 	/**
@@ -480,6 +530,10 @@ public class TestGame implements ActionListener, MouseListener,
 	{ 
 		if (startBtn != null)  startBtn.update(e);
 		if (settingsBtn != null)  settingsBtn.update(e);
+		if (state == GameState.GAME_OVER)
+		{
+			gameOver.updateButtons(e);
+		}
 	}
 	
 	/**
@@ -491,6 +545,10 @@ public class TestGame implements ActionListener, MouseListener,
 	{ 
 		if (startBtn != null)  startBtn.update(e);
 		if (settingsBtn != null)  settingsBtn.update(e);
+		if (state == GameState.GAME_OVER)
+		{
+			gameOver.updateButtons(e);
+		}
 	}
 	
 	/**
@@ -502,6 +560,10 @@ public class TestGame implements ActionListener, MouseListener,
 	{ 
 		if (startBtn != null)  startBtn.update(e);
 		if (settingsBtn != null)  settingsBtn.update(e);
+		if (state == GameState.GAME_OVER)
+		{
+			gameOver.updateButtons(e);
+		}
 	}
 
 	@Override

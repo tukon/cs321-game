@@ -240,7 +240,7 @@ public class NewGame extends javax.swing.JFrame {
 	// TODO: pass in the correct values from the GUI
 	game.setUpGame(player1,  // Player 1’s name
 		"Player 2",      // Player 2’s name
-		Projectile.Type.ARROW,   // Player 1’s weapon
+		Projectile.Type.ROCK,   // Player 1’s weapon
 		Projectile.Type.ARROW);  // Player 2’s weapon
 	this.setVisible(false);
         

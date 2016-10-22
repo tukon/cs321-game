@@ -3,6 +3,7 @@
 package edu.testgame;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 
@@ -19,6 +20,12 @@ public class TextLabel implements Drawable
 	/** Relative line spacing, e.g. `2.0f` for double spacing. */
 	private float lineSpacing;
 	
+	private int size;
+	
+	private int style;
+	
+	private boolean center;
+	
 	/**
 	 * Create a new text label at the specified position. The text is
 	 * left-aligned.
@@ -31,6 +38,8 @@ public class TextLabel implements Drawable
 		this.pos = pos;
 		color = Color.BLACK;
 		lineSpacing = 1.2f;
+		size = 12;
+		center = false;
 	}
 	
 	/**
@@ -58,6 +67,15 @@ public class TextLabel implements Drawable
 	 */
 	public void setPos(Point pos) { this.pos = pos; }
 	
+	public void setSize(int s)
+	{
+		size = s;
+	}
+	
+	public void setStyle(int s) { style = s; }
+	
+	public void setCenter(boolean center) { this.center = center; }
+	
 	/**
 	 * Draws the text on the game window. This is called by GamePanel.
 	 * @param g Graphics device to draw withs
@@ -68,14 +86,28 @@ public class TextLabel implements Drawable
 		g.setColor(color);
 		
 		int posY = pos.y;
+		int posX = pos.x;
 		
 		final int height = (int)(g.getFontMetrics().getAscent() *
 			lineSpacing);
+		
+		Font f = g.getFont();
+		Font F = new Font(f.getName(), style, size);
+		g.setFont(F);
+		
 		for (String t : text)
 		{
-			g.drawString(t, pos.x, posY);
+			if (center)
+			{
+				posX = pos.x - 
+					g.getFontMetrics().stringWidth(t)/2;
+			}
+			
+			g.drawString(t, posX, posY);
 			posY += height;
 		}
+		
+		g.setFont(f);
 	}
 }
 // EOF

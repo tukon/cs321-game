@@ -241,6 +241,10 @@ public class Player extends Sprite
 			"    Angle: " + a + "°";
 	}
 	
+	public String getName() { return name; }
+	
+	public Projectile.Type getWeapon() { return weapon; }
+	
 	/**
 	 * Sets the player’s name.
 	 * @param name The new name.
