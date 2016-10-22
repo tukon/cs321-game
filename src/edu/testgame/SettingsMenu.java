@@ -7,6 +7,10 @@ package edu.testgame;
  */
 public class SettingsMenu {
     private static String s_SettingsBackgroundName = "/backdrops/1.png";
+    private static String s_P1Character = "player.png";
+    private static String s_P1Weapon = "weapon.png";
+    private static String s_P2Character = "player.png";
+    private static String s_P2Weapon = "weapon.png";
     private static double d_SettingsGravity = 9.82;
     private static boolean b_SettingsTraceShot = true;
     private static boolean b_SettingsPreviewShot = true;
@@ -58,6 +62,177 @@ public class SettingsMenu {
         }
         return true;
     }
+    
+    //going to get and set the values for player1 and player 2
+    ///////////////////////////////////////////////////////////////////////////
+    public static String getP1Character()
+    {
+        return s_P1Character;
+    }
+    
+    public static boolean setP1Character(int temp)
+    {
+        
+        switch (temp) {
+            case 0:
+               s_P1Character = "player" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 1:
+                s_P1Character = "player" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 2:
+                s_P1Character = "player" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 3:
+                s_P1Character = "player" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 4:
+                s_P1Character = "player" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 5:
+                s_P1Character = "player" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break; 
+            default:
+                s_P1Character = "player.png";
+                System.out.println("Error");
+       
+        }     
+        return true;
+        
+    }
+    
+    public static String getP1Weapon()
+    {
+        return s_P1Weapon;
+    }
+    
+    public static boolean setP1Weapon(int temp)
+    {
+        switch (temp) {
+            case 0:
+               s_P1Character = "weapon" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 1:
+                s_P1Character = "weapon" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 2:
+                s_P1Character = "weapon" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 3:
+                s_P1Character = "weapon" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 4:
+                s_P1Character = "weapon" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 5:
+                s_P1Character = "weapon" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break; 
+            default:
+                s_P1Character = "weapon.png";
+                System.out.println("Error");
+       
+        }     
+        return true;
+    }
+    
+    public static String getP2Character()
+    {
+        return s_P2Character;
+    }
+    
+    public static boolean setP2Character(int temp)
+    {
+        switch (temp) {
+            case 0:
+                s_P2Character = "player" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 1:
+                s_P2Character = "player" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 2:
+                s_P2Character = "player" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 3:
+                s_P2Character = "player" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 4:
+                s_P2Character = "player" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 5:
+                s_P2Character = "player" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break; 
+            default:
+                s_P2Character = "player.png";
+                System.out.println("Error");
+       
+        }     
+        return true; 
+    }
+    
+    
+    public static String getP2Weapon()
+    {
+        return s_P2Weapon;
+    }
+    
+    public static boolean setP2Weapon(int temp)
+    {
+        switch (temp) {
+            case 0:
+                s_P2Character = "weapon" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 1:
+                s_P2Character = "weapon" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 2:
+                s_P2Character = "weapon" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 3:
+                s_P2Character = "weapon" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 4:
+                s_P2Character = "weapon" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break;
+            case 5:
+                s_P2Character = "weapon" + (temp+1) + ".png";
+                System.out.println(s_SettingsBackgroundName);
+                break; 
+            default:
+                s_P2Character = "weapon.png";
+                System.out.println("Error");
+       
+        }     
+        return true;
+    }
+    
+    ///////////////////////////////////////////////////////////////////////////
+    
+    
+    
+    
     public static double getGravity()
     {
         return d_SettingsGravity;

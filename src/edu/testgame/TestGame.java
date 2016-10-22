@@ -201,6 +201,7 @@ public class TestGame implements ActionListener, MouseListener,
 		panel.remove(settingsBtn);
 		panel.remove(startBtn);
 		panel.remove(menuBackdrop);
+		panel.remove(gameOver);
 		
 		// Load backdrop
 		backdrop = new Sprite(SettingsMenu.getBackground(), 0, 0);
@@ -441,7 +442,7 @@ public class TestGame implements ActionListener, MouseListener,
 		switch (id)
 		{
 		case BTN_START_ID:
-			new NewGame(this).setVisible(true);
+			new NewGame2(this).setVisible(true);
 			break;
 		case BTN_SETTINGS_ID:
 			new SettingsFrame().setVisible(true);
