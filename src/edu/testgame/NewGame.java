@@ -32,6 +32,7 @@ public class NewGame extends javax.swing.JFrame {
     //private Panel1 backdrop;
     /**
      * Creates new form NewGame
+     * @param game Instance of the game to control
      */
     public NewGame(TestGame game) {
         initComponents();

@@ -426,7 +426,7 @@ public class TestGame implements ActionListener, MouseListener,
 	
 	/**
 	 * Fires the player’s bow when the mouse is clicked.
-	 * @param e 
+	 * @param e Object describing what sort of mouse event happened.
 	 */
 	@Override
 	public void mouseClicked(MouseEvent e)

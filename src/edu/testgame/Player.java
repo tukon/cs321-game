@@ -60,6 +60,8 @@ public class Player extends Sprite
 	 * @param flip Whether or not to mirror the player’s body.
 	 * @param x Horizontal position
 	 * @param y Vertical position
+	 * @param name The name of this player
+	 * @param weapon What type of weapon this player should use.
 	 */
 	public Player(boolean flip, int x, int y, String name,
 		Projectile.Type weapon)
@@ -247,14 +249,14 @@ public class Player extends Sprite
 	
 	/**
 	 * Retrieves the player’s current health.
-	 * @see getMaxHealth()
+	 * @see #getMaxHealth()
 	 * @return How many hitpoints the player has left.
 	 */
 	public int getHealth() { return health; }
 	
 	/**
 	 * Retrieves the player’s maximum health.
-	 * @see getHealth()
+	 * @see #getHealth()
 	 * @return The maximum number of hitpoints the player can have.
 	 */
 	public int getMaxHealth() { return maxHealth; }
@@ -262,6 +264,7 @@ public class Player extends Sprite
 	/**
 	 * Lowers the player’s health, if the given arrow intersects their body.
 	 * @param a The arrow to check.
+	 * @return True if the player was hit; false if they were not.
 	 */
 	public boolean hitCheck(Projectile a)
 	{

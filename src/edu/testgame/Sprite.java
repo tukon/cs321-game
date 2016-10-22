@@ -93,7 +93,7 @@ public class Sprite implements Drawable
 	
 	/**
 	 * Draws the sprite on the game window. This is called by GamePanel.
-	 * @param g 
+	 * @param g Graphics device to draw with.
 	 */
 	@Override
 	public void draw(Graphics g)

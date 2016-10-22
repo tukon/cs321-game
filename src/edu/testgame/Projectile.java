@@ -122,7 +122,12 @@ public class Projectile extends Sprite
 	 */
 	public boolean isFlying() { return flying; }
 	
-	/** Setting this to `false` will make the projectile stop moving. */
+	/**
+	 * Controls whether or not the projectile is flying through the air,
+	 * or stopped.
+	 * @param flying Setting this to `false` will make the projectile stop 
+	 *               moving.
+	 */
 	public void setFlying(boolean flying) { this.flying = flying; }
 	
 	/**
@@ -178,7 +183,7 @@ public class Projectile extends Sprite
 	/**
 	 * Returns the position of the projectile’s tip. This can be used for
 	 * collision detection.
-	 * @return 
+	 * @return The position of the projectile’s tip, in global coordinates.
 	 */
 	public Point getTipPos()
 	{
@@ -188,11 +193,15 @@ public class Projectile extends Sprite
 			tipOffset.y*Math.cos(ang)));
 	}
 	
+	/**
+	 * Gets the position of the projectile’s tip from the previous frame.
+	 * @return Previous position, in global coordinates.
+	 */
 	public Point getPrevTipPos() { return prevTipPos; }
 	
 	/**
 	 * Draws the projectile on the game window. This is called by GamePanel.
-	 * @param g 
+	 * @param g Graphics device to draw with.
 	 */
 	@Override
 	public void draw(Graphics g)

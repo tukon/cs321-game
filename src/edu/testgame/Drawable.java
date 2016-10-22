@@ -16,7 +16,7 @@ public interface Drawable
 	/**
 	 * Draw the object on the screen. This is called by GamePanel when
 	 * refreshing the game window.
-	 * @param g 
+	 * @param g Graphics device to draw with
 	 */
 	public void draw(Graphics g);
 }
