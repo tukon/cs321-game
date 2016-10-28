@@ -62,6 +62,22 @@ public class Sprite implements Drawable
 	}
 	
 	/**
+	 * Sets the sprite’s position.
+	 * @param x Horizontal position, in global coordinates.
+	 * @param y Vertical position, in global coordinates
+	 */
+	public void setPos(int x, int y)
+	{
+		pos = new Point(x, y);
+	}
+	
+	/**
+	 * Gets the sprite’s position.
+	 * @return The position, in global coordinates.
+	 */
+	public Point getPos() { return pos; }
+	
+	/**
 	 * Loads the specified image from a file. The image is assumed to be in
 	 * the `res/` directory.
 	 * 

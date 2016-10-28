@@ -393,6 +393,18 @@ public class TestGame implements ActionListener, MouseListener,
 				if (otherPlayer.getHealth() > 0)
 				{
 					activePlayer.reload();
+					
+					Sprite platform;
+					if (activePlayer == player1)
+					{
+						platform = platform2;
+					}
+					else
+					{
+						platform = platform1;
+					}
+					movePlayer(otherPlayer, platform);
+					
 					swapPlayers();
 				}
 				else  showGameOverScreen();
@@ -406,6 +418,23 @@ public class TestGame implements ActionListener, MouseListener,
 		}
 	}
 	
+	/**
+	 * Moves the given player up/down randomly.
+	 * @param player The player to move
+	 * @param platform The platform to move
+	 */
+	private void movePlayer(Player player, Sprite platform)
+	{
+		final int MIN_Y = 100;
+		final int MAX_Y = GamePanel.HEIGHT - 150;
+		final int RANGE = MAX_Y - MIN_Y;
+		
+		int newY = (int)((Math.random()) * RANGE + MIN_Y);
+		
+		platform.setPos(platform.getPos().x, newY);
+		player.setPos(player.getPos().x, newY);		
+	}
+	
 	/** Changes the active player from P1 to P2, or vise versa. */
 	private void swapPlayers()
 	{
@@ -417,8 +446,6 @@ public class TestGame implements ActionListener, MouseListener,
 			p2HealthLabel.setColor(Color.WHITE);
 			player1Stats.setColor(Color.GRAY);
 			p1HealthLabel.setColor(Color.GRAY);
-			marker.setPos(GamePanel.WIDTH-64,
-				marker.getPos().y);
 		}
 		else
 		{
@@ -428,8 +455,9 @@ public class TestGame implements ActionListener, MouseListener,
 			p2HealthLabel.setColor(Color.GRAY);
 			player1Stats.setColor(Color.WHITE);
 			p1HealthLabel.setColor(Color.WHITE);
-			marker.setPos(64, marker.getPos().y);
 		}
+		marker.setPos(activePlayer.getPos().x,
+			activePlayer.getPos().y - 75);
 	}
 	
 	/**
