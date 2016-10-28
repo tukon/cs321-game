@@ -39,13 +39,13 @@ public class Button implements Drawable
 	
 	/** Reacts when the button is clicked. */
 	private ButtonListener handler;
-	private static final Color OUTLINE = Color.WHITE;
+	private static final Color OUTLINE = new Color(0xA0A0A0);
 	private static final Color FILL = new Color(0xC5C5C5);
 	private static final Color TEXT = Color.BLACK;
-	private static final Color FOCUS_OUTLINE = new Color(0x30BACC);
+	private static final Color FOCUS_OUTLINE = Color.WHITE;
 	private static final Color FOCUS_FILL = new Color(0xD5D5D5);
 	private static final Color FOCUS_TEXT = TEXT;
-	private static final Color PRESS_OUTLINE = new Color(0x2695A3);
+	private static final Color PRESS_OUTLINE = new Color(0xD0D0D0);
 	private static final Color PRESS_FILL = new Color(0xADADAD);
 	private static final Color PRESS_TEXT = TEXT;
 	
