@@ -3,8 +3,13 @@ package edu.testgame;
 
 /**
  *
- * @author blasek0
+ * @author Jacob Smith
  */
+
+import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class SettingsMenu {
     private static String s_SettingsBackgroundName = "/backdrops/1.png";
     private static String s_P1Character = "player.png";
@@ -17,6 +22,17 @@ public class SettingsMenu {
     //List of get & set functions for altering settings values
     public static String getBackground()
     {
+        try {
+            BufferedReader in = new BufferedReader(new FileReader("/settings/Settings.txt"));
+            String temp = in.readLine();
+            temp = temp.substring(11);
+            s_SettingsBackgroundName = temp;
+            in.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SettingsMenu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(SettingsMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return s_SettingsBackgroundName;
     }
     public static boolean setBackground(int temp)
@@ -31,27 +47,27 @@ public class SettingsMenu {
         switch (temp) {
             case 0:
                 s_SettingsBackgroundName = "/backdrops/" + (temp+1) + ".png";
-                System.out.println(s_SettingsBackgroundName);
+                //System.out.println(s_SettingsBackgroundName);
                 break;
             case 1:
                 s_SettingsBackgroundName = "/backdrops/" + (temp+1) + ".png";
-                System.out.println(s_SettingsBackgroundName);
+                //System.out.println(s_SettingsBackgroundName);
                 break;
             case 2:
                 s_SettingsBackgroundName = "/backdrops/" + (temp+1) + ".png";
-                System.out.println(s_SettingsBackgroundName);
+                //System.out.println(s_SettingsBackgroundName);
                 break;
             case 3:
                 s_SettingsBackgroundName = "/backdrops/" + (temp+1) + ".png";
-                System.out.println(s_SettingsBackgroundName);
+                //System.out.println(s_SettingsBackgroundName);
                 break;
             case 4:
                 s_SettingsBackgroundName = "/backdrops/" + (temp+1) + ".png";
-                System.out.println(s_SettingsBackgroundName);
+                //System.out.println(s_SettingsBackgroundName);
                 break;
             case 5:
                 s_SettingsBackgroundName = "/backdrops/" + (temp+1) + ".png";
-                System.out.println(s_SettingsBackgroundName);
+                //System.out.println(s_SettingsBackgroundName);
                 break;
             default:
                 s_SettingsBackgroundName = "/backdrops/1.png";
@@ -232,6 +248,18 @@ public class SettingsMenu {
     
     public static double getGravity()
     {
+        try {
+            BufferedReader in = new BufferedReader(new FileReader("/settings/Settings.txt"));
+            in.readLine();
+            String temp = in.readLine();
+            temp = temp.substring(8);
+            d_SettingsGravity = Double.parseDouble(temp);
+            in.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SettingsMenu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(SettingsMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return d_SettingsGravity;
     }
     public static boolean setGravity(double temp)
@@ -242,11 +270,56 @@ public class SettingsMenu {
     }
     public static boolean getTraceShotEnabled()
     {
-        return b_SettingsTraceShot;
+        try {
+            BufferedReader in = new BufferedReader(new FileReader("/settings/Settings.txt"));
+            in.readLine();
+            in.readLine();
+            String temp = in.readLine();
+            temp = temp.substring(11);
+            if (Integer.parseInt(temp) == 0)
+            {
+                b_SettingsTraceShot = false;
+            }
+            else
+                b_SettingsTraceShot = true;
+            in.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SettingsMenu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(SettingsMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return b_SettingsTraceShot;    
     }
     public static boolean setTraceShot(boolean temp)
     {
         b_SettingsTraceShot = temp;
         return b_SettingsTraceShot;
+    }
+    public static void revertToDefaultSettings()
+    {
+        b_SettingsTraceShot = false;
+        d_SettingsGravity = 9.82;
+        s_SettingsBackgroundName = "/backdrops/1.png";
+        try {
+            PrintWriter out = new PrintWriter("/settings/Settings.txt");
+            out.println("Background: " + s_SettingsBackgroundName);
+            out.println("Gravity: " + d_SettingsGravity);
+            out.println("Trace Shot: " + b_SettingsTraceShot);
+            out.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SettingsMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public static void saveSettings()
+    {
+        try {
+            PrintWriter out = new PrintWriter("/settings/Settings.txt");
+            out.println("Background: " + s_SettingsBackgroundName);
+            out.println("Gravity: " + d_SettingsGravity);
+            out.println("Trace Shot: " + b_SettingsTraceShot);
+            out.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SettingsMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }        
     }
 }
