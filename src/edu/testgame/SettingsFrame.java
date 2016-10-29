@@ -61,6 +61,7 @@ public class SettingsFrame extends javax.swing.JFrame {
 
         SettingsBackgroundComboBox.setMaximumRowCount(6);
         SettingsBackgroundComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Peaceful Meadow", "Night In The Wilderness", "Wonderland", "Fantasy Castle", "Beach At Sunrise", "Gates Of Atlantis" }));
+        SettingsBackgroundComboBox.setSelectedIndex(SettingsMenu.getBackgroundIndex());
         SettingsBackgroundComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 SettingsBackgroundComboBoxItemStateChanged(evt);
@@ -74,7 +75,7 @@ public class SettingsFrame extends javax.swing.JFrame {
 
         GravityFieldLabel.setText("Gravity");
 
-        GravityStrengthTextField.setText("9.82");
+        GravityStrengthTextField.setText(Double.toString(SettingsMenu.getGravity()));
         GravityStrengthTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GravityStrengthTextFieldActionPerformed(evt);
@@ -87,6 +88,16 @@ public class SettingsFrame extends javax.swing.JFrame {
         });
 
         TraceShotCheckbox.setText("Trace Shot");
+        if (SettingsMenu.getTraceShotEnabled())
+        {
+            //System.out.println(SettingsMenu.getTraceShotEnabled());
+            TraceShotCheckbox.setSelected(true);
+        }
+        else
+        {
+            //System.out.println(SettingsMenu.getTraceShotEnabled());
+            TraceShotCheckbox.setSelected(false);
+        }
         TraceShotCheckbox.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 TraceShotCheckboxStateChanged(evt);
@@ -103,52 +114,38 @@ public class SettingsFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(TraceShotCheckbox)
-                .addGap(244, 244, 244))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(211, Short.MAX_VALUE)
-                .addComponent(GravityFieldLabel)
-                .addGap(27, 27, 27)
-                .addComponent(GravityStrengthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(291, 291, 291))
-            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BackgroundFieldLabel)
-                            .addComponent(SettingsBackgroundComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(SaveChangesButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(RevertToDefaultButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(RevertToDefaultButton)
+                    .addComponent(BackgroundFieldLabel)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(GravityFieldLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(GravityStrengthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(SettingsBackgroundComboBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TraceShotCheckbox)
+                    .addComponent(SaveChangesButton))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(GravityFieldLabel)
-                            .addComponent(GravityStrengthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(122, 122, 122))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(BackgroundFieldLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(SettingsBackgroundComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48)))
-                .addGap(11, 11, 11)
-                .addComponent(TraceShotCheckbox)
-                .addGap(69, 69, 69)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SaveChangesButton)
-                    .addComponent(RevertToDefaultButton))
-                .addContainerGap(151, Short.MAX_VALUE))
+                    .addComponent(GravityFieldLabel)
+                    .addComponent(GravityStrengthTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TraceShotCheckbox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BackgroundFieldLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SettingsBackgroundComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SaveChangesButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(RevertToDefaultButton)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -159,12 +156,13 @@ public class SettingsFrame extends javax.swing.JFrame {
         //System.out.println(TraceShotCheckbox.isSelected());
         //System.out.println("Checkbox state: " + TraceShotCheckbox.isSelected());
         //System.out.println("Pre-Call state: " + SettingsMenu.getTraceShotEnabled());
-        SettingsMenu.setTraceShot(TraceShotCheckbox.isSelected());
+        //SettingsMenu.setTraceShot(TraceShotCheckbox.isSelected());
         //System.out.println("Post-Call state: " + SettingsMenu.getTraceShotEnabled());
     }//GEN-LAST:event_TraceShotCheckboxActionPerformed
 
     private void TraceShotCheckboxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_TraceShotCheckboxStateChanged
         // TODO add your handling code here:
+        SettingsMenu.setTraceShot(TraceShotCheckbox.isSelected());
     }//GEN-LAST:event_TraceShotCheckboxStateChanged
 
     private void GravityStrengthTextFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldPropertyChange
@@ -176,6 +174,8 @@ public class SettingsFrame extends javax.swing.JFrame {
 
     private void GravityStrengthTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldActionPerformed
         // TODO add your handling code here:
+        double temp = Double.parseDouble(GravityStrengthTextField.getText());
+        SettingsMenu.setGravity(temp);
     }//GEN-LAST:event_GravityStrengthTextFieldActionPerformed
     private void SettingsBackgroundComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsBackgroundComboBoxActionPerformed
     // TODO add your handling code here:
@@ -200,6 +200,9 @@ public class SettingsFrame extends javax.swing.JFrame {
     private void RevertToDefaultButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RevertToDefaultButtonActionPerformed
         // TODO add your handling code here:
         SettingsMenu.revertToDefaultSettings();
+        SettingsBackgroundComboBox.setSelectedIndex(SettingsMenu.getBackgroundIndex());
+        GravityStrengthTextField.setText(Double.toString(SettingsMenu.getGravity()));
+        TraceShotCheckbox.setSelected(SettingsMenu.getTraceShotEnabled());
     }//GEN-LAST:event_RevertToDefaultButtonActionPerformed
 
     private void SaveChangesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveChangesButtonActionPerformed

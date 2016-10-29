@@ -23,66 +23,45 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="TraceShotCheckbox" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="244" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="211" max="32767" attributes="0"/>
-              <Component id="GravityFieldLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-              <Component id="GravityStrengthTextField" min="-2" pref="40" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="291" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="BackgroundFieldLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="SettingsBackgroundComboBox" min="-2" max="-2" attributes="0"/>
+                  <Component id="RevertToDefaultButton" min="-2" max="-2" attributes="0"/>
+                  <Component id="BackgroundFieldLabel" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="GravityFieldLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="GravityStrengthTextField" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="SettingsBackgroundComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="SaveChangesButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="RevertToDefaultButton" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="TraceShotCheckbox" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="SaveChangesButton" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="44" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="GravityFieldLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="GravityStrengthTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                      <Component id="BackgroundFieldLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="SettingsBackgroundComboBox" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-              <Component id="TraceShotCheckbox" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="SaveChangesButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="RevertToDefaultButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="GravityFieldLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="GravityStrengthTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="151" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="TraceShotCheckbox" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="BackgroundFieldLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="SettingsBackgroundComboBox" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="SaveChangesButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="RevertToDefaultButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="24" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -112,15 +91,8 @@
     <Component class="javax.swing.JComboBox" name="SettingsBackgroundComboBox">
       <Properties>
         <Property name="maximumRowCount" type="int" value="6"/>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="6">
-            <StringItem index="0" value="Peaceful Meadow"/>
-            <StringItem index="1" value="Night In The Wilderness"/>
-            <StringItem index="2" value="Wonderland"/>
-            <StringItem index="3" value="Fantasy Castle"/>
-            <StringItem index="4" value="Beach At Sunrise"/>
-            <StringItem index="5" value="Gates Of Atlantis"/>
-          </StringArray>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Peaceful Meadow&quot;, &quot;Night In The Wilderness&quot;, &quot;Wonderland&quot;, &quot;Fantasy Castle&quot;, &quot;Beach At Sunrise&quot;, &quot;Gates Of Atlantis&quot; })" type="code"/>
         </Property>
       </Properties>
       <Events>
@@ -128,6 +100,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsBackgroundComboBoxActionPerformed"/>
       </Events>
       <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="SettingsBackgroundComboBox.setSelectedIndex(SettingsMenu.getBackgroundIndex());"/>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
@@ -138,7 +111,9 @@
     </Component>
     <Component class="javax.swing.JTextField" name="GravityStrengthTextField">
       <Properties>
-        <Property name="text" type="java.lang.String" value="9.82"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Double.toString(SettingsMenu.getGravity())" type="code"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GravityStrengthTextFieldActionPerformed"/>
@@ -147,12 +122,17 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="TraceShotCheckbox">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Trace Shot"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="&quot;Trace Shot&quot;" type="code"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="TraceShotCheckboxStateChanged"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TraceShotCheckboxActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if (SettingsMenu.getTraceShotEnabled())&#xa;{&#xa;    //System.out.println(SettingsMenu.getTraceShotEnabled());&#xa;    TraceShotCheckbox.setSelected(true);&#xa;}&#xa;else&#xa;{&#xa;    //System.out.println(SettingsMenu.getTraceShotEnabled());&#xa;    TraceShotCheckbox.setSelected(false);&#xa;}"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
