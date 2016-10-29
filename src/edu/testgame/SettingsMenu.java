@@ -25,8 +25,8 @@ public class SettingsMenu {
         try {
             BufferedReader in = new BufferedReader(new FileReader("Settings.txt"));
             String temp = in.readLine();
-            temp = temp.substring(11);
-            s_SettingsBackgroundName = "/backdrops/" + temp;
+            temp = temp.substring(12);
+            s_SettingsBackgroundName = temp;
             in.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(SettingsMenu.class.getName()).log(Level.SEVERE, null, ex);
@@ -275,8 +275,9 @@ public class SettingsMenu {
             in.readLine();
             in.readLine();
             String temp = in.readLine();
-            temp = temp.substring(11);
-            if (Integer.parseInt(temp) == 0)
+            temp = temp.substring(12);
+            //System.out.println("Temp is: " + temp);
+            if (temp == "false")
             {
                 b_SettingsTraceShot = false;
             }
