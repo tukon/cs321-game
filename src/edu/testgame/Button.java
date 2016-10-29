@@ -39,6 +39,7 @@ public class Button implements Drawable
 	
 	/** Reacts when the button is clicked. */
 	private ButtonListener handler;
+	
 	private static final Color OUTLINE = new Color(0xA0A0A0);
 	private static final Color FILL = new Color(0xC5C5C5);
 	private static final Color TEXT = Color.BLACK;
@@ -70,11 +71,45 @@ public class Button implements Drawable
 		label.setColor(TEXT);
 	}
 	
+	/**
+	 * Set the listener that will react when the button is clicked.
+	 * @param listener The thing that should react when the button is
+	 *                 clicked.
+	 */
 	public void setListener(ButtonListener listener)
 	{
 		handler = listener;
 	}
 	
+	/**
+	 * Call this whenever the mouse button is pressed.
+	 * @param e Event object describing the state of the mouse.
+	 */
+	public void press(MouseEvent e)
+	{
+		if (state == State.FOCUSED)
+		{
+			state = State.PRESSED;
+			body.setFillColor(PRESS_FILL);
+			body.setOutlineColor(PRESS_OUTLINE);
+			label.setColor(PRESS_TEXT);	
+		}
+	}
+	
+	/**
+	 * Call this whenever the mouse button is released.
+	 * @param e Event object describing the state of the mouse.
+	 */
+	public void release(MouseEvent e)
+	{
+		if (state == State.PRESSED)  handler.clicked(id);
+		update(e);
+	}
+	
+	/**
+	 * Call this whenever the mouse is moved.
+	 * @param e Event object describing the state of the mouse.
+	 */
 	public void update(MouseEvent e)
 	{
 		Point curPos = e.getPoint();
@@ -86,15 +121,13 @@ public class Button implements Drawable
 		if (curPos.x > left && curPos.x < right &&
 			curPos.y > top && curPos.y < bottom)
 		{
-			if (state == State.PRESSED && (e.getModifiersEx() &
-				MouseEvent.MOUSE_RELEASED) == 0)
+			if (state != State.PRESSED)
 			{
-				handler.clicked(id);
+				state = State.FOCUSED;
+				body.setFillColor(FOCUS_FILL);
+				body.setOutlineColor(FOCUS_OUTLINE);
+				label.setColor(FOCUS_TEXT);
 			}
-			state = State.FOCUSED;
-			body.setFillColor(FOCUS_FILL);
-			body.setOutlineColor(FOCUS_OUTLINE);
-			label.setColor(FOCUS_TEXT);
 		}
 		else
 		{
@@ -114,6 +147,10 @@ public class Button implements Drawable
 		}
 	}
 	
+	/**
+	 * Draws the button on the game window. This is called by GamePanel.
+	 * @param g Graphics device to draw with.
+	 */
 	@Override
 	public void draw(Graphics g)
 	{

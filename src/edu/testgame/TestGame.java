@@ -569,8 +569,8 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void mousePressed(MouseEvent e)
 	{ 
-		if (startBtn != null)  startBtn.update(e);
-		if (settingsBtn != null)  settingsBtn.update(e);
+		if (startBtn != null)  startBtn.press(e);
+		if (settingsBtn != null)  settingsBtn.press(e);
 		if (state == GameState.GAME_OVER)
 		{
 			gameOver.updateButtons(e);
@@ -584,8 +584,8 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void mouseReleased(MouseEvent e)
 	{ 
-		if (startBtn != null)  startBtn.update(e);
-		if (settingsBtn != null)  settingsBtn.update(e);
+		if (startBtn != null)  startBtn.release(e);
+		if (settingsBtn != null)  settingsBtn.release(e);
 		if (state == GameState.GAME_OVER)
 		{
 			gameOver.updateButtons(e);
