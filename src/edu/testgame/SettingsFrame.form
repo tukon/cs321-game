@@ -46,11 +46,9 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="SaveToFileButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="SaveChangesButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="SetAsDefaultButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="LoadFromFileButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="RevertToDefaultButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -81,9 +79,8 @@
               <Component id="TraceShotCheckbox" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="SaveToFileButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="SetAsDefaultButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="LoadFromFileButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="SaveChangesButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="RevertToDefaultButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="151" max="32767" attributes="0"/>
           </Group>
@@ -96,19 +93,14 @@
         <Property name="text" type="java.lang.String" value="Background"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="SaveToFileButton">
+    <Component class="javax.swing.JButton" name="SaveChangesButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Save to File"/>
+        <Property name="text" type="java.lang.String" value="Save Changes"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="SetAsDefaultButton">
+    <Component class="javax.swing.JButton" name="RevertToDefaultButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Set as Default"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="LoadFromFileButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Load from File"/>
+        <Property name="text" type="java.lang.String" value="Revert to Default"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="SettingsBackgroundComboBox">

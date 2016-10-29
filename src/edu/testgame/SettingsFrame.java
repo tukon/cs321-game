@@ -34,9 +34,8 @@ public class SettingsFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         BackgroundFieldLabel = new javax.swing.JLabel();
-        SaveToFileButton = new javax.swing.JButton();
-        SetAsDefaultButton = new javax.swing.JButton();
-        LoadFromFileButton = new javax.swing.JButton();
+        SaveChangesButton = new javax.swing.JButton();
+        RevertToDefaultButton = new javax.swing.JButton();
         SettingsBackgroundComboBox = new javax.swing.JComboBox<>();
         GravityFieldLabel = new javax.swing.JLabel();
         GravityStrengthTextField = new javax.swing.JTextField();
@@ -46,11 +45,9 @@ public class SettingsFrame extends javax.swing.JFrame {
 
         BackgroundFieldLabel.setText("Background");
 
-        SaveToFileButton.setText("Save to File");
+        SaveChangesButton.setText("Save Changes");
 
-        SetAsDefaultButton.setText("Set as Default");
-
-        LoadFromFileButton.setText("Load from File");
+        RevertToDefaultButton.setText("Revert to Default");
 
         SettingsBackgroundComboBox.setMaximumRowCount(6);
         SettingsBackgroundComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Peaceful Meadow", "Night In The Wilderness", "Wonderland", "Fantasy Castle", "Beach At Sunrise", "Gates Of Atlantis" }));
@@ -114,11 +111,9 @@ public class SettingsFrame extends javax.swing.JFrame {
                             .addComponent(SettingsBackgroundComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addComponent(SaveToFileButton)
+                        .addComponent(SaveChangesButton)
                         .addGap(18, 18, 18)
-                        .addComponent(SetAsDefaultButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(LoadFromFileButton)))
+                        .addComponent(RevertToDefaultButton)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -141,9 +136,8 @@ public class SettingsFrame extends javax.swing.JFrame {
                 .addComponent(TraceShotCheckbox)
                 .addGap(69, 69, 69)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SaveToFileButton)
-                    .addComponent(SetAsDefaultButton)
-                    .addComponent(LoadFromFileButton))
+                    .addComponent(SaveChangesButton)
+                    .addComponent(RevertToDefaultButton))
                 .addContainerGap(151, Short.MAX_VALUE))
         );
 
@@ -172,23 +166,9 @@ public class SettingsFrame extends javax.swing.JFrame {
 
     private void GravityStrengthTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldActionPerformed
         // TODO add your handling code here:
-        double temp = Double.parseDouble(GravityStrengthTextField.getText());
-        SettingsMenu.setGravity(temp);
     }//GEN-LAST:event_GravityStrengthTextFieldActionPerformed
     private void SettingsBackgroundComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsBackgroundComboBoxActionPerformed
     // TODO add your handling code here:
-/*
-    String selectedItemStr = null;
-    Object selectedItem = SettingsBackgroundComboBox.getSelectedItem();
-    if (selectedItem != null)
-    {
-        selectedItemStr = selectedItem.toString();
-    }
-    SettingsMenu.setBackground(selectedItemStr);
-    */
-
-    int temp = SettingsBackgroundComboBox.getSelectedIndex();
-    SettingsMenu.setBackground(temp);
     }//GEN-LAST:event_SettingsBackgroundComboBoxActionPerformed
 
     private void SettingsBackgroundComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_SettingsBackgroundComboBoxItemStateChanged
@@ -246,9 +226,8 @@ public class SettingsFrame extends javax.swing.JFrame {
     private javax.swing.JLabel BackgroundFieldLabel;
     private javax.swing.JLabel GravityFieldLabel;
     private javax.swing.JTextField GravityStrengthTextField;
-    private javax.swing.JButton LoadFromFileButton;
-    private javax.swing.JButton SaveToFileButton;
-    private javax.swing.JButton SetAsDefaultButton;
+    private javax.swing.JButton RevertToDefaultButton;
+    private javax.swing.JButton SaveChangesButton;
     private javax.swing.JComboBox<String> SettingsBackgroundComboBox;
     private javax.swing.JCheckBox TraceShotCheckbox;
     // End of variables declaration//GEN-END:variables
