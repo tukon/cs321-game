@@ -76,6 +76,22 @@ public class SettingsFrame extends javax.swing.JFrame {
         GravityFieldLabel.setText("Gravity");
 
         GravityStrengthTextField.setText(Double.toString(SettingsMenu.getGravity()));
+        GravityStrengthTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                GravityStrengthTextFieldFocusLost(evt);
+            }
+        });
+        GravityStrengthTextField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                GravityStrengthTextFieldMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                GravityStrengthTextFieldMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                GravityStrengthTextFieldMouseExited(evt);
+            }
+        });
         GravityStrengthTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GravityStrengthTextFieldActionPerformed(evt);
@@ -209,6 +225,26 @@ public class SettingsFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         SettingsMenu.saveSettings();
     }//GEN-LAST:event_SaveChangesButtonActionPerformed
+
+    private void GravityStrengthTextFieldMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GravityStrengthTextFieldMouseEntered
+
+    private void GravityStrengthTextFieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GravityStrengthTextFieldMouseExited
+
+    private void GravityStrengthTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldMouseClicked
+        // TODO add your handling code here:
+        double temp = Double.parseDouble(GravityStrengthTextField.getText());
+        SettingsMenu.setGravity(temp);
+    }//GEN-LAST:event_GravityStrengthTextFieldMouseClicked
+
+    private void GravityStrengthTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldFocusLost
+        // TODO add your handling code here:
+        double temp = Double.parseDouble(GravityStrengthTextField.getText());
+        SettingsMenu.setGravity(temp);
+    }//GEN-LAST:event_GravityStrengthTextFieldFocusLost
 
     /**
      * @param args the command line arguments
