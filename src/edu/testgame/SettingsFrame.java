@@ -46,8 +46,18 @@ public class SettingsFrame extends javax.swing.JFrame {
         BackgroundFieldLabel.setText("Background");
 
         SaveChangesButton.setText("Save Changes");
+        SaveChangesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveChangesButtonActionPerformed(evt);
+            }
+        });
 
         RevertToDefaultButton.setText("Revert to Default");
+        RevertToDefaultButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RevertToDefaultButtonActionPerformed(evt);
+            }
+        });
 
         SettingsBackgroundComboBox.setMaximumRowCount(6);
         SettingsBackgroundComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Peaceful Meadow", "Night In The Wilderness", "Wonderland", "Fantasy Castle", "Beach At Sunrise", "Gates Of Atlantis" }));
@@ -186,6 +196,16 @@ public class SettingsFrame extends javax.swing.JFrame {
     int temp = SettingsBackgroundComboBox.getSelectedIndex();
     SettingsMenu.setBackground(temp);
     }//GEN-LAST:event_SettingsBackgroundComboBoxItemStateChanged
+
+    private void RevertToDefaultButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RevertToDefaultButtonActionPerformed
+        // TODO add your handling code here:
+        SettingsMenu.revertToDefaultSettings();
+    }//GEN-LAST:event_RevertToDefaultButtonActionPerformed
+
+    private void SaveChangesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveChangesButtonActionPerformed
+        // TODO add your handling code here:
+        SettingsMenu.saveSettings();
+    }//GEN-LAST:event_SaveChangesButtonActionPerformed
 
     /**
      * @param args the command line arguments
