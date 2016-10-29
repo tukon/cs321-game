@@ -189,10 +189,13 @@ public class TestGame implements ActionListener, MouseListener,
 	 * game.
 	 * @param p1Name  Player 1’s name
 	 * @param p2Name  Player 2’s name
+	 * @param p1Avatar Player 1’s character
+	 * @param p2Avatar Player 2’s character
 	 * @param weapon1 Player 1’s weapon
 	 * @param weapon2 Player 2’s weapon
 	 */
 	public void setUpGame(String p1Name, String p2Name,
+		int p1Avatar, int p2Avatar,
 		Projectile.Type weapon1, Projectile.Type weapon2)
 	{
 		panel.remove(settingsBtn);
@@ -206,11 +209,11 @@ public class TestGame implements ActionListener, MouseListener,
 		
 		// Load players and their platforms
 		player1 = new Player(false, 64, GamePanel.HEIGHT-150,
-			p1Name, weapon1);
+			p1Name, p1Avatar, weapon1);
 		platform1 = new Sprite("/platform.png", 0, GamePanel.HEIGHT-150);
 		
 		player2 = new Player(true, GamePanel.WIDTH-64,
-			GamePanel.HEIGHT-150, p2Name, weapon2);
+			GamePanel.HEIGHT-150, p2Name, p2Avatar, weapon2);
 		platform2 = new Sprite("/platform.png", GamePanel.WIDTH-64-64,
 			GamePanel.HEIGHT-150);
 		
@@ -473,7 +476,7 @@ public class TestGame implements ActionListener, MouseListener,
 			new SettingsFrame().setVisible(true);
 			break;
 		case BTN_REMATCH_ID:
-			setUpGame(player1.getName(), player2.getName(),
+			setUpGame(player1.getName(), player2.getName(), 1, 1,
 				player1.getWeapon(), player2.getWeapon());
 			break;
 		case BTN_TITLESCR_ID:
@@ -573,7 +576,7 @@ public class TestGame implements ActionListener, MouseListener,
 		if (settingsBtn != null)  settingsBtn.press(e);
 		if (state == GameState.GAME_OVER)
 		{
-			gameOver.updateButtons(e);
+			gameOver.pressButtons(e);
 		}
 	}
 	
@@ -588,7 +591,7 @@ public class TestGame implements ActionListener, MouseListener,
 		if (settingsBtn != null)  settingsBtn.release(e);
 		if (state == GameState.GAME_OVER)
 		{
-			gameOver.updateButtons(e);
+			gameOver.releaseButtons(e);
 		}
 	}
 

@@ -100,6 +100,18 @@ public class GameOverScreen implements Drawable
 		goQuitBtn.update(e);
 	}
 	
+	public void pressButtons(MouseEvent e)
+	{
+		goRematchBtn.press(e);
+		goQuitBtn.press(e);
+	}
+	
+	public void releaseButtons(MouseEvent e)
+	{
+		goRematchBtn.release(e);
+		goQuitBtn.release(e);
+	}
+	
 	@Override
 	public void draw(Graphics g)
 	{

@@ -60,20 +60,22 @@ public class Player extends Sprite
 	 * @param flip Whether or not to mirror the player’s body.
 	 * @param x Horizontal position
 	 * @param y Vertical position
+	 * @param avatar Which avatar to use
 	 * @param name The name of this player
 	 * @param weapon What type of weapon this player should use.
 	 */
-	public Player(boolean flip, int x, int y, String name,
+	public Player(boolean flip, int x, int y, String name, int avatar,
 		Projectile.Type weapon)
 	{
-		super("/avatars/player.png", x, y);
+		super("/avatars/player" + avatar + ".png", x, y);
 		this.flip = flip;
 		ang = (flip) ? Math.PI : 0.0;
 		
 		this.name = name;
 		
 		body = img;
-		bodyDead = ResourceLoader.loadImage("/avatars/player_dead.png");
+		bodyDead = ResourceLoader.loadImage("/avatars/player" + avatar +
+			"_dead.png");
 		
 		this.weapon = weapon;
 		switch (weapon)

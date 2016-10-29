@@ -65,7 +65,7 @@ public class NewGame2 extends javax.swing.JFrame {
                 });
 
                 P1Character.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-                P1Character.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+                P1Character.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Stick Guy", "Hat Guy" }));
                 P1Character.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 P1CharacterActionPerformed(evt);
@@ -90,7 +90,7 @@ public class NewGame2 extends javax.swing.JFrame {
                 });
 
                 P2Character.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-                P2Character.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+                P2Character.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Stick Guy", "Hat Guy" }));
                 P2Character.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 P2CharacterActionPerformed(evt);
@@ -190,6 +190,8 @@ public class NewGame2 extends javax.swing.JFrame {
         String player1 = P1NameField.getText();
 	game.setUpGame(player1,
 		"Player 2",
+		P1Character.getSelectedIndex()+1,
+		P2Character.getSelectedIndex()+1,
 		Projectile.Type.values()[P1Weapon.getSelectedIndex()],
 		Projectile.Type.values()[P2Weapon.getSelectedIndex()]);
 	this.setVisible(false);
