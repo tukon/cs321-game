@@ -288,7 +288,7 @@ public class SettingsMenu {
     public static boolean setGravity(double temp)
     {
         d_SettingsGravityTemp = temp;
-        //System.out.println("Gravity set to: " + d_SettingsGravityTemp);
+        System.out.println("Gravity set to: " + d_SettingsGravityTemp);
         if (d_SettingsGravityTemp == temp) return true;
         else return false;
     }
