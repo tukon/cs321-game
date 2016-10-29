@@ -79,20 +79,27 @@ public class Player extends Sprite
 		switch (weapon)
 		{
 		case ARROW:
-			armsReady = ResourceLoader.loadImage("/weapons/bow_drawn.png");
-			armsRelaxed = ResourceLoader.loadImage("/weapons/bow_fired.png");
+			armsReady = ResourceLoader.loadImage(
+				"/weapons/bow_drawn.png");
+			armsRelaxed = ResourceLoader.loadImage(
+				"/weapons/bow_fired.png");
 			break;
 		case ROCK:
-			armsReady = ResourceLoader.loadImage("/weapons/rock_ready.png");
-			armsRelaxed = ResourceLoader.loadImage("/weapons/thrown.png");
+			armsReady = ResourceLoader.loadImage(
+				"/weapons/rock_ready.png");
+			armsRelaxed = ResourceLoader.loadImage(
+				"/weapons/thrown.png");
 			break;
 		case LASER:
-			armsReady = ResourceLoader.loadImage("/weapons/laser2.png");
+			armsReady = ResourceLoader.loadImage(
+				"/weapons/laser2.png");
 			armsRelaxed = armsReady;
 			break;
 		case TRIDENT:
-			armsReady = ResourceLoader.loadImage("/weapons/trident_ready.png");
-			armsRelaxed = ResourceLoader.loadImage("/weapons/thrown.png");
+			armsReady = ResourceLoader.loadImage(
+				"/weapons/trident_ready.png");
+			armsRelaxed = ResourceLoader.loadImage(
+				"/weapons/thrown.png");
 			break;
 		}
 		
@@ -172,12 +179,23 @@ public class Player extends Sprite
 		}
 		
 		// Clamp angle
-		double MIN_ANG = -89;//-Math.PI/3;
-		double MAX_ANG = 89;//Math.PI/3;
+		double MIN_ANG = -89;
+		double MAX_ANG = 89;
 		if (angle < MIN_ANG)  ang = MIN_ANG;
 		else if (angle > MAX_ANG) ang = MAX_ANG;
 		else  ang = angle;
 		
+		if (flip)
+		{
+			ang = Math.PI + ang;
+		}
+		
+		updateArms();
+	}
+	
+	private void updateArms()
+	{
+		if (flip)  ang -= Math.PI;
 		// Transform the arms image & store the result in imgTransformed
 		double centerX = arms.getWidth(null) / 2;
 		double centerY = arms.getHeight(null) / 2;
@@ -187,12 +205,9 @@ public class Player extends Sprite
 		AffineTransformOp op = new AffineTransformOp(tx, 
 			AffineTransformOp.TYPE_BILINEAR);
 		
-		imgTransformed = op.filter(arms, null);
+		imgTransformed = op.filter(arms, null);	
 		
-		if (flip)
-		{
-			ang = Math.PI + ang;
-		}
+		if (flip)  ang += Math.PI;
 	}
 	
 	/**
@@ -365,6 +380,7 @@ public class Player extends Sprite
 		{
 			state = State.AIMING;
 			arms = armsReady;
+			updateArms();
 		}
 	}
 	

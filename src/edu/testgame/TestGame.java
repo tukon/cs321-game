@@ -374,7 +374,6 @@ public class TestGame implements ActionListener, MouseListener,
 		{
 			// Projectile has hit the ground or left the screen--
 			// prepare to fire again
-			activePlayer.reload();
 			swapPlayers();
 		}
 		else  // See if the arrow hit the enemy
@@ -455,6 +454,7 @@ public class TestGame implements ActionListener, MouseListener,
 		}
 		marker.setPos(activePlayer.getPos().x,
 			activePlayer.getPos().y - 75);
+		activePlayer.reload();
 	}
 	
 	/**
