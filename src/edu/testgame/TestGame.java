@@ -317,6 +317,7 @@ public class TestGame implements ActionListener, MouseListener,
 	 */
 	public void run()
 	{
+                SettingsMenu.GetInitialSettings();
 		frame.setVisible(true);
 		timer.start();
 		setUpMenu();
