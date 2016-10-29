@@ -23,10 +23,10 @@ public class SettingsMenu {
     public static String getBackground()
     {
         try {
-            BufferedReader in = new BufferedReader(new FileReader("/settings/Settings.txt"));
+            BufferedReader in = new BufferedReader(new FileReader("Settings.txt"));
             String temp = in.readLine();
             temp = temp.substring(11);
-            s_SettingsBackgroundName = temp;
+            s_SettingsBackgroundName = "/backdrops/" + temp;
             in.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(SettingsMenu.class.getName()).log(Level.SEVERE, null, ex);
@@ -249,7 +249,7 @@ public class SettingsMenu {
     public static double getGravity()
     {
         try {
-            BufferedReader in = new BufferedReader(new FileReader("/settings/Settings.txt"));
+            BufferedReader in = new BufferedReader(new FileReader("Settings.txt"));
             in.readLine();
             String temp = in.readLine();
             temp = temp.substring(8);
@@ -271,7 +271,7 @@ public class SettingsMenu {
     public static boolean getTraceShotEnabled()
     {
         try {
-            BufferedReader in = new BufferedReader(new FileReader("/settings/Settings.txt"));
+            BufferedReader in = new BufferedReader(new FileReader("Settings.txt"));
             in.readLine();
             in.readLine();
             String temp = in.readLine();
@@ -300,8 +300,12 @@ public class SettingsMenu {
         b_SettingsTraceShot = false;
         d_SettingsGravity = 9.82;
         s_SettingsBackgroundName = "/backdrops/1.png";
+        SettingsMenu.saveSettings();
+    }
+    public static void saveSettings()
+    {
         try {
-            PrintWriter out = new PrintWriter("/settings/Settings.txt");
+            PrintWriter out = new PrintWriter("Settings.txt");
             out.println("Background: " + s_SettingsBackgroundName);
             out.println("Gravity: " + d_SettingsGravity);
             out.println("Trace Shot: " + b_SettingsTraceShot);
@@ -309,17 +313,5 @@ public class SettingsMenu {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(SettingsMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    public static void saveSettings()
-    {
-        try {
-            PrintWriter out = new PrintWriter("/settings/Settings.txt");
-            out.println("Background: " + s_SettingsBackgroundName);
-            out.println("Gravity: " + d_SettingsGravity);
-            out.println("Trace Shot: " + b_SettingsTraceShot);
-            out.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(SettingsMenu.class.getName()).log(Level.SEVERE, null, ex);
-        }        
     }
 }
