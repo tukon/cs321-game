@@ -28,8 +28,6 @@ public class NewGame2 extends javax.swing.JFrame {
         private void initComponents() {
 
                 P1NameField = new javax.swing.JLabel();
-                jScrollPane2 = new javax.swing.JScrollPane();
-                jTextPane1 = new javax.swing.JTextPane();
                 jLabel2 = new javax.swing.JLabel();
                 jLabel3 = new javax.swing.JLabel();
                 P1Weapon = new javax.swing.JComboBox<>();
@@ -39,16 +37,14 @@ public class NewGame2 extends javax.swing.JFrame {
                 jLabel6 = new javax.swing.JLabel();
                 P2Weapon = new javax.swing.JComboBox<>();
                 P2Character = new javax.swing.JComboBox<>();
-                jTextField1 = new javax.swing.JTextField();
+                P2TextField = new javax.swing.JTextField();
                 DuelButton = new javax.swing.JButton();
+                P1TextField = new javax.swing.JTextField();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
                 P1NameField.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
                 P1NameField.setText("Player1 Name:");
-
-                jTextPane1.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-                jScrollPane2.setViewportView(jTextPane1);
 
                 jLabel2.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
                 jLabel2.setText("P1 Character:");
@@ -97,7 +93,7 @@ public class NewGame2 extends javax.swing.JFrame {
                         }
                 });
 
-                jTextField1.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+                P2TextField.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
 
                 DuelButton.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
                 DuelButton.setText("Duel");
@@ -106,6 +102,8 @@ public class NewGame2 extends javax.swing.JFrame {
                                 DuelButtonActionPerformed(evt);
                         }
                 });
+
+                P1TextField.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                 getContentPane().setLayout(layout);
@@ -120,29 +118,26 @@ public class NewGame2 extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(P1Weapon, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jScrollPane2)
-                                                .addComponent(P1Character, 0, 160, Short.MAX_VALUE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 273, Short.MAX_VALUE)
+                                        .addComponent(P1Character, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(P1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 312, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel4)
-                                                        .addComponent(jLabel5))
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addGap(10, 10, 10)
-                                                                .addComponent(P2Weapon, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel6)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(P2Character, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(61, 61, 61))
+                                                .addComponent(jLabel4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(P2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(jLabel5)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(P2Weapon, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(jLabel6)
+                                                        .addGap(18, 18, 18)
+                                                        .addComponent(P2Character, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(29, 29, 29))
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(439, 439, 439)
+                                .addGap(441, 441, 441)
                                 .addComponent(DuelButton)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
@@ -151,12 +146,12 @@ public class NewGame2 extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(41, 41, 41)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(P1NameField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(P1NameField, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(P1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                 .addComponent(jLabel4)
-                                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(P2TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGap(76, 76, 76)
@@ -175,9 +170,9 @@ public class NewGame2 extends javax.swing.JFrame {
                                         .addComponent(P1Weapon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel5)
                                         .addComponent(P2Weapon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(247, 247, 247)
+                                .addGap(166, 166, 166)
                                 .addComponent(DuelButton)
-                                .addGap(138, 138, 138))
+                                .addGap(89, 89, 89))
                 );
 
                 pack();
@@ -187,9 +182,10 @@ public class NewGame2 extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         //start the game
-        String player1 = P1NameField.getText();
+        String player1 = P1TextField.getText();
+        String player2 = P2TextField.getText();
 	game.setUpGame(player1,
-		"Player 2",
+		player2,
 		P1Character.getSelectedIndex()+1,
 		P2Character.getSelectedIndex()+1,
 		Projectile.Type.values()[P1Weapon.getSelectedIndex()],
@@ -268,16 +264,15 @@ public class NewGame2 extends javax.swing.JFrame {
         private javax.swing.JButton DuelButton;
         private javax.swing.JComboBox<String> P1Character;
         private javax.swing.JLabel P1NameField;
+        private javax.swing.JTextField P1TextField;
         private javax.swing.JComboBox<String> P1Weapon;
         private javax.swing.JComboBox<String> P2Character;
+        private javax.swing.JTextField P2TextField;
         private javax.swing.JComboBox<String> P2Weapon;
         private javax.swing.JLabel jLabel2;
         private javax.swing.JLabel jLabel3;
         private javax.swing.JLabel jLabel4;
         private javax.swing.JLabel jLabel5;
         private javax.swing.JLabel jLabel6;
-        private javax.swing.JScrollPane jScrollPane2;
-        private javax.swing.JTextField jTextField1;
-        private javax.swing.JTextPane jTextPane1;
         // End of variables declaration//GEN-END:variables
 }

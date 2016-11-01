@@ -14,7 +14,10 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
@@ -96,6 +99,12 @@ public class TestGame implements ActionListener, MouseListener,
 	
 	/** Button to change settings. */
 	private Button settingsBtn;
+        
+        //Button to start the Practice mode
+        private Button practiceBtn;
+        
+        //Variable for Practice mode
+        private int practiceMode;
 	
 	/** The “Game Over” screen. */
 	private GameOverScreen gameOver;
@@ -111,10 +120,13 @@ public class TestGame implements ActionListener, MouseListener,
 	
 	/** ID of the “settings” button, used by the click handler. */
 	public static final int BTN_SETTINGS_ID = 1;
-	
-	public static final int BTN_REMATCH_ID = 2;
+        
+     	public static final int BTN_REMATCH_ID = 2;
 	
 	public static final int BTN_TITLESCR_ID = 3;
+        
+        /** ID of the “practice” button, used by the click handler. */
+        public static final int BTN_PRACTICE_ID = 4;
 	
 	/**
 	 * The program’s main entry point.
@@ -170,16 +182,28 @@ public class TestGame implements ActionListener, MouseListener,
 	{
 		menuBackdrop = new Sprite("/backdrops/title.png", 0, 0);
 		panel.add(menuBackdrop);
+                
+                //start button
 		startBtn = new Button(BTN_START_ID,
 			650, 270,
 			200, 40, "Start");
 		startBtn.setListener(this);
 		panel.add(startBtn);
+                
+                //settings button
 		settingsBtn = new Button(BTN_SETTINGS_ID,
-			650, 270+40+10,
-			200, 40, "Settings…");
+			650, 270+50+70,
+			200, 40, "Setting");
 		settingsBtn.setListener(this);
 		panel.add(settingsBtn);
+                
+                //practice button
+                practiceBtn = new Button(BTN_PRACTICE_ID,
+			650, 270+50+10,
+			200, 40, "Practice");
+		practiceBtn.setListener(this);
+		panel.add(practiceBtn);
+                
 		
 		state = GameState.TITLE_SCREEN;
 	}
@@ -200,6 +224,7 @@ public class TestGame implements ActionListener, MouseListener,
 	{
 		panel.remove(settingsBtn);
 		panel.remove(startBtn);
+                panel.remove(practiceBtn);
 		panel.remove(menuBackdrop);
 		panel.remove(gameOver);
 		
@@ -298,6 +323,7 @@ public class TestGame implements ActionListener, MouseListener,
 		// Delete the titlescreen buttons
 		startBtn = null;
 		settingsBtn = null;
+                practiceBtn = null;
 		
 		state = GameState.PLAYING;
 	}
@@ -317,7 +343,7 @@ public class TestGame implements ActionListener, MouseListener,
 	 */
 	public void run()
 	{
-                SettingsMenu.GetInitialSettings();
+		SettingsMenu.GetInitialSettings();
 		frame.setVisible(true);
 		timer.start();
 		setUpMenu();
@@ -378,6 +404,7 @@ public class TestGame implements ActionListener, MouseListener,
 		{
 			// Projectile has hit the ground or left the screen--
 			// prepare to fire again
+			activePlayer.reload();
 			swapPlayers();
 		}
 		else  // See if the arrow hit the enemy
@@ -404,7 +431,7 @@ public class TestGame implements ActionListener, MouseListener,
 						platform = platform1;
 					}
 					movePlayer(otherPlayer, platform);
-					
+
 					swapPlayers();
 				}
 				else  showGameOverScreen();
@@ -438,6 +465,9 @@ public class TestGame implements ActionListener, MouseListener,
 	/** Changes the active player from P1 to P2, or vise versa. */
 	private void swapPlayers()
 	{
+            //if it is not practice mode than alteranate
+            if (practiceMode == 0)
+            {
 		if (activePlayer == player1)
 		{
 			activePlayer = player2;
@@ -446,6 +476,8 @@ public class TestGame implements ActionListener, MouseListener,
 			p2HealthLabel.setColor(Color.WHITE);
 			player1Stats.setColor(Color.GRAY);
 			p1HealthLabel.setColor(Color.GRAY);
+			marker.setPos(GamePanel.WIDTH-64,
+				marker.getPos().y);
 		}
 		else
 		{
@@ -455,10 +487,18 @@ public class TestGame implements ActionListener, MouseListener,
 			p2HealthLabel.setColor(Color.GRAY);
 			player1Stats.setColor(Color.WHITE);
 			p1HealthLabel.setColor(Color.WHITE);
+			marker.setPos(64,
+				marker.getPos().y);
 		}
 		marker.setPos(activePlayer.getPos().x,
 			activePlayer.getPos().y - 75);
 		activePlayer.reload();
+		
+            }
+            if(practiceMode == 1)
+            {
+                //do nothing
+            }
 	}
 	
 	/**
@@ -472,6 +512,9 @@ public class TestGame implements ActionListener, MouseListener,
 		{
 		case BTN_START_ID:
 			new NewGame2(this).setVisible(true);
+                        //setting the practice mode to 0
+                        practiceMode = 0;
+                        System.out.print(practiceMode);
 			break;
 		case BTN_SETTINGS_ID:
 			new SettingsFrame().setVisible(true);
@@ -483,6 +526,13 @@ public class TestGame implements ActionListener, MouseListener,
 		case BTN_TITLESCR_ID:
 			setUpMenu();
 			break;
+                case BTN_PRACTICE_ID:
+                        new PracticeMenu(this).setVisible(true);
+                        //setting practice mode to 1
+                        practiceMode = 1;
+                        System.out.print(practiceMode);
+			break;   
+                
 		} 
 	}
 	
@@ -545,6 +595,7 @@ public class TestGame implements ActionListener, MouseListener,
 	{ 
 		if (startBtn != null)  startBtn.update(e);
 		if (settingsBtn != null)  settingsBtn.update(e);
+                if (practiceBtn != null)  practiceBtn.update(e);
 		if (state == GameState.GAME_OVER)
 		{
 			gameOver.updateButtons(e);
@@ -560,6 +611,7 @@ public class TestGame implements ActionListener, MouseListener,
 	{ 
 		if (startBtn != null)  startBtn.update(e);
 		if (settingsBtn != null)  settingsBtn.update(e);
+                if (practiceBtn != null)  practiceBtn.update(e);
 		if (state == GameState.GAME_OVER)
 		{
 			gameOver.updateButtons(e);
@@ -575,6 +627,7 @@ public class TestGame implements ActionListener, MouseListener,
 	{ 
 		if (startBtn != null)  startBtn.press(e);
 		if (settingsBtn != null)  settingsBtn.press(e);
+                if (practiceBtn != null)  practiceBtn.press(e);
 		if (state == GameState.GAME_OVER)
 		{
 			gameOver.pressButtons(e);
@@ -590,6 +643,7 @@ public class TestGame implements ActionListener, MouseListener,
 	{ 
 		if (startBtn != null)  startBtn.release(e);
 		if (settingsBtn != null)  settingsBtn.release(e);
+                if (practiceBtn != null)  practiceBtn.release(e);
 		if (state == GameState.GAME_OVER)
 		{
 			gameOver.releaseButtons(e);
