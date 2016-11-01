@@ -138,6 +138,7 @@ public class TestGame implements ActionListener, MouseListener,
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel = new GamePanel();
 		panel.setOpaque(false);
+		panel.addMouseListener(this);
 		panel.addMouseWheelListener(this);
 		panel.addMouseMotionListener(this);
 		panel.addKeyListener(this);
