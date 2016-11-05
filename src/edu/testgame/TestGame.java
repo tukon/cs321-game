@@ -109,6 +109,8 @@ public class TestGame implements ActionListener, MouseListener,
 	/** The “Game Over” screen. */
 	private GameOverScreen gameOver;
 	
+	private boolean isGameOver;
+	
 	private int p1Shots;
 	private int p1Hits;
 	
@@ -434,7 +436,11 @@ public class TestGame implements ActionListener, MouseListener,
 
 					swapPlayers();
 				}
-				else  showGameOverScreen();
+				else
+				{
+					isGameOver = true;
+					showGameOverScreen();
+				}
 			}
 			
 			// Update health bar sizes:
@@ -566,7 +572,7 @@ public class TestGame implements ActionListener, MouseListener,
 		}
 		
 		// Fire the player’s bow, if possible
-		if (activePlayer.canFire())
+		if (activePlayer.canFire() && !isGameOver)
 		{
 			/* Comment this out to prevent the traces from
 			 * disappearing:
@@ -584,6 +590,8 @@ public class TestGame implements ActionListener, MouseListener,
 			if (activePlayer == player1)  ++p1Shots;
 			else  ++p2Shots;
 		}
+		
+		if (isGameOver)  isGameOver = false;
 	}
 	
 	/**
