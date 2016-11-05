@@ -322,6 +322,11 @@ public class TestGame implements ActionListener, MouseListener,
 		activePlayer = player1;
 		otherPlayer = player2;
 		
+		p1Shots = 0;
+		p1Hits = 0;
+		p2Shots = 0;
+		p2Hits = 0;
+		
 		// Delete the titlescreen buttons
 		startBtn = null;
 		settingsBtn = null;
