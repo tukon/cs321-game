@@ -4,3 +4,6 @@ nbproject/private/*
 /dist/
 *.sav
 Settings.txt
+
+# Don’t track Java crash logs:
+hs_err_pid*.log
