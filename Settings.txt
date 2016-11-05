@@ -1,3 +1,0 @@
-Background: /backdrops/4.png
-Gravity: 9.82
-Trace Shot: true
