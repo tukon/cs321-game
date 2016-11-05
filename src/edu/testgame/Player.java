@@ -394,6 +394,9 @@ public class Player extends Sprite
 	/** Changes the player’s state to `DEAD`. */
 	public void kill()
 	{
+		setAngle(0);
+		arms = armsRelaxed;
+		updateArms();
 		health = 0;
 		state = State.DEAD;
 		img = bodyDead;
@@ -417,17 +420,40 @@ public class Player extends Sprite
 	public void draw(Graphics g)
 	{
 		// Determine the coordinates to draw the arms at.
-		final int ARMS_POS_X = pos.x - arms.getWidth(null)/2;
-		final int ARMS_POS_Y = pos.y - img.getHeight(null)/2 - 
-			arms.getHeight(null)/2;
+		// Center the arms on the character
+		int ARMS_POS_X;
+		int ARMS_POS_Y;
+		if (state != State.DEAD)
+		{
+			ARMS_POS_X = pos.x - arms.getWidth(null)/2;
+			ARMS_POS_Y = pos.y - img.getHeight(null)/2 - 
+				arms.getHeight(null)/2;
+		}
+		else
+		{
+			// Location where the arms should be placed, relative to
+			// the player’s position
+			final Point SHOULDERS = new Point(2, -5);
+			ARMS_POS_X = pos.x;
+			ARMS_POS_Y = pos.y + SHOULDERS.y;
+			if (flip)  // Subtract offset instead of adding it
+			{
+				ARMS_POS_X -= SHOULDERS.x;
+
+			}
+			else
+			{
+				ARMS_POS_X += SHOULDERS.x;
+			}
+			ARMS_POS_X -= arms.getWidth(null)/2;
+			ARMS_POS_Y -= arms.getHeight(null)/2;
+		}
 		
 		g.drawImage(img, pos.x - img.getWidth(null)/2,
 			pos.y - img.getHeight(null), null);
 		
-		// Do not draw the arms if the player is dead.
-		if (state != State.DEAD)
-			g.drawImage(imgTransformed, ARMS_POS_X, ARMS_POS_Y, 
-				null);
+		g.drawImage(imgTransformed, ARMS_POS_X, ARMS_POS_Y, 
+			null);
 	}
 	
 	/** States the player can be in. */
