@@ -7,6 +7,12 @@ package edu.testgame;
  */
 
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -225,8 +231,16 @@ public class SettingsMenu {
             in.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(SettingsMenu.class.getName()).log(Level.SEVERE, null, ex);
+            SettingsMenu.revertToDefaultSettings();
+            SettingsMenu.GetInitialSettings();
         } catch (IOException ex) {
             Logger.getLogger(SettingsMenu.class.getName()).log(Level.SEVERE, null, ex);
+            SettingsMenu.revertToDefaultSettings();
+            SettingsMenu.GetInitialSettings();
+        } catch (StringIndexOutOfBoundsException ex) {
+            Logger.getLogger(SettingsMenu.class.getName()).log(Level.SEVERE, null, ex);
+            SettingsMenu.revertToDefaultSettings();
+            SettingsMenu.GetInitialSettings();
         }
     }
     
@@ -288,7 +302,7 @@ public class SettingsMenu {
     public static boolean setGravity(double temp)
     {
         d_SettingsGravityTemp = temp;
-        System.out.println("Gravity set to: " + d_SettingsGravityTemp);
+        //System.out.println("Gravity set to: " + d_SettingsGravityTemp);
         if (d_SettingsGravityTemp == temp) return true;
         else return false;
     }
