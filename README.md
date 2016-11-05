@@ -9,7 +9,7 @@ Prototype of our CS321 project, a 2-player archery game.
   * ~~Arm moves when throwing a rock~~ **FIXED**
   * Ray gun gets clipped when aiming up
   * ~~Active player fires when “rematch” is clicked~~ **FIXED**
-  * Characters switch to Stick Guy when “rematch” is clicked
+  * ~~Characters switch to Stick Guy when “rematch” is clicked~~ **FIXED**
   * ~~Actually use name from “new game” window~~ **FIXED**
  * Different characters to play as
  * ~~Make players move up or down when hit~~ **DONE**
