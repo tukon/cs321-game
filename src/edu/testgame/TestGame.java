@@ -526,7 +526,8 @@ public class TestGame implements ActionListener, MouseListener,
 			new SettingsFrame().setVisible(true);
 			break;
 		case BTN_REMATCH_ID:
-			setUpGame(player1.getName(), player2.getName(), 1, 1,
+			setUpGame(player1.getName(), player2.getName(),
+				player1.getAvatar(), player2.getAvatar(),
 				player1.getWeapon(), player2.getWeapon());
 			break;
 		case BTN_TITLESCR_ID:

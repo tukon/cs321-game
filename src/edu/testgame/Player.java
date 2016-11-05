@@ -54,6 +54,8 @@ public class Player extends Sprite
 	
 	private Projectile.Type weapon;
 	
+	private int avatar;
+	
 	/**
 	 * Creates a new Player object. The anchor point is the center of the
 	 * bottom of the player.
@@ -68,6 +70,7 @@ public class Player extends Sprite
 		Projectile.Type weapon)
 	{
 		super("/avatars/player" + avatar + ".png", x, y);
+		this.avatar = avatar;
 		this.flip = flip;
 		ang = (flip) ? Math.PI : 0.0;
 		
@@ -259,6 +262,8 @@ public class Player extends Sprite
 	}
 	
 	public String getName() { return name; }
+	
+	public int getAvatar() { return avatar; }
 	
 	public Projectile.Type getWeapon() { return weapon; }
 	
