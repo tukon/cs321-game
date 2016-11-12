@@ -106,6 +106,15 @@ public class Player extends Sprite
 			armsRelaxed = ResourceLoader.loadImage(
 				"/weapons/thrown.png");
 			break;
+		case BATTERANG:
+			armsReady = ResourceLoader.loadImage(
+				"/weapons/batterang_ready.png");
+			armsRelaxed = ResourceLoader.loadImage(
+				"/weapons/thrown.png");
+			break;
+		default:
+			System.err.println("FIXME: no arms set for weapon ID" +
+				weapon);
 		}
 		
 		arrows = new ArrayList<>();

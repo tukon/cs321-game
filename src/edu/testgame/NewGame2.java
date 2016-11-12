@@ -53,7 +53,7 @@ public class NewGame2 extends javax.swing.JFrame {
                 jLabel3.setText("P1 Weapon:");
 
                 P1Weapon.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-                P1Weapon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bow", "Rock", "Laser", "Trident" }));
+                P1Weapon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bow", "Rock", "Laser", "Trident", "Batterang" }));
                 P1Weapon.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 P1WeaponActionPerformed(evt);
@@ -61,7 +61,7 @@ public class NewGame2 extends javax.swing.JFrame {
                 });
 
                 P1Character.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-                P1Character.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Stick Guy", "Hat Guy", "Cowboy" }));
+                P1Character.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Stick Guy", "Hat Guy", "Cowboy", "Batman" }));
                 P1Character.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 P1CharacterActionPerformed(evt);
@@ -78,7 +78,7 @@ public class NewGame2 extends javax.swing.JFrame {
                 jLabel6.setText("P2 Character:");
 
                 P2Weapon.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-                P2Weapon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bow", "Rock", "Laser", "Trident" }));
+                P2Weapon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bow", "Rock", "Laser", "Trident", "Batterang" }));
                 P2Weapon.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 P2WeaponActionPerformed(evt);
@@ -86,7 +86,7 @@ public class NewGame2 extends javax.swing.JFrame {
                 });
 
                 P2Character.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-                P2Character.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Stick Guy", "Hat Guy", "Cowboy" }));
+                P2Character.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Stick Guy", "Hat Guy", "Cowboy", "Batman" }));
                 P2Character.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 P2CharacterActionPerformed(evt);

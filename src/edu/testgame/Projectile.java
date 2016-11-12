@@ -45,6 +45,7 @@ public class Projectile extends Sprite
 		ROCK,
 		LASER,
 		TRIDENT,
+		BATTERANG,
 	}
 	
 	/**
@@ -82,6 +83,11 @@ public class Projectile extends Sprite
 			name += "trident";
 			damage = 4;
 			tipOffset = new Point(41, 0);
+			break;
+		case BATTERANG:
+			name += "batterang";
+			damage = 4;
+			tipOffset = new Point(0, 0);
 			break;
 		default:
 			System.out.println("FIXME:unrecognized projectile type");
