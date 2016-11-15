@@ -1,6 +1,6 @@
-// PROJECT: Test Game -- prototype for CS 321 project
+// PROJECT: Archer -- a game developed for CS 321
 
-package edu.testgame;
+package edu.archer;
 
 import java.awt.Dimension;
 import java.awt.Graphics;

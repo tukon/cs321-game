@@ -1,5 +1,5 @@
-// PROJECT: Test Game -- prototype for CS 321 project
-package edu.testgame;
+// PROJECT: Archer -- a game developed for CS 321
+package edu.archer;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

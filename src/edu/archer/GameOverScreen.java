@@ -1,6 +1,6 @@
-// PROJECT: Test Game -- prototype for CS 321 project
+// PROJECT: Archer -- a game developed for CS 321
 
-package edu.testgame;
+package edu.archer;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -38,10 +38,10 @@ public class GameOverScreen implements ButtonListener, Drawable
 	private Button goQuitBtn;
 	
 	/**
-	 * Reference to the TestGame object, for restarting or going back to
+	 * Reference to the Archer object, for restarting or going back to
 	 * the main menu.
 	 */
-	TestGame controller;
+	Archer controller;
 	
 	/** ID of the “rematch” button on the game over screen. */
 	public static final int BTN_REMATCH_ID = 2;
@@ -72,7 +72,7 @@ public class GameOverScreen implements ButtonListener, Drawable
 	 * Creates a new Game Over screen.
 	 * @param controller Used to restart or go to the title screen
 	 */
-	public GameOverScreen(TestGame controller)
+	public GameOverScreen(Archer controller)
 	{
 		this.controller = controller;
 		

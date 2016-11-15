@@ -1,6 +1,6 @@
-// PROJECT: Test Game -- prototype for CS 321 project
+// PROJECT: Archer -- a game developed for CS 321
 
-package edu.testgame;
+package edu.archer;
 
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -28,7 +28,7 @@ import javax.swing.Timer;
  * them when a timer or mouse event occurs.
  * @author adam
  */
-public class TestGame implements ActionListener, MouseListener, 
+public class Archer implements ActionListener, MouseListener, 
 	MouseWheelListener, MouseMotionListener, KeyListener
 {
 	/** The different states the application can be in. */
@@ -61,7 +61,7 @@ public class TestGame implements ActionListener, MouseListener,
 	 */
 	public static void main(String[] args)
 	{
-		TestGame game = new TestGame(args);
+		Archer game = new Archer(args);
 
 		game.run();
 	}
@@ -70,7 +70,7 @@ public class TestGame implements ActionListener, MouseListener,
 	 * The constructor, where game objects are initialized.
 	 * @param args The command line arguments.
 	 */
-	public TestGame(String[] args)
+	public Archer(String[] args)
 	{
 		// Set up the game window
 		frame = new JFrame("Archer Game");

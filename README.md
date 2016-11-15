@@ -1,4 +1,4 @@
-Prototype of our CS321 project, a 2-player archery game.
+Our CS321 project, a 2-player archery game.
 
 # To-Do for this sprint:
  * Fix some bugs
@@ -14,7 +14,7 @@ Prototype of our CS321 project, a 2-player archery game.
  * Make projectiles spin
  * Put a circle in the top right corner of the screen
  * Randomize starting positions
- * ~~Split up TestGame~~ **DONE**
- * s/TestGame/Archer
+ * ~~Split up Archer~~ **DONE**
+ * ~~s/TestGame/Archer~~ **DONE**
  * Clean up unused files
  * Comments?

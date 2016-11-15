@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.testgame;
+package edu.archer;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -119,7 +119,7 @@ public class loader3 extends javax.swing.JFrame {
                     {
                         System.out.println("They are equal");
                         String[] args={};
-                        TestGame.main(args);
+                        Archer.main(args);
                     }
                     else{
                         JOptionPane.showMessageDialog(null, "Wrong Password!", "Error",JOptionPane.ERROR_MESSAGE);

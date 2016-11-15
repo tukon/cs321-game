@@ -1,5 +1,5 @@
-// PROJECT: Test Game -- prototype for CS 321 project
-package edu.testgame;
+// PROJECT: Archer -- a game developed for CS 321
+package edu.archer;
 
 /**
  *
@@ -9,12 +9,12 @@ public class PracticeMenu extends javax.swing.JFrame {
 
    
     
-    private TestGame game;
+    private Archer game;
     
     /**
      * Creates new form PracticeMenu
      */
-    public PracticeMenu(TestGame game) 
+    public PracticeMenu(Archer game) 
     {
         initComponents();
         this.game = game;

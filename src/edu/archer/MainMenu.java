@@ -1,6 +1,6 @@
-// PROJECT: Test Game -- prototype for CS 321 project
+// PROJECT: Archer -- a game developed for CS 321
 
-package edu.testgame;
+package edu.archer;
 
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -24,10 +24,10 @@ public class MainMenu implements ButtonListener, Drawable
 	private Button practiceBtn;
 	
 	/**
-	 * Reference to the TestGame object; used by the new game/practice
+	 * Reference to the Archer object; used by the new game/practice
 	 * windows to start the game.
 	 */	
-	private TestGame game;
+	private Archer game;
 	
 	/** ID of the “start game” button, used by the click handler. */
 	private static final int BTN_START_ID = 0;
@@ -40,9 +40,9 @@ public class MainMenu implements ButtonListener, Drawable
 	
 	/**
 	 * Creates a new main menu screen.
-	 * @param game Reference to the TestGame object.
+	 * @param game Reference to the Archer object.
 	 */
-	public MainMenu(TestGame game)
+	public MainMenu(Archer game)
 	{
 		
 		menuBackdrop = new Sprite("/backdrops/title.png", 0, 0);
