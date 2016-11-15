@@ -11,7 +11,8 @@ import static java.lang.Math.floor;
 import java.util.ArrayList;
 
 /**
- * Represents the player, or their opponent. It does not handle arrows, though.
+ * Represents the player, or their opponent. It does not handle updating arrows,
+ * but it does draw them.
  * 
  * The player’ body is `img`, inherited from Sprite. `ang` only affects the
  * player’s arms.
@@ -422,7 +423,7 @@ public class Player extends Sprite
 	}
 	
 	/**
-	 * Draws the player on the game window. This is called by GamePanel.
+	 * Draws the player and their arrows on the game window.
 	 * @param g Graphics device to draw with.
 	 */
 	@Override
@@ -463,6 +464,9 @@ public class Player extends Sprite
 		
 		g.drawImage(imgTransformed, ARMS_POS_X, ARMS_POS_Y, 
 			null);
+		
+		// Draw all of this player’s arrows
+		arrows.forEach(arrow -> arrow.draw(g));
 	}
 	
 	/** States the player can be in. */

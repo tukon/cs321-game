@@ -189,7 +189,8 @@ public class NewGame2 extends javax.swing.JFrame {
 		P1Character.getSelectedIndex()+1,
 		P2Character.getSelectedIndex()+1,
 		Projectile.Type.values()[P1Weapon.getSelectedIndex()],
-		Projectile.Type.values()[P2Weapon.getSelectedIndex()]);
+		Projectile.Type.values()[P2Weapon.getSelectedIndex()],
+		false);
 	this.setVisible(false);
     }//GEN-LAST:event_DuelButtonActionPerformed
 

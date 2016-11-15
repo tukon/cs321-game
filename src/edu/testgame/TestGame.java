@@ -2,7 +2,6 @@
 
 package edu.testgame;
 
-import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,30 +13,29 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
 /**
- * Main game class
+ * The “master” class, which ties all of the game’s parts together. It contains
+ * main(), and is responsible for managing the game window and handling timer
+ * and mouse events.
+ * 
+ * The main menu is handled by an instance of MainMenu, in-game logic is handled
+ * by an instance of Game, and the Game Over screen is handled by an instance of
+ * GameOverScreen. This class manages switching between the three, and updates
+ * them when a timer or mouse event occurs.
  * @author adam
  */
 public class TestGame implements ActionListener, MouseListener, 
-	MouseWheelListener, MouseMotionListener, ButtonListener, KeyListener
+	MouseWheelListener, MouseMotionListener, KeyListener
 {
-	private enum GameState { INIT, TITLE_SCREEN, PLAYING, GAME_OVER };
-	/**
-	 * -1 during initalization, 0 on the tile screen, 2 when the game is 
-	 * running.
-	 * 
-	 * It is an `int` to work arount a logic bug in the button/mouse
-	 * listeners. The button listener sets it to 1, then the mouse listener
-	 * sets it to 2 and returns -- without firing an arrow.
-	 */
-	private GameState state;
+	/** The different states the application can be in. */
+	enum State { MAIN_MENU,  PLAYING,  GAME_OVER }
+	
+	/** Current state of the application. */
+	private State state;
 	
 	/** The game window. */
 	private JFrame frame;
@@ -45,90 +43,17 @@ public class TestGame implements ActionListener, MouseListener,
 	/** The canvas the game is drawn on. */
 	private GamePanel panel;
 	
-	/** The primary timer that updates the arrows and repaints the canvas.*/
+	/** The Game. */
+	private Game game;
+	
+	/** The main menu. */
+	private MainMenu menu;
+	
+	/**The primary timer that updates the arrows and repaints the canvas. */
 	private Timer timer;
 	
-	/** The game background images. */
-	private Sprite backdrop;
-	private Sprite grass;
-	
-	/** The players’ avatars; P1 on the left, and P2 on the right. */
-	private Player player1, player2;
-	/** The platforms under the players. */
-	private Sprite platform1, platform2;
-	
-	/** These line segments trace the path of the last arrow fired. */
-	private ArrayList<Line> traceSegments;
-	
-	/** The panel at the bottom of the screen, showing health, etc. */
-	private Rectangle infoPanel;
-	
-	/** Text labels showing the players’ names, aim angles, etc. */
-	private TextLabel player1Stats, player2Stats;
-	
-	/** The line down the middle of the info panel. */
-	private Line panelDivider;
-	
-	/** The top border of the info panel. */
-	private Line panelTop;
-	
-	/** Reference to the player whose turn it is. */
-	private Player activePlayer;
-	
-	/** Reference to the player whose turn it isn’t. */
-	private Player otherPlayer;
-	
-	/** Projectile over the head of the active player. */
-	private Polygon marker;
-	
-	/** Player 1’s health bar. */
-	private Rectangle p1Health, p1HealthOutline;
-	private TextLabel p1HealthLabel;
-	
-	/** Player 2’s health bar. */
-	private Rectangle p2Health, p2HealthOutline;
-	private TextLabel p2HealthLabel;
-	
-	private int maxPower = 100;
-	
-	/** Background image of the main menu. */
-	private Sprite menuBackdrop;
-	
-	/** Button to start the game. */
-	private Button startBtn;
-	
-	/** Button to change settings. */
-	private Button settingsBtn;
-        
-        //Button to start the Practice mode
-        private Button practiceBtn;
-        
-        //Variable for Practice mode
-        private int practiceMode;
-	
-	/** The “Game Over” screen. */
+	/** The Game Over screen. */
 	private GameOverScreen gameOver;
-	
-	private boolean isGameOver;
-	
-	private int p1Shots;
-	private int p1Hits;
-	
-	private int p2Shots;
-	private int p2Hits;
-	
-	/** ID of the “start game” button, used by the click handler. */
-	public static final int BTN_START_ID = 0;
-	
-	/** ID of the “settings” button, used by the click handler. */
-	public static final int BTN_SETTINGS_ID = 1;
-        
-     	public static final int BTN_REMATCH_ID = 2;
-	
-	public static final int BTN_TITLESCR_ID = 3;
-        
-        /** ID of the “practice” button, used by the click handler. */
-        public static final int BTN_PRACTICE_ID = 4;
 	
 	/**
 	 * The program’s main entry point.
@@ -137,7 +62,7 @@ public class TestGame implements ActionListener, MouseListener,
 	public static void main(String[] args)
 	{
 		TestGame game = new TestGame(args);
-                
+
 		game.run();
 	}
 	
@@ -147,7 +72,7 @@ public class TestGame implements ActionListener, MouseListener,
 	 */
 	public TestGame(String[] args)
 	{
-		state = GameState.INIT;
+		// Set up the game window
 		frame = new JFrame("Archer Game");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel = new GamePanel();
@@ -177,171 +102,66 @@ public class TestGame implements ActionListener, MouseListener,
 		
 		timer = new Timer(1000/60, this);
 		timer.setRepeats(true);
+		
+		menu = new MainMenu(this);
+		game = new Game();
+		gameOver = new GameOverScreen(this);
 	}
 	
 	/** Initialize and show the main menu screen. */
-	private void setUpMenu()
+	public void setUpMenu()
 	{
-		menuBackdrop = new Sprite("/backdrops/title.png", 0, 0);
-		panel.add(menuBackdrop);
-                
-                //start button
-		startBtn = new Button(BTN_START_ID,
-			650, 270,
-			200, 40, "Start");
-		startBtn.setListener(this);
-		panel.add(startBtn);
-                
-                //settings button
-		settingsBtn = new Button(BTN_SETTINGS_ID,
-			650, 270+50+70,
-			200, 40, "Setting");
-		settingsBtn.setListener(this);
-		panel.add(settingsBtn);
-                
-                //practice button
-                practiceBtn = new Button(BTN_PRACTICE_ID,
-			650, 270+50+10,
-			200, 40, "Practice");
-		practiceBtn.setListener(this);
-		panel.add(practiceBtn);
-                
-		
-		state = GameState.TITLE_SCREEN;
+		state = State.MAIN_MENU;
+		panel.remove(game);
+		panel.remove(gameOver);
+		panel.add(menu);
 	}
 	
 	/**
-	 * Hide the main menu items, initialize the game items, and start the
-	 * game.
-	 * @param p1Name  Player 1’s name
-	 * @param p2Name  Player 2’s name
-	 * @param p1Avatar Player 1’s character
-	 * @param p2Avatar Player 2’s character
-	 * @param weapon1 Player 1’s weapon
-	 * @param weapon2 Player 2’s weapon
+	 * Set up the game, and start it.
+	 * @param p1Name Player 1’s name
+	 * @param p2Name Player 2’s name
+	 * @param p1Avatar Index of player 1’s avatar
+	 * @param p2Avatar Index of player 2’s avatar
+	 * @param weapon1 Player 1’s choice of weapon
+	 * @param weapon2 Player 2’s choice of weapon
+	 * @param practice True if this is practice mode, false if it is a duel.
 	 */
 	public void setUpGame(String p1Name, String p2Name,
 		int p1Avatar, int p2Avatar,
-		Projectile.Type weapon1, Projectile.Type weapon2)
+		Projectile.Type weapon1, Projectile.Type weapon2,
+		boolean practice)
 	{
-		panel.remove(settingsBtn);
-		panel.remove(startBtn);
-                panel.remove(practiceBtn);
-		panel.remove(menuBackdrop);
-		panel.remove(gameOver);
+		state = State.PLAYING;
+		game.setUpGame(p1Name, p2Name, p1Avatar, p2Avatar, weapon1,
+			weapon2, practice);
+		panel.remove(menu);
+		panel.add(game);
 		
-		// Load backdrop
-		backdrop = new Sprite(SettingsMenu.getBackground(), 0, 0);
-		panel.add(backdrop);
-		
-		// Load players and their platforms
-		player1 = new Player(false, 64, GamePanel.HEIGHT-150,
-			p1Name, p1Avatar, weapon1);
-		platform1 = new Sprite("/platform.png", 0, GamePanel.HEIGHT-150);
-		
-		player2 = new Player(true, GamePanel.WIDTH-64,
-			GamePanel.HEIGHT-150, p2Name, p2Avatar, weapon2);
-		platform2 = new Sprite("/platform.png", GamePanel.WIDTH-64-64,
-			GamePanel.HEIGHT-150);
-		
-		// Create the bottom panel
-		infoPanel = new Rectangle(0, GamePanel.HEIGHT-75,
-			GamePanel.WIDTH, 75, null, Color.BLACK, false, true);
-		panelDivider = new Line(
-			new Point(GamePanel.WIDTH/2, GamePanel.HEIGHT - 65),
-			new Point(GamePanel.WIDTH/2, GamePanel.HEIGHT - 10),
-			Color.WHITE, 3);
-		panelTop = new Line(
-			new Point(0, GamePanel.HEIGHT - 75),
-			new Point(GamePanel.WIDTH, GamePanel.HEIGHT - 75),
-			Color.WHITE, 3);
-		
-		// Create player 1’s stats stuff
-		player1Stats = new TextLabel("", new Point(32,
-			GamePanel.HEIGHT-50));
-		player1Stats.setColor(Color.WHITE);
-		player1Stats.setLineSpacing(1.5f);
-		
-		p1Health = new Rectangle(200, GamePanel.HEIGHT-75/2-10, 200, 20,
-			Color.WHITE, Color.RED, false, true);
-		p1HealthOutline = new Rectangle(200, GamePanel.HEIGHT-75/2-10,
-			200, 20, Color.WHITE, Color.BLACK, true, false);
-		p1HealthLabel = new TextLabel("Health:", new Point(150,
-			GamePanel.HEIGHT-75/2+5));
-		p1HealthLabel.setColor(Color.WHITE);
-		
-		// …and player 2’s
-		player2Stats = new TextLabel("",new Point(GamePanel.WIDTH/2+32,
-			GamePanel.HEIGHT-50));
-		player2Stats.setColor(Color.GRAY);
-		player2Stats.setLineSpacing(1.5f);
-		
-		p2Health = new Rectangle(GamePanel.WIDTH/2+200,
-			GamePanel.HEIGHT-75/2-10, 200, 20,
-			Color.WHITE, Color.RED, false, true);
-		p2HealthOutline = new Rectangle(GamePanel.WIDTH/2+200,
-			GamePanel.HEIGHT-75/2-10,
-			200, 20, Color.WHITE, Color.BLACK, true, false);
-		p2HealthLabel = new TextLabel("Health:", new Point(
-			GamePanel.WIDTH/2+150,
-			GamePanel.HEIGHT-75/2+5));
-		p2HealthLabel.setColor(Color.GRAY);
-		
-		// Create the current player marker
-		marker = new Polygon(64, GamePanel.HEIGHT-150-75,
-			new Color(0x30BACC), Color.CYAN, true, true);
-		marker.addPoint(-10, -20);
-		marker.addPoint(10, -20);
-		marker.addPoint(0, 0);
-		
-		// Initialize trace points list
-		traceSegments = new ArrayList<>();
-		
-		// Add everything to the panel:
-		panel.add(player1);
-		panel.add(platform1);
-		panel.add(player2);
-		panel.add(platform2);
-
-		panel.add(infoPanel);
-		panel.add(panelDivider);
-		panel.add(panelTop);
-		
-		panel.add(player1Stats);		
-		panel.add(p1Health);
-		panel.add(p1HealthOutline);
-		panel.add(p1HealthLabel);
-		
-		panel.add(player2Stats);
-		panel.add(p2Health);
-		panel.add(p2HealthOutline);
-		panel.add(p2HealthLabel);
-		
-		panel.add(marker);
-		
-		activePlayer = player1;
-		otherPlayer = player2;
-		
-		p1Shots = 0;
-		p1Hits = 0;
-		p2Shots = 0;
-		p2Hits = 0;
-		
-		// Delete the titlescreen buttons
-		startBtn = null;
-		settingsBtn = null;
-                practiceBtn = null;
-		
-		state = GameState.PLAYING;
 	}
 	
+	/** Restarts the game, without changing any settings. */
+	public void restart()
+	{
+		setUpGame(game.getPlayer1().getName(),
+			game.getPlayer2().getName(),
+			game.getPlayer1().getAvatar(),
+			game.getPlayer2().getAvatar(),
+			game.getPlayer1().getWeapon(),
+			game.getPlayer2().getWeapon(),
+			game.isPractice());
+	}
+	
+	/** Shows the “game over” screen. */
 	public void showGameOverScreen()
 	{
-		gameOver = new GameOverScreen(activePlayer.getName(),
-			player1.getName(), p1Shots, (double)p1Hits/p1Shots,
-			player2.getName(), p2Shots, (double)p2Hits/p2Shots, this);
+		state = State.GAME_OVER;
+		gameOver.setStats(game.getActivePlayer().getName(),
+			game.getPlayer1().getName(), game.getP1Shots(),
+			game.getP1Accuracy(),
+			game.getPlayer2().getName(), game.getP2Shots(),
+			game.getP2Accuracy());
 		panel.add(gameOver);
-		state = GameState.GAME_OVER;
 	}
 	
 	/**
@@ -359,193 +179,16 @@ public class TestGame implements ActionListener, MouseListener,
 	/**
 	 * The main update method; called 60 times per second by a timer. This
 	 * is what refreshes the window and updates the positions of the arrows.
-	 * 
-	 * TODO: should mouse movement be handled by a separate function, like
-	 *       clicking?
 	 * @param e Not used.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		if (state == GameState.INIT)  return;  // Nothing to do yet
-		if (state != GameState.PLAYING)
+		if (state == State.PLAYING)
 		{
-			// Just redraw the screen
-			panel.repaint();
-			return;
+			if (!game.update())  showGameOverScreen();
 		}
-		
-		// Make the player’s character aim at the cursor
-		Point pt = panel.getMousePosition();
-		if (pt != null)  // null = not over the panel
-		{
-			activePlayer.aim(pt);
-		}
-		
-		// Update the arrow’s position
-		Projectile lastArrow = activePlayer.getLastArrow();
-		if (lastArrow != null && lastArrow.isFlying())
-		{
-			updateArrow(lastArrow);
-		}
-		
-		player1Stats.setText(player1.getStats());
-		player2Stats.setText(player2.getStats());
-		
-		panel.repaint();  // Redraw the window contents
-	}
-	
-	/** Updates the arrow’s position and checks if it hit the other player*/
-	private void updateArrow(Projectile lastArrow)
-	{
-		lastArrow.update(1000/60);
-		if (SettingsMenu.getTraceShotEnabled())
-		{
-			traceSegments.add(new Line(traceSegments.get(
-				traceSegments.size()-1).getEndPos(),
-				lastArrow.getTipPos(), Color.MAGENTA, 1));
-			panel.add(traceSegments.get(traceSegments.size()-1));
-		}
-		
-		if (!lastArrow.isFlying())
-		{
-			// Projectile has hit the ground or left the screen--
-			// prepare to fire again
-			activePlayer.reload();
-			swapPlayers();
-		}
-		else  // See if the arrow hit the enemy
-		{
-			if (otherPlayer.hitCheck(lastArrow))
-			{
-				lastArrow.setFlying(false);
-				panel.remove(lastArrow);
-				
-				if (activePlayer == player1)  ++p1Hits;
-				else ++p2Hits;
-				
-				if (otherPlayer.getHealth() > 0)
-				{
-					activePlayer.reload();
-					
-					Sprite platform;
-					if (activePlayer == player1)
-					{
-						platform = platform2;
-					}
-					else
-					{
-						platform = platform1;
-					}
-					movePlayer(otherPlayer, platform);
-
-					swapPlayers();
-				}
-				else
-				{
-					isGameOver = true;
-					showGameOverScreen();
-				}
-			}
-			
-			// Update health bar sizes:
-			p1Health.setWidth((int)(200.0 * player1.getHealth() /
-				player1.getMaxHealth()));
-			p2Health.setWidth((int)(200.0 * player2.getHealth() /
-				player2.getMaxHealth()));
-		}
-	}
-	
-	/**
-	 * Moves the given player up/down randomly.
-	 * @param player The player to move
-	 * @param platform The platform to move
-	 */
-	private void movePlayer(Player player, Sprite platform)
-	{
-		final int MIN_Y = 100;
-		final int MAX_Y = GamePanel.HEIGHT - 150;
-		final int RANGE = MAX_Y - MIN_Y;
-		
-		int newY = (int)((Math.random()) * RANGE + MIN_Y);
-		
-		platform.setPos(platform.getPos().x, newY);
-		player.setPos(player.getPos().x, newY);		
-	}
-	
-	/** Changes the active player from P1 to P2, or vise versa. */
-	private void swapPlayers()
-	{
-            //if it is not practice mode than alteranate
-            if (practiceMode == 0)
-            {
-		if (activePlayer == player1)
-		{
-			activePlayer = player2;
-			otherPlayer = player1;
-			player2Stats.setColor(Color.WHITE);
-			p2HealthLabel.setColor(Color.WHITE);
-			player1Stats.setColor(Color.GRAY);
-			p1HealthLabel.setColor(Color.GRAY);
-			marker.setPos(GamePanel.WIDTH-64,
-				marker.getPos().y);
-		}
-		else
-		{
-			activePlayer = player1;
-			otherPlayer = player2;
-			player2Stats.setColor(Color.GRAY);
-			p2HealthLabel.setColor(Color.GRAY);
-			player1Stats.setColor(Color.WHITE);
-			p1HealthLabel.setColor(Color.WHITE);
-			marker.setPos(64,
-				marker.getPos().y);
-		}
-		marker.setPos(activePlayer.getPos().x,
-			activePlayer.getPos().y - 75);
-		activePlayer.reload();
-		
-            }
-            if(practiceMode == 1)
-            {
-                //do nothing
-            }
-	}
-	
-	/**
-	 * Called when a Button is clicked.
-	 * @param id ID of the button that was clicked.
-	 */
-	@Override
-	public void clicked(int id)
-	{
-		switch (id)
-		{
-		case BTN_START_ID:
-			new NewGame2(this).setVisible(true);
-                        //setting the practice mode to 0
-                        practiceMode = 0;
-                        System.out.print(practiceMode);
-			break;
-		case BTN_SETTINGS_ID:
-			new SettingsFrame().setVisible(true);
-			break;
-		case BTN_REMATCH_ID:
-			setUpGame(player1.getName(), player2.getName(),
-				player1.getAvatar(), player2.getAvatar(),
-				player1.getWeapon(), player2.getWeapon());
-			break;
-		case BTN_TITLESCR_ID:
-			setUpMenu();
-			break;
-                case BTN_PRACTICE_ID:
-                        new PracticeMenu(this).setVisible(true);
-                        //setting practice mode to 1
-                        practiceMode = 1;
-                        System.out.print(practiceMode);
-			break;   
-                
-		} 
+		panel.repaint();
 	}
 	
 	/**
@@ -556,63 +199,31 @@ public class TestGame implements ActionListener, MouseListener,
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e)
 	{
-		activePlayer.changePower(-e.getWheelRotation());
-	}
-	
-	/**
-	 * Fires the player’s bow when the mouse is clicked.
-	 * @param e Object describing what sort of mouse event happened.
-	 */
-	@Override
-	public void mouseClicked(MouseEvent e)
-	{
-		if (activePlayer == null)  return;
-		if (state != GameState.PLAYING)  return;
-		
-		// DEBUG: Revive the player when the right mouse button
-		// (Button3) is clicked
-		if (e.getButton() == MouseEvent.BUTTON3)
+		if (state == State.PLAYING)
 		{
-			activePlayer.revive();
-			return;
+			game.mouseWheelTurned(e.getWheelRotation());
 		}
-		
-		// Fire the player’s bow, if possible
-		if (activePlayer.canFire() && !isGameOver)
-		{
-			/* Comment this out to prevent the traces from
-			 * disappearing:
-			 */
-			for (Line l : traceSegments)  panel.remove(l);
-			traceSegments.clear();
-			
-			traceSegments.add(new Line(activePlayer.getAimOrigin(),
-				activePlayer.getAimOrigin(), Color.MAGENTA, 1));
-			panel.add(traceSegments.get(traceSegments.size()-1));
-			
-			activePlayer.fire(maxPower);
-			panel.add(activePlayer.getLastArrow());
-			
-			if (activePlayer == player1)  ++p1Shots;
-			else  ++p2Shots;
-		}
-		
-		if (isGameOver)  isGameOver = false;
 	}
-	
+		
 	/**
 	 * Reacts to the mouse being moved, with no buttons pressed.
 	 * @param e Contains mouse state
 	 */
 	@Override
 	public void mouseMoved(MouseEvent e)
-	{ 
-		if (startBtn != null)  startBtn.update(e);
-		if (settingsBtn != null)  settingsBtn.update(e);
-                if (practiceBtn != null)  practiceBtn.update(e);
-		if (state == GameState.GAME_OVER)
+	{
+		switch (state)
 		{
-			gameOver.updateButtons(e);
+		case MAIN_MENU:
+			menu.mouseMoved(e);
+			break;
+		case PLAYING:
+			Point p = e.getPoint();
+			if (p != null)  game.aim(p);
+			break;
+		case GAME_OVER:
+			gameOver.mouseMoved(e);
+			break;
 		}
 	}
 	
@@ -622,14 +233,10 @@ public class TestGame implements ActionListener, MouseListener,
 	 */
 	@Override
 	public void mouseDragged(MouseEvent e)
-	{ 
-		if (startBtn != null)  startBtn.update(e);
-		if (settingsBtn != null)  settingsBtn.update(e);
-                if (practiceBtn != null)  practiceBtn.update(e);
-		if (state == GameState.GAME_OVER)
-		{
-			gameOver.updateButtons(e);
-		}
+	{
+		// We do not really care that a button is held down; we are just
+		// interested in the mouse movement
+		mouseMoved(e);
 	}
 	
 	/**
@@ -638,13 +245,15 @@ public class TestGame implements ActionListener, MouseListener,
 	 */
 	@Override
 	public void mousePressed(MouseEvent e)
-	{ 
-		if (startBtn != null)  startBtn.press(e);
-		if (settingsBtn != null)  settingsBtn.press(e);
-                if (practiceBtn != null)  practiceBtn.press(e);
-		if (state == GameState.GAME_OVER)
+	{
+		switch(state)
 		{
-			gameOver.pressButtons(e);
+		case MAIN_MENU:
+			menu.mousePressed(e);
+			break;
+		case GAME_OVER:
+			gameOver.mousePressed(e);
+			break;
 		}
 	}
 	
@@ -654,43 +263,69 @@ public class TestGame implements ActionListener, MouseListener,
 	 */
 	@Override
 	public void mouseReleased(MouseEvent e)
-	{ 
-		if (startBtn != null)  startBtn.release(e);
-		if (settingsBtn != null)  settingsBtn.release(e);
-                if (practiceBtn != null)  practiceBtn.release(e);
-		if (state == GameState.GAME_OVER)
+	{
+		switch(state)
 		{
-			gameOver.releaseButtons(e);
+		case MAIN_MENU:
+			menu.mouseReleased(e);
+			break;
+		case PLAYING:
+			game.mouseClicked();
+			break;
+		case GAME_OVER:
+			gameOver.mouseReleased(e);
+			break;
 		}
 	}
 
+	/**
+	 * Called when a keyboard key is pressed, then released.
+	 * @param ke Describes this key event.
+	 */
 	@Override
-	public void keyTyped(KeyEvent ke) {
-		if (ke.getKeyChar() == '')
+	public void keyTyped(KeyEvent ke)
+	{
+		// TODO: do this without using a literal escape character
+		char ESC = '';
+		if (ke.getKeyChar() == ESC)
 		{
 			setUpMenu();
 		}
 	}
-
-	@Override
-	public void keyPressed(KeyEvent ke) {
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent ke) {
-		
-	}
 	
 	/**
-	 * Reacts to the mouse moving onto the game panel.
+	 * Required to implement MouseListener, but unused.
+	 * @param e Object describing what sort of mouse event happened.
+	 */
+	@Override
+	public void mouseClicked(MouseEvent e) { }
+
+	/**
+	 * Called when a keyboard key is pressed down. Required to implement
+	 * KeyListener, but not used.
+	 * @param ke Describes this key event.
+	 */
+	@Override
+	public void keyPressed(KeyEvent ke) { }
+
+	/**
+	 * Called when a keyboard key is released.
+	 * @param ke Describes this key event.
+	 */
+	@Override
+	public void keyReleased(KeyEvent ke) { }
+	
+	/**
+	 * Reacts to the mouse moving onto the game panel. Required to
+	 * implement MouseListener, but not used.
 	 * @param e Contains mouse state
 	 */
 	@Override
 	public void mouseEntered(MouseEvent e) { }
 	
 	/**
-	 * Reacts to the mouse moving off of the game panel.
+	 * Reacts to the mouse moving off of the game panel. Required to
+	 * implement MouseListener, but not used.
 	 * @param e Contains mouse state
 	 */
 	@Override

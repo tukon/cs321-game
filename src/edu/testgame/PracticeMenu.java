@@ -155,7 +155,8 @@ public class PracticeMenu extends javax.swing.JFrame {
 		P1Character.getSelectedIndex()+1,
                 1,
 		Projectile.Type.values()[P1Weapon.getSelectedIndex()],
-		Projectile.Type.values()[0]);
+		Projectile.Type.values()[0],
+		true);
 	this.setVisible(false);
     }//GEN-LAST:event_PracticeButtonActionPerformed
 
