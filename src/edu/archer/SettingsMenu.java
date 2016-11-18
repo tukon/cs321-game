@@ -17,26 +17,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SettingsMenu {
-    private static String s_P1Character = "player.png";
-    private static String s_P1Weapon = "weapon.png";
-    private static String s_P2Character = "player.png";
-    private static String s_P2Weapon = "weapon.png";
-    private static String s_SettingsBackgroundName;
-    private static String s_SettingsBackgroundNameTemp = s_SettingsBackgroundName;
-    private static double d_SettingsGravity;
-    private static double d_SettingsGravityTemp = d_SettingsGravity;
-    private static boolean b_SettingsTraceShot;
-    private static boolean b_SettingsTraceShotTemp = b_SettingsTraceShot;
+    private String s_P1Character = "player.png";
+    private String s_P1Weapon = "weapon.png";
+    private String s_P2Character = "player.png";
+    private String s_P2Weapon = "weapon.png";
+    private String s_SettingsBackgroundName;
+    private String s_SettingsBackgroundNameTemp = s_SettingsBackgroundName;
+    private double d_SettingsGravity;
+    private double d_SettingsGravityTemp = d_SettingsGravity;
+    private boolean b_SettingsTraceShot;
+    private boolean b_SettingsTraceShotTemp = b_SettingsTraceShot;
     private static SettingsMenu Settings = null;
     
     //going to get and set the values for player1 and player 2
     ///////////////////////////////////////////////////////////////////////////
-    public static String getP1Character()
+    public String getP1Character()
     {
         return s_P1Character;
     }
     
-    public static boolean setP1Character(int temp)
+    public boolean setP1Character(int temp)
     {
         
         switch (temp) {
@@ -73,12 +73,12 @@ public class SettingsMenu {
         
     }
     
-    public static String getP1Weapon()
+    public String getP1Weapon()
     {
         return s_P1Weapon;
     }
     
-    public static boolean setP1Weapon(int temp)
+    public boolean setP1Weapon(int temp)
     {
         switch (temp) {
             case 0:
@@ -113,12 +113,12 @@ public class SettingsMenu {
         return true;
     }
     
-    public static String getP2Character()
+    public String getP2Character()
     {
         return s_P2Character;
     }
     
-    public static boolean setP2Character(int temp)
+    public boolean setP2Character(int temp)
     {
         switch (temp) {
             case 0:
@@ -153,12 +153,12 @@ public class SettingsMenu {
         return true; 
     }
     
-    public static String getP2Weapon()
+    public String getP2Weapon()
     {
         return s_P2Weapon;
     }
     
-    public static boolean setP2Weapon(int temp)
+    public boolean setP2Weapon(int temp)
     {
         switch (temp) {
             case 0:
@@ -256,7 +256,7 @@ public class SettingsMenu {
     {
         return b_SettingsTraceShot;    
     }
-    public static boolean setTraceShot(boolean temp)
+    public boolean setTraceShot(boolean temp)
     {
         b_SettingsTraceShotTemp = temp;
         //System.out.println("Trace Shot set to: " + b_SettingsTraceShotTemp);
