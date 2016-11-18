@@ -71,6 +71,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Background"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="SettingsMenu tempSettings = SettingsMenu.GetSettings();"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="SaveChangesButton">
       <Properties>
@@ -100,7 +103,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsBackgroundComboBoxActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="SettingsBackgroundComboBox.setSelectedIndex(SettingsMenu.getBackgroundIndex());"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="SettingsBackgroundComboBox.setSelectedIndex(tempSettings.getBackgroundIndex());"/>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
@@ -112,7 +115,7 @@
     <Component class="javax.swing.JTextField" name="GravityStrengthTextField">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Double.toString(SettingsMenu.getGravity())" type="code"/>
+          <Connection code="Double.toString(tempSettings.getGravity())" type="code"/>
         </Property>
       </Properties>
       <Events>
@@ -123,6 +126,9 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GravityStrengthTextFieldActionPerformed"/>
         <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="GravityStrengthTextFieldPropertyChange"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTextField()"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JCheckBox" name="TraceShotCheckbox">
       <Properties>
@@ -135,7 +141,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TraceShotCheckboxActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if (SettingsMenu.getTraceShotEnabled())&#xa;{&#xa;    //System.out.println(SettingsMenu.getTraceShotEnabled());&#xa;    TraceShotCheckbox.setSelected(true);&#xa;}&#xa;else&#xa;{&#xa;    //System.out.println(SettingsMenu.getTraceShotEnabled());&#xa;    TraceShotCheckbox.setSelected(false);&#xa;}"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if (tempSettings.getTraceShotEnabled())&#xa;{&#xa;    //System.out.println(tempSettings.getTraceShotEnabled());&#xa;    TraceShotCheckbox.setSelected(true);&#xa;}&#xa;else&#xa;{&#xa;    //System.out.println(tempSettings.getTraceShotEnabled());&#xa;    TraceShotCheckbox.setSelected(false);&#xa;}"/>
       </AuxValues>
     </Component>
   </SubComponents>

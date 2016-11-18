@@ -21,6 +21,7 @@ public class SettingsFrame extends javax.swing.JFrame {
      * Creates new form SettingsFrame
      */
     public SettingsFrame() {
+        
         initComponents();
     }
 
@@ -43,6 +44,7 @@ public class SettingsFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        SettingsMenu tempSettings = SettingsMenu.GetSettings();
         BackgroundFieldLabel.setText("Background");
 
         SaveChangesButton.setText("Save Changes");
@@ -61,7 +63,7 @@ public class SettingsFrame extends javax.swing.JFrame {
 
         SettingsBackgroundComboBox.setMaximumRowCount(6);
         SettingsBackgroundComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Peaceful Meadow", "Night In The Wilderness", "Wonderland", "Fantasy Castle", "Beach At Sunrise", "Gates Of Atlantis" }));
-        SettingsBackgroundComboBox.setSelectedIndex(SettingsMenu.getBackgroundIndex());
+        SettingsBackgroundComboBox.setSelectedIndex(tempSettings.getBackgroundIndex());
         SettingsBackgroundComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 SettingsBackgroundComboBoxItemStateChanged(evt);
@@ -75,7 +77,7 @@ public class SettingsFrame extends javax.swing.JFrame {
 
         GravityFieldLabel.setText("Gravity");
 
-        GravityStrengthTextField.setText(Double.toString(SettingsMenu.getGravity()));
+        GravityStrengthTextField.setText(Double.toString(tempSettings.getGravity()));
         GravityStrengthTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 GravityStrengthTextFieldFocusLost(evt);
@@ -104,14 +106,14 @@ public class SettingsFrame extends javax.swing.JFrame {
         });
 
         TraceShotCheckbox.setText("Trace Shot");
-        if (SettingsMenu.getTraceShotEnabled())
+        if (tempSettings.getTraceShotEnabled())
         {
-            //System.out.println(SettingsMenu.getTraceShotEnabled());
+            //System.out.println(tempSettings.getTraceShotEnabled());
             TraceShotCheckbox.setSelected(true);
         }
         else
         {
-            //System.out.println(SettingsMenu.getTraceShotEnabled());
+            //System.out.println(tempSettings.getTraceShotEnabled());
             TraceShotCheckbox.setSelected(false);
         }
         TraceShotCheckbox.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -171,27 +173,30 @@ public class SettingsFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         //System.out.println(TraceShotCheckbox.isSelected());
         //System.out.println("Checkbox state: " + TraceShotCheckbox.isSelected());
-        //System.out.println("Pre-Call state: " + SettingsMenu.getTraceShotEnabled());
-        //SettingsMenu.setTraceShot(TraceShotCheckbox.isSelected());
-        //System.out.println("Post-Call state: " + SettingsMenu.getTraceShotEnabled());
+        //System.out.println("Pre-Call state: " + tempSettings.getTraceShotEnabled());
+        //tempSettings.setTraceShot(TraceShotCheckbox.isSelected());
+        //System.out.println("Post-Call state: " + tempSettings.getTraceShotEnabled());
     }//GEN-LAST:event_TraceShotCheckboxActionPerformed
 
     private void TraceShotCheckboxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_TraceShotCheckboxStateChanged
         // TODO add your handling code here:
-        SettingsMenu.setTraceShot(TraceShotCheckbox.isSelected());
+        SettingsMenu tempSettings = SettingsMenu.GetSettings();
+        tempSettings.setTraceShot(TraceShotCheckbox.isSelected());
     }//GEN-LAST:event_TraceShotCheckboxStateChanged
 
     private void GravityStrengthTextFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldPropertyChange
         // TODO add your handling code here:
         double temp = Double.parseDouble(GravityStrengthTextField.getText());
-        SettingsMenu.setGravity(temp);
+        SettingsMenu tempSettings = SettingsMenu.GetSettings();
+        tempSettings.setGravity(temp);
 
     }//GEN-LAST:event_GravityStrengthTextFieldPropertyChange
 
     private void GravityStrengthTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldActionPerformed
         // TODO add your handling code here:
         double temp = Double.parseDouble(GravityStrengthTextField.getText());
-        SettingsMenu.setGravity(temp);
+        SettingsMenu tempSettings = SettingsMenu.GetSettings();
+        tempSettings.setGravity(temp);
     }//GEN-LAST:event_GravityStrengthTextFieldActionPerformed
     private void SettingsBackgroundComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsBackgroundComboBoxActionPerformed
     // TODO add your handling code here:
@@ -206,24 +211,27 @@ public class SettingsFrame extends javax.swing.JFrame {
     {
         selectedItemStr = selectedItem.toString();
     }
-    SettingsMenu.setBackground(selectedItemStr);
+    tempSettings.setBackground(selectedItemStr);
     */
 
     int temp = SettingsBackgroundComboBox.getSelectedIndex();
-    SettingsMenu.setBackground(temp);
+    SettingsMenu tempSettings = SettingsMenu.GetSettings();
+    tempSettings.setBackground(temp);
     }//GEN-LAST:event_SettingsBackgroundComboBoxItemStateChanged
 
     private void RevertToDefaultButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RevertToDefaultButtonActionPerformed
         // TODO add your handling code here:
-        SettingsMenu.revertToDefaultSettings();
-        SettingsBackgroundComboBox.setSelectedIndex(SettingsMenu.getBackgroundIndex());
-        GravityStrengthTextField.setText(Double.toString(SettingsMenu.getGravity()));
-        TraceShotCheckbox.setSelected(SettingsMenu.getTraceShotEnabled());
+        SettingsMenu tempSettings = SettingsMenu.GetSettings();
+        tempSettings.revertToDefaultSettings();
+        SettingsBackgroundComboBox.setSelectedIndex(tempSettings.getBackgroundIndex());
+        GravityStrengthTextField.setText(Double.toString(tempSettings.getGravity()));
+        TraceShotCheckbox.setSelected(tempSettings.getTraceShotEnabled());
     }//GEN-LAST:event_RevertToDefaultButtonActionPerformed
 
     private void SaveChangesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveChangesButtonActionPerformed
         // TODO add your handling code here:
-        SettingsMenu.saveSettings();
+        SettingsMenu tempSettings = SettingsMenu.GetSettings();
+        tempSettings.saveSettings();
     }//GEN-LAST:event_SaveChangesButtonActionPerformed
 
     private void GravityStrengthTextFieldMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldMouseEntered
@@ -237,13 +245,15 @@ public class SettingsFrame extends javax.swing.JFrame {
     private void GravityStrengthTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldMouseClicked
         // TODO add your handling code here:
         double temp = Double.parseDouble(GravityStrengthTextField.getText());
-        SettingsMenu.setGravity(temp);
+        SettingsMenu tempSettings = SettingsMenu.GetSettings();
+        tempSettings.setGravity(temp);
     }//GEN-LAST:event_GravityStrengthTextFieldMouseClicked
 
     private void GravityStrengthTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldFocusLost
         // TODO add your handling code here:
         double temp = Double.parseDouble(GravityStrengthTextField.getText());
-        SettingsMenu.setGravity(temp);
+        SettingsMenu tempSettings = SettingsMenu.GetSettings();
+        tempSettings.setGravity(temp);
     }//GEN-LAST:event_GravityStrengthTextFieldFocusLost
 
     /**
@@ -277,6 +287,7 @@ public class SettingsFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new SettingsFrame().setVisible(true);
+                
             }
         });
     }
