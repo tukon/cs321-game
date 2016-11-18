@@ -132,9 +132,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="TraceShotCheckbox">
       <Properties>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="&quot;Trace Shot&quot;" type="code"/>
-        </Property>
+        <Property name="text" type="java.lang.String" value="Trace Shot"/>
       </Properties>
       <Events>
         <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="TraceShotCheckboxStateChanged"/>

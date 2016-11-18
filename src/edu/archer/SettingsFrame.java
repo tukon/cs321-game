@@ -177,13 +177,11 @@ public class SettingsFrame extends javax.swing.JFrame {
         //tempSettings.setTraceShot(TraceShotCheckbox.isSelected());
         //System.out.println("Post-Call state: " + tempSettings.getTraceShotEnabled());
     }//GEN-LAST:event_TraceShotCheckboxActionPerformed
-
     private void TraceShotCheckboxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_TraceShotCheckboxStateChanged
         // TODO add your handling code here:
         SettingsMenu tempSettings = SettingsMenu.GetSettings();
         tempSettings.setTraceShot(TraceShotCheckbox.isSelected());
     }//GEN-LAST:event_TraceShotCheckboxStateChanged
-
     private void GravityStrengthTextFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldPropertyChange
         // TODO add your handling code here:
         double temp = Double.parseDouble(GravityStrengthTextField.getText());
@@ -191,7 +189,6 @@ public class SettingsFrame extends javax.swing.JFrame {
         tempSettings.setGravity(temp);
 
     }//GEN-LAST:event_GravityStrengthTextFieldPropertyChange
-
     private void GravityStrengthTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldActionPerformed
         // TODO add your handling code here:
         double temp = Double.parseDouble(GravityStrengthTextField.getText());
@@ -201,7 +198,6 @@ public class SettingsFrame extends javax.swing.JFrame {
     private void SettingsBackgroundComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsBackgroundComboBoxActionPerformed
     // TODO add your handling code here:
     }//GEN-LAST:event_SettingsBackgroundComboBoxActionPerformed
-
     private void SettingsBackgroundComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_SettingsBackgroundComboBoxItemStateChanged
     // TODO add your handling code here:
 /*
@@ -218,7 +214,6 @@ public class SettingsFrame extends javax.swing.JFrame {
     SettingsMenu tempSettings = SettingsMenu.GetSettings();
     tempSettings.setBackground(temp);
     }//GEN-LAST:event_SettingsBackgroundComboBoxItemStateChanged
-
     private void RevertToDefaultButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RevertToDefaultButtonActionPerformed
         // TODO add your handling code here:
         SettingsMenu tempSettings = SettingsMenu.GetSettings();
@@ -227,28 +222,23 @@ public class SettingsFrame extends javax.swing.JFrame {
         GravityStrengthTextField.setText(Double.toString(tempSettings.getGravity()));
         TraceShotCheckbox.setSelected(tempSettings.getTraceShotEnabled());
     }//GEN-LAST:event_RevertToDefaultButtonActionPerformed
-
     private void SaveChangesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveChangesButtonActionPerformed
         // TODO add your handling code here:
         SettingsMenu tempSettings = SettingsMenu.GetSettings();
         tempSettings.saveSettings();
     }//GEN-LAST:event_SaveChangesButtonActionPerformed
-
     private void GravityStrengthTextFieldMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_GravityStrengthTextFieldMouseEntered
-
     private void GravityStrengthTextFieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldMouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_GravityStrengthTextFieldMouseExited
-
     private void GravityStrengthTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldMouseClicked
         // TODO add your handling code here:
         double temp = Double.parseDouble(GravityStrengthTextField.getText());
         SettingsMenu tempSettings = SettingsMenu.GetSettings();
         tempSettings.setGravity(temp);
     }//GEN-LAST:event_GravityStrengthTextFieldMouseClicked
-
     private void GravityStrengthTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_GravityStrengthTextFieldFocusLost
         // TODO add your handling code here:
         double temp = Double.parseDouble(GravityStrengthTextField.getText());
