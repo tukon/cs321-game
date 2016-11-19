@@ -377,6 +377,7 @@ public class Player extends Sprite
 		
 		state = State.FIRING;
 		arms = armsRelaxed;
+		updateArms();
 		
 		Point p = getAimOrigin();
 		
