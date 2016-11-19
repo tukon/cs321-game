@@ -45,7 +45,7 @@ public class NewGame2 extends javax.swing.JFrame {
                 DuelButton = new javax.swing.JButton();
                 P1TextField = new javax.swing.JTextField();
 
-                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
                 P1NameField.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
                 P1NameField.setText("Player1 Name:");
