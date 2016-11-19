@@ -278,6 +278,7 @@ public class Game implements Drawable
 			if (otherPlayer.hitCheck(lastArrow))   // hit
 			{
 				lastArrow.setFlying(false);
+				lastArrow.setHidden(true);
 				
 				if (activePlayer == player1)  ++p1Hits;
 				else ++p2Hits;

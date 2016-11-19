@@ -26,6 +26,9 @@ public class Projectile extends Sprite
 	/** `true` to flip the projectile horizontally. */
 	private boolean mirror;
 	
+	/** If true, this arrow will not be rendered. */
+	private boolean hide;
+	
 	/** How many hitpoints a player will lose if they are hit by this. */
 	private int damage;
 	
@@ -135,6 +138,15 @@ public class Projectile extends Sprite
 		flying = true;	
 	}
 	
+	/**
+	 * Sets whether or not this projectile will be rendered, or hidden.
+	 * @param hidden True to not render this projectile
+	 */
+	public void setHidden(boolean hidden)
+	{
+		hide = hidden;
+	}
+	
 	/** Gets how much damage this projectile does.
 	 * @return How many hitpoints a player will lose if they are hit by this
 	 *         projectile.
@@ -233,8 +245,12 @@ public class Projectile extends Sprite
 	@Override
 	public void draw(Graphics g)
 	{
-		g.drawImage(imgTransformed, pos.x - img.getWidth(null)/2,
-			pos.y - img.getHeight(null)/2, null);
+		if (!hide)
+		{
+			g.drawImage(imgTransformed,
+				pos.x - img.getWidth(null)/2,
+				pos.y - img.getHeight(null)/2, null);
+		}
 	}
 }
 // EOF

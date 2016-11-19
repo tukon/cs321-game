@@ -10,7 +10,7 @@ Our CS321 project, a 2-player archery game.
   * Captain America (with shield)
   * Han Solo & Greedo (with blasters)
   * Secret Mos Eisley background
- * Give weapons power/gravity modifiers
+ * ~~Give weapons power/gravity modifiers~~ **DONE**
  * Make projectiles spin
  * Put a circle in the top right corner of the screen
  * ~~Randomize starting positions~~ **DONE**
