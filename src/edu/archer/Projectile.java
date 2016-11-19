@@ -35,6 +35,9 @@ public class Projectile extends Sprite
 	/** Previous tip position, used in hit detection */
 	private Point prevTipPos;
 	
+	/** Reference to the settings menu. */
+	private SettingsMenu settings;
+	
 	/** 
 	 * List of types of projectiles. Properties are defined in the
 	 * constructor.
@@ -98,6 +101,8 @@ public class Projectile extends Sprite
 		imgTransformed = img;
 		this.vel = vel;
 		this.mirror = mirror;
+		
+		settings = SettingsMenu.GetSettings();
 	}
 	
 	/**
@@ -146,7 +151,7 @@ public class Projectile extends Sprite
 		
 		// Characters are 32px, or 1.7m, tall
 		final double PIXELS_PER_METER = 32/1.7;
-		final double GRAVITY = SettingsMenu.getGravity() * 
+		final double GRAVITY = settings.getGravity() * 
 			PIXELS_PER_METER;
 		final int MILLISECONDS_PER_SECOND = 1000;
 		velY += GRAVITY * Δt/MILLISECONDS_PER_SECOND;

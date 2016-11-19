@@ -11,6 +11,9 @@ public class PracticeMenu extends javax.swing.JFrame {
     
     private Archer game;
     
+    /** Reference to the settings menu. */
+    private SettingsMenu settings;
+    
     /**
      * Creates new form PracticeMenu
      */
@@ -18,6 +21,7 @@ public class PracticeMenu extends javax.swing.JFrame {
     {
         initComponents();
         this.game = game;
+	settings = SettingsMenu.GetSettings();
     }
 
     /**
@@ -134,7 +138,7 @@ public class PracticeMenu extends javax.swing.JFrame {
 
         //get the character for P1 that the user had selected at the time
         int temp = P1Character.getSelectedIndex();
-        SettingsMenu.setP1Character(temp);
+        settings.setP1Character(temp);
     }//GEN-LAST:event_P1CharacterActionPerformed
 
     private void P1WeaponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P1WeaponActionPerformed
@@ -142,7 +146,7 @@ public class PracticeMenu extends javax.swing.JFrame {
 
         //get the weapon for P2 that the user had selected at the time
         int temp = P1Weapon.getSelectedIndex();
-        SettingsMenu.setP1Weapon(temp);
+        settings.setP1Weapon(temp);
     }//GEN-LAST:event_P1WeaponActionPerformed
 
     private void PracticeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PracticeButtonActionPerformed

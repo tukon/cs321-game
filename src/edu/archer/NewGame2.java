@@ -9,6 +9,9 @@ public class NewGame2 extends javax.swing.JFrame {
 
     private Archer game;
     
+    /** Reference to the settings menu. */
+    private SettingsMenu settings;
+    
     /**
      * Creates new form NewGame2
      */
@@ -16,6 +19,7 @@ public class NewGame2 extends javax.swing.JFrame {
     {
         initComponents();
         this.game = game;
+	settings = SettingsMenu.GetSettings();
     }
 
     /**
@@ -199,7 +203,7 @@ public class NewGame2 extends javax.swing.JFrame {
         
         //get the character for P1 that the user had selected at the time
         int temp = P1Character.getSelectedIndex();
-        SettingsMenu.setP1Character(temp);
+        settings.setP1Character(temp);
     }//GEN-LAST:event_P1CharacterActionPerformed
 
     private void P1WeaponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P1WeaponActionPerformed
@@ -207,7 +211,7 @@ public class NewGame2 extends javax.swing.JFrame {
         
         //get the weapon for P2 that the user had selected at the time
         int temp = P1Weapon.getSelectedIndex();
-        SettingsMenu.setP1Weapon(temp);
+        settings.setP1Weapon(temp);
     }//GEN-LAST:event_P1WeaponActionPerformed
 
     private void P2CharacterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P2CharacterActionPerformed
@@ -215,7 +219,7 @@ public class NewGame2 extends javax.swing.JFrame {
         
         //get the character for P2 that was selected at the time
         int temp = P2Character.getSelectedIndex();
-        SettingsMenu.setP2Character(temp);
+        settings.setP2Character(temp);
     }//GEN-LAST:event_P2CharacterActionPerformed
 
     private void P2WeaponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P2WeaponActionPerformed
@@ -223,7 +227,7 @@ public class NewGame2 extends javax.swing.JFrame {
         
         //get the weapon for P2 that was selected at the time
         int temp = P2Weapon.getSelectedIndex();
-        SettingsMenu.setP2Weapon(temp);
+        settings.setP2Weapon(temp);
     }//GEN-LAST:event_P2WeaponActionPerformed
 
     /**

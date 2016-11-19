@@ -55,6 +55,9 @@ public class Archer implements ActionListener, MouseListener,
 	/** The Game Over screen. */
 	private GameOverScreen gameOver;
 	
+	/** Reference to the settings menu */
+	private SettingsMenu settings;
+	
 	/**
 	 * The program’s main entry point.
 	 * @param args The command line arguments.
@@ -102,6 +105,8 @@ public class Archer implements ActionListener, MouseListener,
 		
 		timer = new Timer(1000/60, this);
 		timer.setRepeats(true);
+		
+		settings = SettingsMenu.GetSettings();
 		
 		menu = new MainMenu(this);
 		game = new Game();
@@ -170,7 +175,7 @@ public class Archer implements ActionListener, MouseListener,
 	 */
 	public void run()
 	{
-		SettingsMenu.GetInitialSettings();
+		settings.GetInitialSettings();
 		frame.setVisible(true);
 		timer.start();
 		setUpMenu();

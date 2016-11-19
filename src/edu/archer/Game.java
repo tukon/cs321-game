@@ -57,8 +57,11 @@ public class Game implements Drawable
 	/** The game background images. */
 	private Sprite backdrop;
 
-	//Variable for Practice mode
+	/** Whether or not practice mode is enabled. */
 	private boolean practiceMode;
+	
+	/** Reference to the settings menu. */
+	private SettingsMenu settings;
 	
 	/** How many shots player 1 has made. */
 	private int p1Shots;
@@ -73,7 +76,10 @@ public class Game implements Drawable
 	private int p2Hits;
 	
 	/** Default constructor. */
-	public Game() {	}
+	public Game()
+	{
+		settings = SettingsMenu.GetSettings();
+	}
 	
 	/**
 	 * Hide the main menu items, initialize the game items, and start the
@@ -93,14 +99,14 @@ public class Game implements Drawable
 	{		
 		// Load backdrop
 		double MOON_GRAVITY = 1.64;
-		if (SettingsMenu.getGravity() == MOON_GRAVITY)
+		if (settings.getGravity() == MOON_GRAVITY)
 		{
 			backdrop = new Sprite(
 				"/backdrops/SecretMoonBackdrop.jpg", 0, 0);
 		}
 		else
 		{
-			backdrop = new Sprite(SettingsMenu.getBackground(),
+			backdrop = new Sprite(settings.getBackground(),
 				0, 0);
 		}
 		
@@ -208,7 +214,7 @@ public class Game implements Drawable
 		
 		marker.draw(g);
 		
-		if (SettingsMenu.getTraceShotEnabled())
+		if (settings.getTraceShotEnabled())
 		{
 			traceSegments.forEach(line -> line.draw(g));
 		}
@@ -247,7 +253,7 @@ public class Game implements Drawable
 	private boolean updateArrow(Projectile lastArrow)
 	{
 		lastArrow.update(1000/60);
-		if (SettingsMenu.getTraceShotEnabled())
+		if (settings.getTraceShotEnabled())
 		{
 			traceSegments.add(new Line(traceSegments.get(
 				traceSegments.size()-1).getEndPos(),
