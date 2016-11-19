@@ -175,7 +175,6 @@ public class Archer implements ActionListener, MouseListener,
 	 */
 	public void run()
 	{
-		settings.GetInitialSettings();
 		frame.setVisible(true);
 		timer.start();
 		setUpMenu();
