@@ -58,6 +58,11 @@ public class MainMenu implements ButtonListener, Drawable
 			200, 40, "Setting");
 		settingsBtn.setListener(this);
 		
+		if (SettingsMenu.GetSettings().ReadOnly)
+		{
+			settingsBtn.setEnabled(false);
+		}
+		
 		//practice button
 		practiceBtn = new Button(BTN_PRACTICE_ID,
 			650, 270+50+10,

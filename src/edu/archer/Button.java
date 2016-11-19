@@ -14,7 +14,7 @@ import java.awt.event.MouseEvent;
 public class Button implements Drawable
 {
 	/** States a button can be in. */
-	public enum State { UNFOCUSED, FOCUSED, PRESSED };
+	public enum State { UNFOCUSED, FOCUSED, PRESSED, DISABLED };
 	
 	/** The button’s current state. */
 	protected State state;
@@ -43,12 +43,18 @@ public class Button implements Drawable
 	private static final Color OUTLINE = new Color(0xA0A0A0);
 	private static final Color FILL = new Color(0xC5C5C5);
 	private static final Color TEXT = Color.BLACK;
+	
 	private static final Color FOCUS_OUTLINE = Color.WHITE;
 	private static final Color FOCUS_FILL = new Color(0xD5D5D5);
 	private static final Color FOCUS_TEXT = TEXT;
+	
 	private static final Color PRESS_OUTLINE = new Color(0xD0D0D0);
 	private static final Color PRESS_FILL = new Color(0xADADAD);
 	private static final Color PRESS_TEXT = TEXT;
+	
+	private static final Color DISABLED_OUTLINE = OUTLINE;
+	private static final Color DISABLED_FILL = FILL;
+	private static final Color DISABLED_TEXT = new Color(0x909090);
 	
 	/**
 	 * Creates a new button.
@@ -82,17 +88,63 @@ public class Button implements Drawable
 	}
 	
 	/**
+	 * Sets whether or not this button can be clicked
+	 * @param enabled Whether or not it is usable
+	 */
+	public void setEnabled(boolean enabled)
+	{
+		if (!enabled)
+		{
+			setState(State.DISABLED);
+		}
+		else
+		{
+			setState(State.UNFOCUSED);
+		}
+	}
+	
+	/**
+	 * Changes the button’s state and updates the colors
+	 * @param s New state
+	 */
+	protected void setState(State s)
+	{
+		state = s;
+		switch (s)
+		{
+		case DISABLED:
+			body.setFillColor(DISABLED_FILL);
+			body.setOutlineColor(DISABLED_OUTLINE);
+			label.setColor(DISABLED_TEXT);
+			break;
+		case UNFOCUSED:
+			body.setFillColor(FILL);
+			body.setOutlineColor(OUTLINE);
+			label.setColor(TEXT);
+			break;
+		case FOCUSED:
+			body.setFillColor(FOCUS_FILL);
+			body.setOutlineColor(FOCUS_OUTLINE);
+			label.setColor(FOCUS_TEXT);
+			break;
+		case PRESSED:
+			body.setFillColor(PRESS_FILL);
+			body.setOutlineColor(PRESS_OUTLINE);
+			label.setColor(PRESS_TEXT);
+			break;
+		}
+	}
+	
+	/**
 	 * Call this whenever the mouse button is pressed.
 	 * @param e Event object describing the state of the mouse.
 	 */
 	public void press(MouseEvent e)
 	{
+		if (state == State.DISABLED)  return;
 		if (state == State.FOCUSED)
 		{
-			state = State.PRESSED;
-			body.setFillColor(PRESS_FILL);
-			body.setOutlineColor(PRESS_OUTLINE);
-			label.setColor(PRESS_TEXT);	
+			setState(State.PRESSED);
 		}
 	}
 	
@@ -102,6 +154,7 @@ public class Button implements Drawable
 	 */
 	public void release(MouseEvent e)
 	{
+		if (state == State.DISABLED)  return;
 		if (state == State.PRESSED)  handler.clicked(id);
 		update(e);
 	}
@@ -112,6 +165,8 @@ public class Button implements Drawable
 	 */
 	public void update(MouseEvent e)
 	{
+		if (state == State.DISABLED)  return;
+		
 		Point curPos = e.getPoint();
 		int left = pos.x;
 		int right = pos.x + size.x;
@@ -123,27 +178,18 @@ public class Button implements Drawable
 		{
 			if (state != State.PRESSED)
 			{
-				state = State.FOCUSED;
-				body.setFillColor(FOCUS_FILL);
-				body.setOutlineColor(FOCUS_OUTLINE);
-				label.setColor(FOCUS_TEXT);
+				setState(State.FOCUSED);
 			}
 		}
 		else
 		{
-			state = State.UNFOCUSED;
-			body.setFillColor(FILL);
-			body.setOutlineColor(OUTLINE);
-			label.setColor(TEXT);
+			setState(State.UNFOCUSED);
 			return;
 		}
 		
 		if (e.getModifiersEx()== MouseEvent.BUTTON1_DOWN_MASK)
 		{
-			state = State.PRESSED;
-			body.setFillColor(PRESS_FILL);
-			body.setOutlineColor(PRESS_OUTLINE);
-			label.setColor(PRESS_TEXT);
+			setState(State.PRESSED);
 		}
 	}
 	
