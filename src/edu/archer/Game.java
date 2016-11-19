@@ -177,12 +177,18 @@ public class Game implements Drawable
 		activePlayer = player1;
 		otherPlayer = player2;
 		
+		movePlayer(player1, platform1);
+		movePlayer(player2, platform2);
+		
+		marker.setPos(player1.getPos().x, player1.getPos().y-75);
+		
 		p1Shots = 0;
 		p1Hits = 0;
 		p2Shots = 0;
 		p2Hits = 0;
 		
 		practiceMode = practice;
+		
 	}
 	
 	/** 
