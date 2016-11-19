@@ -29,6 +29,12 @@ public class Projectile extends Sprite
 	/** How many hitpoints a player will lose if they are hit by this. */
 	private int damage;
 	
+	/** Velocity modifer. */
+	private double velMod;
+	
+	/** Gravity modifier. */
+	private double gravMod;
+	
 	/** Location of the tip, on the arrow. */
 	private Point tipOffset;
 	
@@ -71,26 +77,36 @@ public class Projectile extends Sprite
 			name += "arrow";
 			damage = 3;
 			tipOffset = new Point(13, 0);
+			velMod = 1.5;
+			gravMod = 0.9;
 			break;
 		case ROCK:
 			name += "rock";
 			damage = 40;
 			tipOffset = new Point(0, 0);
+			velMod = 0.7;
+			gravMod = 1.0;
 			break;
 		case LASER:
 			name += "laser";
-			damage = 5;
+			damage = 1;
 			tipOffset = new Point(20, 0);
+			velMod = 2.0;
+			gravMod = 0.0;
 			break;
 		case TRIDENT:
 			name += "trident";
 			damage = 4;
 			tipOffset = new Point(41, 0);
+			velMod = 0.8;
+			gravMod = 0.9;
 			break;
 		case BATTERANG:
 			name += "batterang";
 			damage = 4;
 			tipOffset = new Point(0, 0);
+			velMod = 0.8;
+			gravMod = 0.6;
 			break;
 		default:
 			System.out.println("FIXME:unrecognized projectile type");
@@ -99,7 +115,7 @@ public class Projectile extends Sprite
 		img = ResourceLoader.loadImage(name +
 			(mirror ? "_enemy.png" : "_player.png"));
 		imgTransformed = img;
-		this.vel = vel;
+		this.vel = vel * velMod;
 		this.mirror = mirror;
 		
 		settings = SettingsMenu.GetSettings();
@@ -152,7 +168,7 @@ public class Projectile extends Sprite
 		// Characters are 32px, or 1.7m, tall
 		final double PIXELS_PER_METER = 32/1.7;
 		final double GRAVITY = settings.getGravity() * 
-			PIXELS_PER_METER;
+			PIXELS_PER_METER * gravMod;
 		final int MILLISECONDS_PER_SECOND = 1000;
 		velY += GRAVITY * Δt/MILLISECONDS_PER_SECOND;
 		
