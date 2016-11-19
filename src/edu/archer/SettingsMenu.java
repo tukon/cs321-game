@@ -325,14 +325,14 @@ public class SettingsMenu {
         return true;
     }
     public boolean revertToDefaultSettings()
-    {
+    { //Sets temporary values to the default settings, calls saveSettings
         b_SettingsTraceShotTemp = false;
         d_SettingsGravityTemp = 9.82;
         s_SettingsBackgroundNameTemp = "/backdrops/1.png";
         return saveSettings();
     }
     public boolean saveSettings()
-    {
+    { //Stores the temporary values into the publicly accessible permanent values, writes changes to Settings.txt
         s_SettingsBackgroundName = s_SettingsBackgroundNameTemp;
         d_SettingsGravity = d_SettingsGravityTemp;
         b_SettingsTraceShot = b_SettingsTraceShotTemp;
