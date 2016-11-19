@@ -362,7 +362,7 @@ public class SettingsMenu {
     private SettingsMenu()
     {
         File file = new File("Settings.txt");
-        ReadOnly = file.canWrite();
+        ReadOnly = !file.canWrite();
         GetInitialSettings();
     }
 }
