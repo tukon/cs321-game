@@ -47,6 +47,12 @@ public class Projectile extends Sprite
 	/** Reference to the settings menu. */
 	private SettingsMenu settings;
 	
+	/** Conversion constant:  Characters are 32px, or 170cm, tall */
+	final double PIXELS_PER_METER = 32/1.7;
+
+	/** Gravity, in m/s, with modifiers. */
+	double gravity;
+
 	/** 
 	 * List of types of projectiles. Properties are defined in the
 	 * constructor.
@@ -122,6 +128,8 @@ public class Projectile extends Sprite
 		this.mirror = mirror;
 		
 		settings = SettingsMenu.GetSettings();
+
+		gravity = settings.getGravity() * PIXELS_PER_METER * gravMod;
 	}
 	
 	/**
@@ -177,12 +185,8 @@ public class Projectile extends Sprite
 	{
 		if (!flying)  return;
 		
-		// Characters are 32px, or 1.7m, tall
-		final double PIXELS_PER_METER = 32/1.7;
-		final double GRAVITY = settings.getGravity() * 
-			PIXELS_PER_METER * gravMod;
 		final int MILLISECONDS_PER_SECOND = 1000;
-		velY += GRAVITY * Δt/MILLISECONDS_PER_SECOND;
+		velY += gravity * Δt/MILLISECONDS_PER_SECOND;
 		
 		int oldX = pos.x;
 		int oldY = pos.y;
