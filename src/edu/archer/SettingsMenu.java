@@ -25,7 +25,7 @@ public class SettingsMenu {
 	//Pointer is declared as static due to Singleton Implementation
 	private static SettingsMenu Settings = null;
 	
-	///////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 	
 	//List of get & set functions for altering settings values
 	
@@ -176,15 +176,24 @@ public class SettingsMenu {
 		return true;
 	}
 	public boolean revertToDefaultSettings()
-	{ //Sets temporary values to the default settings, calls saveSettings
+	{ 
+                //Sets temporary values to the default settings, calls saveSettings
 		b_SettingsTraceShotTemp = false;
 		d_SettingsGravityTemp = 9.82;
 		s_SettingsBackgroundNameTemp = "/backdrops/1.png";
+		System.out.println("ReadOnly = " + ReadOnly);
+                File file = new File("Settings.txt");
+		if (ReadOnly == true)
+		{
+			System.out.println("File is set to ReadOnly");
+			file.delete();
+		}
 		return saveSettings();
 	}
 	public boolean saveSettings()
-	{ //Stores the temporary values into the publicly accessible permanent
-	  //values, writes changes to Settings.txt
+	{ 
+                //Stores the temporary values into the publicly accessible permanent
+                //values, writes changes to Settings.txt
 		s_SettingsBackgroundName = s_SettingsBackgroundNameTemp;
 		d_SettingsGravity = d_SettingsGravityTemp;
 		b_SettingsTraceShot = b_SettingsTraceShotTemp;
@@ -206,14 +215,17 @@ public class SettingsMenu {
 	}
 	public static SettingsMenu GetSettings()
 	{
+		//Returns SettingsMenu object
 		if (Settings == null)
 		{
+			//Creates new SettingsMenu if null
 			Settings = new SettingsMenu();
 		}
 		return Settings;
 	}
 	private SettingsMenu()
 	{
+		//Private constructor to prevent multiple instances from being created
 		File file = new File("Settings.txt");
 		ReadOnly = !file.canWrite();
 		GetInitialSettings();
