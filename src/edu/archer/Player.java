@@ -117,6 +117,13 @@ public class Player extends Sprite
 			System.err.println("FIXME: no arms set for weapon ID" +
 				weapon);
 		}
+                if (avatar == 4)
+                {
+                    armsReady = ResourceLoader.loadImage(
+                            "/weapons/batterang_ready.png");
+                    armsRelaxed = ResourceLoader.loadImage(
+                            "/weapons/thrown.png");
+                }
 		
 		arrows = new ArrayList<>();
 		
