@@ -103,9 +103,11 @@
           <Font name="Arial Black" size="14" style="1"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
+          <StringArray count="4">
             <StringItem index="0" value="Stick Guy"/>
             <StringItem index="1" value="Hat Guy"/>
+            <StringItem index="2" value="Cowboy"/>
+            <StringItem index="3" value="Batman"/>
           </StringArray>
         </Property>
       </Properties>
@@ -130,11 +132,12 @@
           <Font name="Arial Black" size="14" style="1"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
+          <StringArray count="5">
             <StringItem index="0" value="Bow"/>
             <StringItem index="1" value="Rock"/>
             <StringItem index="2" value="Laser"/>
             <StringItem index="3" value="Trident"/>
+            <StringItem index="4" value="Batterang"/>
           </StringArray>
         </Property>
       </Properties>
