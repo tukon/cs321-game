@@ -41,7 +41,7 @@ public class PracticeMenu extends javax.swing.JFrame {
                 PracticeButton = new javax.swing.JButton();
                 P1TextField = new javax.swing.JTextField();
 
-                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
                 addWindowListener(new java.awt.event.WindowAdapter() {
                         public void windowClosed(java.awt.event.WindowEvent evt) {
                                 formWindowClosed(evt);
