@@ -2,6 +2,9 @@
 
 package edu.archer;
 
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
 /**
  * The settings window.
  * @author blasek0
@@ -19,6 +22,19 @@ public class SettingsFrame extends javax.swing.JFrame {
         initComponents();
 	
 	this.game = game;
+	
+	// Load and set frame icon
+	ArrayList<BufferedImage> icons = new ArrayList<>();
+	String name = "";
+	// Load each size: 16, 32, 64, 128, 256
+	// 1 << ii is 2^ii; 16 is 2^4; 256 is 2^8
+	for (int ii = 4; ii <= 8; ++ii)
+	{
+		name = "/icons/" + Integer.toString(1 << ii)+ 
+			".png";
+		icons.add(ResourceLoader.loadImage(name));
+	}
+	if (!icons.isEmpty())  this.setIconImages(icons);
     }
 
     /**
@@ -39,6 +55,8 @@ public class SettingsFrame extends javax.swing.JFrame {
                 TraceShotCheckbox = new javax.swing.JCheckBox();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+                setTitle("Game Settings");
+                setResizable(false);
                 addWindowListener(new java.awt.event.WindowAdapter() {
                         public void windowClosed(java.awt.event.WindowEvent evt) {
                                 formWindowClosed(evt);
