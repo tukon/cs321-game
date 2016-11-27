@@ -75,6 +75,12 @@ public class Game implements Drawable
 	/** How many times player 2 has hit the other player. */
 	private int p2Hits;
 	
+	/**
+	 * After switching players, we simulate a mouse update with this. This
+	 * makes the newly-selected player aim at the cursor properly.
+	 */
+	private static Point lastMousePoint;
+	
 	/** Default constructor. */
 	public Game()
 	{
@@ -273,6 +279,7 @@ public class Game implements Drawable
 	public void aim(Point p)
 	{
 		activePlayer.aim(p);
+		lastMousePoint = p;
 	}
 	
 	/** Updates the arrow’s position and checks if it hit the other player*/
@@ -356,35 +363,35 @@ public class Game implements Drawable
 	private void swapPlayers()
 	{
 		//if it is not practice mode than alteranate
-		if (!practiceMode)
-		{
-			if (activePlayer == player1)
-			{
-				activePlayer = player2;
-				otherPlayer = player1;
-				player2Stats.setColor(Color.WHITE);
-				p2HealthLabel.setColor(Color.WHITE);
-				player1Stats.setColor(Color.GRAY);
-				p1HealthLabel.setColor(Color.GRAY);
-				marker.setPos(GamePanel.WIDTH-64,
-					marker.getPos().y);
-			}
-			else
-			{
-				activePlayer = player1;
-				otherPlayer = player2;
-				player2Stats.setColor(Color.GRAY);
-				p2HealthLabel.setColor(Color.GRAY);
-				player1Stats.setColor(Color.WHITE);
-				p1HealthLabel.setColor(Color.WHITE);
-				marker.setPos(64,
-					marker.getPos().y);
-			}
-			marker.setPos(activePlayer.getPos().x,
-				activePlayer.getPos().y - 75);
-			activePlayer.reload();
+		if (practiceMode)  return;
 		
+		if (activePlayer == player1)
+		{
+			activePlayer = player2;
+			otherPlayer = player1;
+			player2Stats.setColor(Color.WHITE);
+			p2HealthLabel.setColor(Color.WHITE);
+			player1Stats.setColor(Color.GRAY);
+			p1HealthLabel.setColor(Color.GRAY);
+			marker.setPos(GamePanel.WIDTH-64,
+				marker.getPos().y);
 		}
+		else
+		{
+			activePlayer = player1;
+			otherPlayer = player2;
+			player2Stats.setColor(Color.GRAY);
+			p2HealthLabel.setColor(Color.GRAY);
+			player1Stats.setColor(Color.WHITE);
+			p1HealthLabel.setColor(Color.WHITE);
+			marker.setPos(64,
+				marker.getPos().y);
+		}
+		marker.setPos(activePlayer.getPos().x,
+			activePlayer.getPos().y - 75);
+		activePlayer.reload();
+		
+		aim(lastMousePoint);
 	}
 	
 	/**
