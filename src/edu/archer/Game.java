@@ -101,25 +101,45 @@ public class Game implements Drawable
 		double MOON_GRAVITY = 1.64;
 		if (settings.getGravity() == MOON_GRAVITY)
 		{
-			backdrop = new Sprite(
-				"/backdrops/SecretMoonBackdrop.jpg", 0, 0);
-		}
-		else
-		{
-			backdrop = new Sprite(settings.getBackground(),
-				0, 0);
-		}
+                    backdrop = new Sprite(
+                        "/backdrops/SecretMoonBackdrop.jpg", 0, 0);
+                    player1 = new Player(false, 64, GamePanel.HEIGHT-150,
+			p1Name, 9, weapon1);
+                    platform1 = new Sprite("/platform.png", 0,GamePanel.HEIGHT-150);
 		
-		// Load players and their platforms
-		// TODO: get rid of all of these magic numbers
-		player1 = new Player(false, 64, GamePanel.HEIGHT-150,
+                    player2 = new Player(true, GamePanel.WIDTH-64,
+			GamePanel.HEIGHT-150, p2Name, 9, weapon2);
+                    platform2 = new Sprite("/platform.png", GamePanel.WIDTH-64-64,
+			GamePanel.HEIGHT-150);              
+		}
+                else if (p1Avatar == 5 && p2Avatar == 5)
+                {
+                    backdrop = new Sprite(settings.getBackground(),
+                        0, 0);
+                        
+                    player1 = new Player(false, 64, GamePanel.HEIGHT-150,
 			p1Name, p1Avatar, weapon1);
-		platform1 = new Sprite("/platform.png", 0,GamePanel.HEIGHT-150);
+                    platform1 = new Sprite("/platform.png", 0,GamePanel.HEIGHT-150);
 		
-		player2 = new Player(true, GamePanel.WIDTH-64,
+                    player2 = new Player(true, GamePanel.WIDTH-64,
 			GamePanel.HEIGHT-150, p2Name, p2Avatar, weapon2);
-		platform2 = new Sprite("/platform.png", GamePanel.WIDTH-64-64,
-			GamePanel.HEIGHT-150);
+                    platform2 = new Sprite("/platform.png", GamePanel.WIDTH-64-64,
+			GamePanel.HEIGHT-150);      
+                }
+                else 
+                {
+                    backdrop = new Sprite(settings.getBackground(),
+                        0, 0);
+                        
+                    player1 = new Player(false, 64, GamePanel.HEIGHT-150,
+			p1Name, p1Avatar, weapon1);
+                    platform1 = new Sprite("/platform.png", 0,GamePanel.HEIGHT-150);
+		
+                    player2 = new Player(true, GamePanel.WIDTH-64,
+			GamePanel.HEIGHT-150, p2Name, p2Avatar, weapon2);
+                    platform2 = new Sprite("/platform.png", GamePanel.WIDTH-64-64,
+			GamePanel.HEIGHT-150);                        
+                }
 		
 		// Create the bottom panel
 		infoPanel = new Rectangle(0, GamePanel.HEIGHT-75,
