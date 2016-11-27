@@ -53,8 +53,10 @@ public class Player extends Sprite
 	/** Maximum number of hitpoints. */
 	private final int maxHealth;
 	
+	/** The player’s selected weapon. */
 	private Projectile.Type weapon;
 	
+	/** Index of the player’s avatar. */
 	private int avatar;
 	
 	/**
@@ -278,10 +280,22 @@ public class Player extends Sprite
 			"    Angle: " + a + "°";
 	}
 	
+	/**
+	 * Gets the name entered by the user.
+	 * @return Player’s name; may be empty.
+	 */
 	public String getName() { return name; }
 	
+	/**
+	 * Gets the index of the player’s avatar.
+	 * @return Avatar index
+	 */
 	public int getAvatar() { return avatar; }
 	
+	/**
+	 * Gets the player’s weapon.
+	 * @return Which weapon the player selected.
+	 */
 	public Projectile.Type getWeapon() { return weapon; }
 	
 	/**
@@ -311,6 +325,14 @@ public class Player extends Sprite
 	 */
 	public boolean hitCheck(Projectile a)
 	{
+		// We’re going to draw a line from the projectile’s last 
+		// position to its new position. We will then determine if the
+		// line intersects the player’s hitbox; this ensures that the 
+		// projectile cannot teleport right past the player. The
+		// intersection check is done using a portion of the Cohen-
+		// Sutherland line-clipping algorithm -- specifically, the
+		// outcodes part. (We’re not doing any actual clipping here.)
+		
 		Point p1 = a.getPrevTipPos();
 		Point p2 = a.getTipPos();
 		

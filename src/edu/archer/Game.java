@@ -107,95 +107,109 @@ public class Game implements Drawable
 		double MOON_GRAVITY = 1.64;
 		if (settings.getGravity() == MOON_GRAVITY)
 		{
-                    backdrop = new Sprite(
-                        "/backdrops/SecretMoonBackdrop.jpg", 0, 0);
-                    player1 = new Player(false, 64, GamePanel.HEIGHT-150,
-			p1Name, 9, weapon1);
-                    platform1 = new Sprite("/platform.png", 0,GamePanel.HEIGHT-150);
+			backdrop = new Sprite(
+				"/backdrops/SecretMoonBackdrop.jpg", 0, 0);
+			player1 = new Player(false, 64, GamePanel.HEIGHT-150,
+				p1Name, 9, weapon1);
+			platform1 = new Sprite("/platform.png", 0,
+				GamePanel.HEIGHT-150);
 		
-                    player2 = new Player(true, GamePanel.WIDTH-64,
-			GamePanel.HEIGHT-150, p2Name, 9, weapon2);
-                    platform2 = new Sprite("/platform.png", GamePanel.WIDTH-64-64,
-			GamePanel.HEIGHT-150);              
+			player2 = new Player(true, GamePanel.WIDTH-64,
+				GamePanel.HEIGHT-150, p2Name, 9, weapon2);
+			platform2 = new Sprite("/platform.png",
+				GamePanel.WIDTH-64-64,
+			GamePanel.HEIGHT-150);			  
 		}
-                else if (p1Avatar == 8 && p2Avatar == 8)
-                {
-                    backdrop = new Sprite("/backdrops/SecretColiseumBackdrop.jpg",
-                        0, 0);
-                        
-                    player1 = new Player(false, 64, GamePanel.HEIGHT-150,
-			p1Name, p1Avatar, weapon1);
-                    platform1 = new Sprite("/platform.png", 0,GamePanel.HEIGHT-150);
-		
-                    player2 = new Player(true, GamePanel.WIDTH-64,
-			GamePanel.HEIGHT-150, p2Name, p2Avatar, weapon2);
-                    platform2 = new Sprite("/platform.png", GamePanel.WIDTH-64-64,
-			GamePanel.HEIGHT-150);
-                }
-                else if ((p1Avatar == 4 && p2Avatar == 5) || (p1Avatar == 5 && p2Avatar == 4))
-                {
-                    backdrop = new Sprite("/backdrops/SecretMetropolisBackdrop.jpg",
-                        0, 0);
-                        
-                    if (p1Avatar ==4)
-                    {
-                        player1 = new Player(false, 64, GamePanel.HEIGHT-150,
-                            p1Name, p1Avatar, Projectile.Type.values()[4]);                        
-                    }
-                    else
-                    {
-                        player1 = new Player(false, 64, GamePanel.HEIGHT-150,
-                            p1Name, p1Avatar, weapon1);
-                    }
-                    platform1 = new Sprite("/platform.png", 0,GamePanel.HEIGHT-150);
-    
-                    if (p2Avatar ==4)
-                    {
-                        player2 = new Player(true,GamePanel.WIDTH-64,
-                            GamePanel.HEIGHT-150, p2Name, p2Avatar,
-                            Projectile.Type.values()[4]);
-                    }
-                    else
-                    {		
-                        player2 = new Player(true, GamePanel.WIDTH-64,
-                            GamePanel.HEIGHT-150, p2Name, p2Avatar, weapon2);
-                    }
-                    platform2 = new Sprite("/platform.png", GamePanel.WIDTH-64-64,
-                        GamePanel.HEIGHT-150);
-                    
-                }
-                else 
-                {
-                    backdrop = new Sprite(settings.getBackground(),
-                        0, 0);
-                        
-                    if (p1Avatar ==4)
-                    {
-                        player1 = new Player(false, 64, GamePanel.HEIGHT-150,
-                            p1Name, p1Avatar, Projectile.Type.values()[4]);                        
-                    }
-                    else
-                    {
-                        player1 = new Player(false, 64, GamePanel.HEIGHT-150,
-                            p1Name, p1Avatar, weapon1);
-                    }
-                    platform1 = new Sprite("/platform.png", 0,GamePanel.HEIGHT-150);
-    
-                    if (p2Avatar ==4)
-                    {
-                        player2 = new Player(true,GamePanel.WIDTH-64,
-                            GamePanel.HEIGHT-150, p2Name, p2Avatar,
-                            Projectile.Type.values()[4]);                        
-                    }
-                    else
-                    {		
-                        player2 = new Player(true, GamePanel.WIDTH-64,
-                            GamePanel.HEIGHT-150, p2Name, p2Avatar, weapon2);
-                    }
-                    platform2 = new Sprite("/platform.png", GamePanel.WIDTH-64-64,
-                        GamePanel.HEIGHT-150);
+		else if (p1Avatar == 8 && p2Avatar == 8)
+		{
+			backdrop = new Sprite(
+				"/backdrops/SecretColiseumBackdrop.jpg", 0, 0);
 
-                }
+			player1 = new Player(false, 64, GamePanel.HEIGHT-150,
+				p1Name, p1Avatar, weapon1);
+			platform1 = new Sprite("/platform.png", 0,
+					GamePanel.HEIGHT-150);
+
+			player2 = new Player(true, GamePanel.WIDTH-64,
+				GamePanel.HEIGHT-150, p2Name, p2Avatar, weapon2);
+			platform2 = new Sprite("/platform.png",
+				GamePanel.WIDTH-64-64,
+				GamePanel.HEIGHT-150);
+		}
+		else if ((p1Avatar == 4 && p2Avatar == 5) ||
+			(p1Avatar == 5 && p2Avatar == 4))
+		{
+			backdrop = new Sprite(
+				"/backdrops/SecretMetropolisBackdrop.jpg",0, 0);
+
+			if (p1Avatar == 4)
+			{
+				player1 = new Player(false, 64,
+					GamePanel.HEIGHT-150,
+					p1Name, p1Avatar,
+					Projectile.Type.BATTERANG);						
+			}
+			else
+			{
+				player1 = new Player(false, 64,
+					GamePanel.HEIGHT-150, p1Name, p1Avatar,
+					weapon1);
+			}
+			platform1 = new Sprite("/platform.png", 0,
+				GamePanel.HEIGHT-150);
+
+			if (p2Avatar == 4)
+			{
+				player2 = new Player(true,GamePanel.WIDTH-64,
+					GamePanel.HEIGHT-150, p2Name, p2Avatar,
+					Projectile.Type.BATTERANG);
+			}
+			else
+			{		
+				player2 = new Player(true, GamePanel.WIDTH-64,
+					GamePanel.HEIGHT-150, p2Name, p2Avatar,
+					weapon2);
+			}
+			platform2 = new Sprite("/platform.png",
+				GamePanel.WIDTH-64-64,
+				GamePanel.HEIGHT-150);
+
+		}
+		else 
+		{
+			backdrop = new Sprite(settings.getBackground(), 0, 0);
+
+			if (p1Avatar == 4)
+			{
+				player1 = new Player(false, 64,
+					GamePanel.HEIGHT-150, p1Name, p1Avatar, 
+					Projectile.Type.values()[4]);						
+			}
+			else
+			{
+				player1 = new Player(false, 64,
+					GamePanel.HEIGHT-150, p1Name, p1Avatar, 
+					weapon1);
+			}
+			platform1 = new Sprite("/platform.png", 0,
+				GamePanel.HEIGHT-150);
+
+			if (p2Avatar == 4)
+			{
+				player2 = new Player(true,GamePanel.WIDTH-64,
+					GamePanel.HEIGHT-150, p2Name, p2Avatar,
+					Projectile.Type.values()[4]);
+			}
+			else
+			{		
+				player2 = new Player(true, GamePanel.WIDTH-64,
+					GamePanel.HEIGHT-150, p2Name, p2Avatar,
+					weapon2);
+			}
+			platform2 = new Sprite("/platform.png",
+				GamePanel.WIDTH-64-64, GamePanel.HEIGHT-150);
+
+		}
 		
 		// Create the bottom panel
 		infoPanel = new Rectangle(0, GamePanel.HEIGHT-75,

@@ -1,4 +1,5 @@
 // PROJECT: Archer -- a game developed for CS 321
+
 package edu.archer;
 
 import java.awt.Color;
@@ -61,6 +62,8 @@ public class Line implements Drawable
 		
 		g.drawLine(p1.x, p1.y, p2.x, p2.y);
 		
+		// Draw additional lines right next to the first, to make the
+		// line thicker (if width > 1):
 		for (int ii = -(int)floor(width/2); ii <= ceil(width/2); ++ii)
 		{
 			g.drawLine(p1.x+ii, p1.y, p2.x+ii, p2.y);

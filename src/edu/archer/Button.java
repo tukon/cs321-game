@@ -1,4 +1,5 @@
 // PROJECT: Archer -- a game developed for CS 321
+
 package edu.archer;
 
 import java.awt.Color;
@@ -40,6 +41,7 @@ public class Button implements Drawable
 	/** Reacts when the button is clicked. */
 	private ButtonListener handler;
 	
+	// Colors for the different states:
 	private static final Color OUTLINE = new Color(0xA0A0A0);
 	private static final Color FILL = new Color(0xC5C5C5);
 	private static final Color TEXT = Color.BLACK;

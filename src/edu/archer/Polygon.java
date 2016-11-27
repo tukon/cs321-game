@@ -1,4 +1,5 @@
 // PROJECT: Archer -- a game developed for CS 321
+
 package edu.archer;
 
 import java.awt.Color;
@@ -25,9 +26,16 @@ public class Polygon implements Drawable
 	 */
 	private ArrayList<Integer> actualXs, actualYs;
 	
+	/** Outline color. */
 	private Color outline;
+	
+	/** Fill color. */
 	private Color fill;
+	
+	/** Whether or not the outline should be drawn. */
 	private boolean drawOutline;
+	
+	/** Whether or not the shape should be filled in. */
 	private boolean drawFill;
 	
 	/**

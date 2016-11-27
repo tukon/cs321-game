@@ -1,12 +1,14 @@
 // PROJECT: Archer -- a game developed for CS 321
+
 package edu.archer;
 
 /**
- *
+ * The “new game” window.
  * @author jonsh_000
  */
-public class NewGame2 extends javax.swing.JFrame {
+public class NewGame extends javax.swing.JFrame {
 
+    /** Reference to the main game object. */
     private Archer game;
     
     /** Reference to the settings menu. */
@@ -15,7 +17,7 @@ public class NewGame2 extends javax.swing.JFrame {
     /**
      * Creates new form NewGame2
      */
-    public NewGame2(Archer game) 
+    public NewGame(Archer game) 
     {
         initComponents();
         this.game = game;
@@ -231,41 +233,6 @@ public class NewGame2 extends javax.swing.JFrame {
         settings.setP2Weapon(temp);
     }//GEN-LAST:event_P2WeaponActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewGame2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewGame2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewGame2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewGame2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new NewGame2().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DuelButton;
     private javax.swing.JComboBox<String> P1Character;
@@ -282,3 +249,4 @@ public class NewGame2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 }
+// EOF

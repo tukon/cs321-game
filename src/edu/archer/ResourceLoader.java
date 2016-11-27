@@ -1,4 +1,5 @@
 // PROJECT: Archer -- a game developed for CS 321
+
 package edu.archer;
 
 import java.awt.image.BufferedImage;

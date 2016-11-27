@@ -82,7 +82,7 @@ public class MainMenu implements ButtonListener, Drawable
 		switch (id)
 		{
 		case BTN_START_ID:
-			new NewGame2(game).setVisible(true);
+			new NewGame(game).setVisible(true);
 			break;
 		case BTN_SETTINGS_ID:
 			new SettingsFrame().setVisible(true);

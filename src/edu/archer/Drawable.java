@@ -1,8 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// PROJECT: Archer -- a game developed for CS 321
+
 package edu.archer;
 
 import java.awt.Graphics;
@@ -20,3 +17,4 @@ public interface Drawable
 	 */
 	public void draw(Graphics g);
 }
+// EOF

@@ -13,17 +13,25 @@ import java.awt.Point;
  */
 public class TextLabel implements Drawable
 {
+	/** The text to be displayed. Each array item is one line. */
 	private String[] text;
+	
+	/** Position the text should start at. */
 	private Point pos;
+	
+	/** Color of the text. */
 	private Color color;
 	
 	/** Relative line spacing, e.g. `2.0f` for double spacing. */
 	private float lineSpacing;
 	
+	/** Size of the text, in points. */
 	private int size;
 	
+	/** Style of the text. */
 	private int style;
 	
+	/** If true, text will be horizontally centered. */
 	private boolean center;
 	
 	/**
@@ -67,13 +75,26 @@ public class TextLabel implements Drawable
 	 */
 	public void setPos(Point pos) { this.pos = pos; }
 	
+	/**
+	 * Sets the text’s size.
+	 * @param s Size in points.
+	 */
 	public void setSize(int s)
 	{
 		size = s;
 	}
 	
+	/**
+	 * Sets the style of the text.
+	 * @param s Font style bitmask
+	 * @see java.awt.Font
+	 */
 	public void setStyle(int s) { style = s; }
 	
+	/**
+	 * Sets whether or not the text should be centered horizontally.
+	 * @param center True to center; false to left-align.
+	 */
 	public void setCenter(boolean center) { this.center = center; }
 	
 	/**

@@ -1,18 +1,9 @@
 // PROJECT: Archer -- a game developed for CS 321
+
 package edu.archer;
 
-import java.awt.FlowLayout;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.util.HashSet;
-import java.util.Set;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-
 /**
- *
+ * The settings window.
  * @author blasek0
  */
 public class SettingsFrame extends javax.swing.JFrame {
@@ -292,3 +283,4 @@ public class SettingsFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox TraceShotCheckbox;
     // End of variables declaration//GEN-END:variables
 }
+// EOF
