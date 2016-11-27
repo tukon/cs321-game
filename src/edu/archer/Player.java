@@ -315,9 +315,12 @@ public class Player extends Sprite
 		Point p2 = a.getTipPos();
 		
 		// Find the sides of the player’s bounding box.
-		int minX = pos.x - img.getWidth(null) / 2;
-		int maxX = pos.x + img.getWidth(null) / 2;
-		int minY = pos.y - img.getHeight(null);
+		final int WIDTH = 32;
+		final int HEIGHT = 64;
+		
+		int minX = pos.x - WIDTH/2;
+		int maxX = pos.x + WIDTH/2;
+		int minY = pos.y - HEIGHT;
 		int maxY = pos.y;
 		
 		// Outcodes for both points

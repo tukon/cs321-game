@@ -50,7 +50,7 @@ public class PracticeMenu extends javax.swing.JFrame {
                 jLabel2.setText("P1 Character:");
 
                 P1Character.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-                P1Character.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Stick Guy", "Hat Guy" }));
+                P1Character.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Stick Guy", "Hat Guy", "Cowboy", "Batman" }));
                 P1Character.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 P1CharacterActionPerformed(evt);
@@ -61,7 +61,7 @@ public class PracticeMenu extends javax.swing.JFrame {
                 jLabel3.setText("P1 Weapon:");
 
                 P1Weapon.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-                P1Weapon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bow", "Rock", "Laser", "Trident" }));
+                P1Weapon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bow", "Rock", "Laser", "Trident", "Batterang" }));
                 P1Weapon.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 P1WeaponActionPerformed(evt);
