@@ -46,30 +46,30 @@ public class SettingsMenu {
         switch (temp) {
             case 0:
                s_P1Character = "player" + (temp+1) + ".png";
-                System.out.println(s_SettingsBackgroundName);
+                //System.out.println(s_P1Character);
                 break;
             case 1:
                 s_P1Character = "player" + (temp+1) + ".png";
-                System.out.println(s_SettingsBackgroundName);
+                //System.out.println(s_P1Character);
                 break;
             case 2:
                 s_P1Character = "player" + (temp+1) + ".png";
-                System.out.println(s_SettingsBackgroundName);
+                //System.out.println(s_P1Character);
                 break;
             case 3:
                 s_P1Character = "player" + (temp+1) + ".png";
-                System.out.println(s_SettingsBackgroundName);
+                //System.out.println(s_P1Character);
                 break;
             case 4:
                 s_P1Character = "player" + (temp+1) + ".png";
-                System.out.println(s_SettingsBackgroundName);
+                //System.out.println(s_P1Character);
                 break;
             case 5:
                 s_P1Character = "player" + (temp+1) + ".png";
-                System.out.println(s_SettingsBackgroundName);
+                //System.out.println(s_P1Character);
                 break; 
             default:
-                s_P1Character = "player.png";
+                s_P1Character = "player1.png";
                 System.out.println("Error");
        
         }     
@@ -87,33 +87,33 @@ public class SettingsMenu {
         switch (temp) {
             case 0:
                s_P1Character = "weapon" + (temp+1) + ".png";
-                System.out.println(s_SettingsBackgroundName);
+                //System.out.println(s_P1Character);
                 break;
             case 1:
                 s_P1Character = "weapon" + (temp+1) + ".png";
-                System.out.println(s_SettingsBackgroundName);
+                //System.out.println(s_P1Character);
                 break;
             case 2:
                 s_P1Character = "weapon" + (temp+1) + ".png";
-                System.out.println(s_SettingsBackgroundName);
+                //System.out.println(s_P1Character);
                 break;
             case 3:
                 s_P1Character = "weapon" + (temp+1) + ".png";
-                System.out.println(s_SettingsBackgroundName);
+                //System.out.println(s_P1Character);
                 break;
             case 4:
                 s_P1Character = "weapon" + (temp+1) + ".png";
-                System.out.println(s_SettingsBackgroundName);
+                //System.out.println(s_P1Character);
                 break;
             case 5:
                 s_P1Character = "weapon" + (temp+1) + ".png";
-                System.out.println(s_SettingsBackgroundName);
+                //System.out.println(s_P1Character);
                 break; 
             default:
                 s_P1Character = "weapon.png";
                 System.out.println("Error");
        
-        }     
+        }
         return true;
     }
     
@@ -193,7 +193,7 @@ public class SettingsMenu {
                 s_P2Character = "weapon.png";
                 System.out.println("Error");
        
-        }     
+        }
         return true;
     }
     
@@ -312,13 +312,13 @@ public class SettingsMenu {
                 //System.out.println(b_SettingsTraceShot + " " + b_SettingsTraceShotTemp);
             }
             in.close();
-        } catch (FileNotFoundException ex) { //Catches FileNotFoundException, reverts settings to initial values
+        } catch (FileNotFoundException ex) { //Catches FileNotFoundException, reverts settings to default values
             Logger.getLogger(SettingsMenu.class.getName()).log(Level.SEVERE, null, ex);
             return revertToDefaultSettings();
-        } catch (IOException ex) { //Catches parsing errors, reverts settings to initial values
+        } catch (IOException ex) { //Catches parsing errors, reverts settings to default values
             Logger.getLogger(SettingsMenu.class.getName()).log(Level.SEVERE, null, ex);
             return revertToDefaultSettings();
-        } catch (StringIndexOutOfBoundsException ex) { //Catches formatting errors in Settings.txt, reverts settings to initial values, calls GetInitialValues again
+        } catch (StringIndexOutOfBoundsException ex) { //Catches formatting errors in Settings.txt, reverts settings to default values
             Logger.getLogger(SettingsMenu.class.getName()).log(Level.SEVERE, null, ex);
             return revertToDefaultSettings();
         }
@@ -345,22 +345,22 @@ public class SettingsMenu {
             out.println("Trace Shot: " + b_SettingsTraceShot);
             //System.out.println("Trace Shot: " + b_SettingsTraceShot);
             out.close();
-        } catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException ex) { //If error in saving, attempts to revert to default settings
             Logger.getLogger(SettingsMenu.class.getName()).log(Level.SEVERE, null, ex);
             return revertToDefaultSettings();
         }
         return true;
     }
     public static SettingsMenu GetSettings()
-    {
+    { //Returns current SettingsMenu instance
         if (Settings == null)
-        {
+        { //If an instance of SettingsMenu does not exist, creates a new one
             Settings = new SettingsMenu();
         }
         return Settings;
     }
     private SettingsMenu()
-    {
+    { //Private constructor defined to prevent multiple instances from being opened
         File file = new File("Settings.txt");
         ReadOnly = !file.canWrite();
         GetInitialSettings();
