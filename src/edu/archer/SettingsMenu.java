@@ -172,7 +172,11 @@ public class SettingsMenu {
 			Logger.getLogger(SettingsMenu.class.getName()).log(
 				Level.SEVERE, null, ex);
 			return revertToDefaultSettings();
-		}
+		} catch (NumberFormatException ex) { //Other parsing errors
+			Logger.getLogger(SettingsMenu.class.getName()).log(
+				Level.SEVERE, null, ex);
+			return revertToDefaultSettings();
+                }
 		return true;
 	}
 	public boolean revertToDefaultSettings()
@@ -183,7 +187,7 @@ public class SettingsMenu {
 		s_SettingsBackgroundNameTemp = "/backdrops/1.png";
 		System.out.println("ReadOnly = " + ReadOnly);
                 File file = new File("Settings.txt");
-		if (ReadOnly == true)
+		if (ReadOnly == false)
 		{
 			System.out.println("File is set to ReadOnly");
 			file.delete();
@@ -225,10 +229,9 @@ public class SettingsMenu {
 	}
 	private SettingsMenu()
 	{
-		//Private constructor to prevent multiple instances from being created
+		GetInitialSettings();
 		File file = new File("Settings.txt");
 		ReadOnly = !file.canWrite();
-		GetInitialSettings();
 	}
 }
 // EOF

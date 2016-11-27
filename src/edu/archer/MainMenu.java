@@ -73,19 +73,42 @@ public class MainMenu implements ButtonListener, Drawable
 	}
 	
 	/**
+	 * Re-enables the “new game”/“practice”/“settings” buttons. This is
+	 * (indirectly) called by the windows after they close.
+	 */
+	public void enableButtons()
+	{
+		startBtn.setEnabled(true);
+		practiceBtn.setEnabled(true);
+		settingsBtn.setEnabled(true);
+	}
+	
+	/** 
+	 * Disable the “new game”/“practice”/“settings” buttons. This is done
+	 * whenever a window is opened.
+	 */
+	public void disableButtons()
+	{
+		startBtn.setEnabled(false);
+		practiceBtn.setEnabled(false);
+		settingsBtn.setEnabled(false);
+	}
+	
+	/**
 	 * Handles to “new game”/“practice”/“settings” button presses.
 	 * @param id Which button was clicked.
 	 */
 	@Override
 	public void clicked(int id)
 	{
+		disableButtons();
 		switch (id)
 		{
 		case BTN_START_ID:
 			new NewGame(game).setVisible(true);
 			break;
 		case BTN_SETTINGS_ID:
-			new SettingsFrame().setVisible(true);
+			new SettingsFrame(game).setVisible(true);
 			break;
 		case BTN_PRACTICE_ID:
 			new PracticeMenu(game).setVisible(true);
