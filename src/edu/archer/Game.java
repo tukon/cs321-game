@@ -120,7 +120,7 @@ public class Game implements Drawable
 		}
                 else if (p1Avatar == 8 && p2Avatar == 8)
                 {
-                    backdrop = new Sprite("/backdrops/8.jpg",
+                    backdrop = new Sprite("/backdrops/SecretColiseumBackdrop.jpg",
                         0, 0);
                         
                     player1 = new Player(false, 64, GamePanel.HEIGHT-150,
@@ -134,7 +134,7 @@ public class Game implements Drawable
                 }
                 else if ((p1Avatar == 4 && p2Avatar == 5) || (p1Avatar == 5 && p2Avatar == 4))
                 {
-                    backdrop = new Sprite("/backdrops/7.jpg",
+                    backdrop = new Sprite("/backdrops/SecretMetropolisBackdrop.jpg",
                         0, 0);
                         
                     if (p1Avatar ==4)
