@@ -181,6 +181,15 @@ public class Archer implements ActionListener, MouseListener,
 	}
 	
 	/**
+	 * Re-enable the main menu buttons. This is called by the windows after
+	 * they close.
+	 */
+	public void enableMenuButtons()
+	{
+		menu.enableButtons();
+	}
+	
+	/**
 	 * The main update method; called 60 times per second by a timer. This
 	 * is what refreshes the window and updates the positions of the arrows.
 	 * @param e Not used.
