@@ -135,18 +135,10 @@ public class PracticeMenu extends javax.swing.JFrame {
 
     private void P1CharacterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P1CharacterActionPerformed
         // TODO add your handling code here:
-
-        //get the character for P1 that the user had selected at the time
-        int temp = P1Character.getSelectedIndex();
-        settings.setP1Character(temp);
     }//GEN-LAST:event_P1CharacterActionPerformed
 
     private void P1WeaponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P1WeaponActionPerformed
         // TODO add your handling code here:
-
-        //get the weapon for P2 that the user had selected at the time
-        int temp = P1Weapon.getSelectedIndex();
-        settings.setP1Weapon(temp);
     }//GEN-LAST:event_P1WeaponActionPerformed
 
     private void PracticeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PracticeButtonActionPerformed
