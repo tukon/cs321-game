@@ -214,9 +214,9 @@ public class SettingsMenu {
 	}
 	private SettingsMenu()
 	{
+		GetInitialSettings();
 		File file = new File("Settings.txt");
 		ReadOnly = !file.canWrite();
-		GetInitialSettings();
 	}
 }
 // EOF
