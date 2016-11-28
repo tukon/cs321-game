@@ -533,8 +533,12 @@ public class Player extends Sprite
 		g.drawImage(img, pos.x - img.getWidth(null)/2,
 			pos.y - img.getHeight(null), null);
 		
-		g.drawImage(imgTransformed, ARMS_POS_X, ARMS_POS_Y, 
-			null);
+		// Don’t draw dead Superman’s weapon
+		if (avatar != 5 || state != State.DEAD)
+		{
+			g.drawImage(imgTransformed, ARMS_POS_X, ARMS_POS_Y, 
+				null);
+		}
 		
 		// Draw all of this player’s arrows
 		arrows.forEach(arrow -> arrow.draw(g));
