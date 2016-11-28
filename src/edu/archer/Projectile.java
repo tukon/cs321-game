@@ -146,8 +146,7 @@ public class Projectile extends Sprite
 			System.out.println("FIXME:unrecognized projectile type");
 		}
 		
-		img = ResourceLoader.loadImage(name +
-			(mirror ? "_enemy.png" : "_player.png"));
+		img = ResourceLoader.loadImage(name + ".png");
 		imgTransformed = img;
 		this.vel = vel * velMod;
 		this.mirror = mirror;
