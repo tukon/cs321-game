@@ -120,6 +120,7 @@ public class Archer implements ActionListener, MouseListener,
 		panel.remove(game);
 		panel.remove(gameOver);
 		panel.add(menu);
+		enableMenuButtons();
 	}
 	
 	/**
