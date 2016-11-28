@@ -132,9 +132,9 @@ public class Player extends Sprite
 				"/weapons/Superman_ready.png");
 			armsRelaxed = ResourceLoader.loadImage(
 				"/weapons/Superman.png");
-                
+			break;
 		default:
-			System.err.println("FIXME: no arms set for weapon ID" +
+			System.err.println("FIXME: no arms set for weapon ID " +
 				weapon);
 		}
                 if (avatar == 4)
