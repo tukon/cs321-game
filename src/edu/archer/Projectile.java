@@ -64,6 +64,7 @@ public class Projectile extends Sprite
 		LASER,
 		TRIDENT,
 		BATTERANG,
+                BOLT,
 	}
 	
 	/**
@@ -116,6 +117,13 @@ public class Projectile extends Sprite
 			tipOffset = new Point(0, 0);
 			velMod = 0.8;
 			gravMod = 0.6;
+			break;
+                case BOLT:
+			name += "bolt";
+			damage = 1;
+			tipOffset = new Point(20, 0);
+			velMod = 2.0;
+			gravMod = 0.0;
 			break;
 		default:
 			System.out.println("FIXME:unrecognized projectile type");

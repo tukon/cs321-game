@@ -115,6 +115,13 @@ public class Player extends Sprite
 			armsRelaxed = ResourceLoader.loadImage(
 				"/weapons/thrown.png");
 			break;
+                case BOLT:                                                      //A new projectile
+			armsReady = ResourceLoader.loadImage(
+				"/weapons/blaster.png");
+			armsRelaxed = ResourceLoader.loadImage(
+				"/weapons/blaster _fired.png");
+			break;
+                
 		default:
 			System.err.println("FIXME: no arms set for weapon ID" +
 				weapon);
@@ -126,7 +133,13 @@ public class Player extends Sprite
                     armsRelaxed = ResourceLoader.loadImage(
                             "/weapons/thrown.png");
                 }
-		
+		if (avatar==6)
+                {
+                    armsReady = ResourceLoader.loadImage(
+                            "/weapons/blaster.png");
+                    armsRelaxed = ResourceLoader.loadImage(
+                            "/weapons/blaster _fired.png");
+                }
 		arrows = new ArrayList<>();
 		
 		if (flip)
