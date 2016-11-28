@@ -90,7 +90,7 @@ public class NewGame extends javax.swing.JFrame {
         });
 
         P1Character.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        P1Character.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Stick Guy", "Hat Guy", "Cowboy", "Batman", "Superman", "Stormtrooper", "Luke", "Roman" }));
+        P1Character.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Stick Guy", "Hat Guy", "Cowboy", "Batman", "Superman", "Stormtrooper", "Luke Skywalker", "Roman" }));
         P1Character.setToolTipText("");
         P1Character.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
