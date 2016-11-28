@@ -629,7 +629,7 @@ public class Game implements Drawable
 	 * Gets player 2’s accuracy.
 	 * @return A double between 0.0 (all misses) and 1.0 (all hits).
 	 */
-	public double getP2Accuracy() { return (double)p2Hits / p1Shots; }
+	public double getP2Accuracy() { return (double)p2Hits / p2Shots; }
 	
 	/**
 	 * Gets whether or not the game is in practice mode.
