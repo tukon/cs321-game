@@ -65,8 +65,9 @@ public class Projectile extends Sprite
 		TRIDENT,
 		BATTERANG,
                 BOLT,
-                SABOR,
+                SABER,
                 HEATRAY,
+                TEXTBOOK
 	}
 	
 	/**
@@ -127,8 +128,8 @@ public class Projectile extends Sprite
 			velMod = 2.0;
 			gravMod = 0.0;
 			break;
-                case SABOR:
-			name += "light_sabor";
+                case SABER:
+			name += "light_saber";
 			damage = 4;
 			tipOffset = new Point(41, 0);
 			velMod = 0.8;
@@ -140,6 +141,13 @@ public class Projectile extends Sprite
                         tipOffset = new Point(0, 0);
 			velMod = 2;
 			gravMod = 0;
+			break;
+                case TEXTBOOK:
+                        name+="book";
+			damage = 40;
+			tipOffset = new Point(0, 0);
+			velMod = 0.7;
+			gravMod = 1.0;
 			break;
                         
 		default:
