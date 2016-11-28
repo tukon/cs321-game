@@ -158,6 +158,15 @@ public class PracticeMenu extends javax.swing.JFrame {
 
     private void P1CharacterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P1CharacterActionPerformed
         // TODO add your handling code here:
+        if(P1Character.getSelectedIndex()==5 ||P1Character.getSelectedIndex()==3 )//this disables the weapon select if a avatar has a preset weapon
+        {
+            //System.out.println("cool");
+            P1Weapon.setEnabled(false);
+        }
+        else
+        {
+            P1Weapon.setEnabled(true);
+        }
     }//GEN-LAST:event_P1CharacterActionPerformed
 
     private void P1WeaponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P1WeaponActionPerformed
