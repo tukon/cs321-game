@@ -121,11 +121,11 @@ public class Player extends Sprite
 			armsRelaxed = ResourceLoader.loadImage(
 				"/weapons/blaster _fired.png");
 			break;
-                case SABOR:                                                      //A new projectile
+                case SABER:                                                      //A new projectile
 			armsReady = ResourceLoader.loadImage(
-				"/weapons/sabor.png");
+				"/weapons/saber.png");
 			armsRelaxed = ResourceLoader.loadImage(
-				"/weapons/sabor_thrown.png");
+				"/weapons/saber_thrown.png");
 			break;
                 case HEATRAY:
                         armsReady = ResourceLoader.loadImage(
@@ -154,9 +154,9 @@ public class Player extends Sprite
                 if (avatar==7)
                 {
                     armsReady = ResourceLoader.loadImage(
-                            "/weapons/sabor.png");
+                            "/weapons/saber.png");
                     armsRelaxed = ResourceLoader.loadImage(
-                            "/weapons/sabor.png");
+                            "/weapons/saber.png");
                 }
                 if (avatar==5)
                 {
@@ -188,7 +188,7 @@ public class Player extends Sprite
 	/**
 	 * Mirrors the given image. TODO: move to Sprite?
 	 * @param image The image to mirror.
-	 * @return The mirroed image.
+	 * @return The mirrored image.
 	 */
 	private BufferedImage flipImg(BufferedImage image)
 	{

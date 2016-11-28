@@ -118,7 +118,37 @@ public class Game implements Drawable
 				GamePanel.HEIGHT-150, p2Name, 9, weapon2);
 			platform2 = new Sprite("/platform.png",
 				GamePanel.WIDTH-64-64,
-			GamePanel.HEIGHT-150);			  
+			GamePanel.HEIGHT-150);
+		}
+		if (("ROCHOWIAK".equals(p1Name.toUpperCase())) || ("ROCHOWIAK".equals(p2Name.toUpperCase())))
+		{
+			backdrop = new Sprite(
+				"/backdrops/SecretClassroomBackdrop.png", 0, 0);
+			if ("ROCHOWIAK".equals(p1Name.toUpperCase()))
+			{
+				player1 = new Player(false, 64, GamePanel.HEIGHT-150,
+					p1Name, 10, Projectile.Type.TEXTBOOK);
+			}
+                        else
+			{
+				player1 = new Player(false, 64, GamePanel.HEIGHT-150,
+					p1Name, p1Avatar, weapon1);
+			}
+			platform1 = new Sprite("/platform.png", 0,
+				GamePanel.HEIGHT-150);
+			if ("ROCHOWIAK".equals(p2Name.toUpperCase()))
+			{
+				player2 = new Player(true, GamePanel.WIDTH-64,
+					GamePanel.HEIGHT-150, p2Name, 10, Projectile.Type.TEXTBOOK);
+			}
+                        else
+			{
+				player2 = new Player(true, GamePanel.WIDTH-64,
+					GamePanel.HEIGHT-150, p2Name, p2Avatar, weapon2);
+			}
+			platform2 = new Sprite("/platform.png",
+				GamePanel.WIDTH-64-64,
+			GamePanel.HEIGHT-150);
 		}
 		else if (p1Avatar == 8 && p2Avatar == 8)
 		{
@@ -197,7 +227,7 @@ public class Game implements Drawable
                             player1 = new Player(false, 64,
                                     GamePanel.HEIGHT-150,
                                     p1Name, p1Avatar,
-                                    Projectile.Type.SABOR);
+                                    Projectile.Type.SABER);
                             break;
                         case 6:
                             player1 = new Player(false, 64,
@@ -218,7 +248,7 @@ public class Game implements Drawable
                         case 7:
                             player2 = new Player(true,GamePanel.WIDTH-64,
                                     GamePanel.HEIGHT-150, p2Name, p2Avatar,
-                                    Projectile.Type.SABOR);
+                                    Projectile.Type.SABER);
                             break;
                         case 6:
                             player2 = new Player(true,GamePanel.WIDTH-64,
