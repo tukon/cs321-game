@@ -65,6 +65,8 @@ public class Projectile extends Sprite
 		TRIDENT,
 		BATTERANG,
                 BOLT,
+                SABOR,
+                HEATRAY,
 	}
 	
 	/**
@@ -115,8 +117,8 @@ public class Projectile extends Sprite
 			name += "batterang";
 			damage = 4;
 			tipOffset = new Point(0, 0);
-			velMod = 0.8;
-			gravMod = 0.6;
+			velMod = 2;
+			gravMod = 0;
 			break;
                 case BOLT:
 			name += "bolt";
@@ -125,6 +127,21 @@ public class Projectile extends Sprite
 			velMod = 2.0;
 			gravMod = 0.0;
 			break;
+                case SABOR:
+			name += "light_sabor";
+			damage = 4;
+			tipOffset = new Point(41, 0);
+			velMod = 0.8;
+			gravMod = 0.9;
+			break;
+                case HEATRAY:
+                        name+="heat_ray";
+                        damage =3;
+                        tipOffset = new Point(0, 0);
+			velMod = 2;
+			gravMod = 0;
+			break;
+                        
 		default:
 			System.out.println("FIXME:unrecognized projectile type");
 		}

@@ -227,7 +227,8 @@ public class NewGame extends javax.swing.JFrame {
     private void P1CharacterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P1CharacterActionPerformed
         // TODO add your handling code here:
         //System.out.println(P1Character.getSelectedIndex());
-        if(P1Character.getSelectedIndex()==5 ||P1Character.getSelectedIndex()==3 )//this disables the weapon select if a avatar has a preset weapon
+        if(P1Character.getSelectedIndex()==5 ||P1Character.getSelectedIndex()==3 || 
+                P1Character.getSelectedIndex()==6||P1Character.getSelectedIndex()==4)//this disables the weapon select if a avatar has a preset weapon
         {
             //System.out.println("cool");
             P1Weapon.setEnabled(false);
@@ -244,7 +245,8 @@ public class NewGame extends javax.swing.JFrame {
 
     private void P2CharacterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P2CharacterActionPerformed
         // TODO add your handling code here:
-        if(P2Character.getSelectedIndex()==5 ||P2Character.getSelectedIndex()==3 )//this disables the weapon select if a avatar has a preset weapon
+        if(P2Character.getSelectedIndex()==5 ||P2Character.getSelectedIndex()==3 
+                || P2Character.getSelectedIndex()==6 ||P2Character.getSelectedIndex()==4)//this disables the weapon select if a avatar has a preset weapon
         {
             //System.out.println("cool");
             P2Weapon.setEnabled(false);

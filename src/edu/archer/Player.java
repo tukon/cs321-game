@@ -121,6 +121,17 @@ public class Player extends Sprite
 			armsRelaxed = ResourceLoader.loadImage(
 				"/weapons/blaster _fired.png");
 			break;
+                case SABOR:                                                      //A new projectile
+			armsReady = ResourceLoader.loadImage(
+				"/weapons/sabor.png");
+			armsRelaxed = ResourceLoader.loadImage(
+				"/weapons/sabor_thrown.png");
+			break;
+                case HEATRAY:
+                        armsReady = ResourceLoader.loadImage(
+				"/weapons/Superman_ready.png");
+			armsRelaxed = ResourceLoader.loadImage(
+				"/weapons/Superman.png");
                 
 		default:
 			System.err.println("FIXME: no arms set for weapon ID" +
@@ -139,6 +150,20 @@ public class Player extends Sprite
                             "/weapons/blaster.png");
                     armsRelaxed = ResourceLoader.loadImage(
                             "/weapons/blaster _fired.png");
+                }
+                if (avatar==7)
+                {
+                    armsReady = ResourceLoader.loadImage(
+                            "/weapons/sabor.png");
+                    armsRelaxed = ResourceLoader.loadImage(
+                            "/weapons/sabor.png");
+                }
+                if (avatar==5)
+                {
+                    armsReady = ResourceLoader.loadImage(
+                            "/weapons/Superman.png");
+                    armsRelaxed = ResourceLoader.loadImage(
+                            "/weapons/Superman.png");
                 }
 		arrows = new ArrayList<>();
 		

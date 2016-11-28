@@ -141,13 +141,63 @@ public class Game implements Drawable
 		{
 			backdrop = new Sprite(
 				"/backdrops/SecretMetropolisBackdrop.jpg",0, 0);
-
-                    switch (p1Avatar) {                                         //sets the projectile if the Avatar has a selected one.
+                           
+                    switch (p1Avatar) {                                         
                         case 4:
                             player1 = new Player(false, 64,
                                     GamePanel.HEIGHT-150,
                                     p1Name, p1Avatar,
                                     Projectile.Type.BATTERANG);
+                            break;
+                        case 5:
+                            player1 = new Player(false, 64,
+                                    GamePanel.HEIGHT-150,
+                                    p1Name, p1Avatar,
+                                    Projectile.Type.HEATRAY);
+                            break;
+                        default:
+                            player1 = new Player(false, 64,
+                                    GamePanel.HEIGHT-150, p1Name, p1Avatar,
+                                    weapon1);
+                            break;
+                    }
+			platform1 = new Sprite("/platform.png", 0,
+				GamePanel.HEIGHT-150);
+
+                    switch (p2Avatar) {                                         //sets the projectile if the Avatar has a selected one.
+                        case 4:
+                            player2 = new Player(true,GamePanel.WIDTH-64,
+                                    GamePanel.HEIGHT-150, p2Name, p2Avatar,
+                                    Projectile.Type.BATTERANG);
+                            break;
+                        case 5:
+                            player2 = new Player(true,GamePanel.WIDTH-64,
+                                    GamePanel.HEIGHT-150, p2Name, p2Avatar,
+                                    Projectile.Type.HEATRAY);
+                            break;
+                        default:
+                            player2 = new Player(true, GamePanel.WIDTH-64,
+                                    GamePanel.HEIGHT-150, p2Name, p2Avatar,
+                                    weapon2);
+                            break;
+                    }
+			platform2 = new Sprite("/platform.png",
+				GamePanel.WIDTH-64-64,
+				GamePanel.HEIGHT-150);
+
+		}
+                else if ((p1Avatar == 6 && p2Avatar == 7) ||
+			(p1Avatar == 7 && p2Avatar == 6))
+		{
+			backdrop = new Sprite(
+				"/backdrops/SecretStarWarsBackdrop.jpg",0, 0);
+                            
+                    switch (p1Avatar) {                                         
+                        case 7:
+                            player1 = new Player(false, 64,
+                                    GamePanel.HEIGHT-150,
+                                    p1Name, p1Avatar,
+                                    Projectile.Type.SABOR);
                             break;
                         case 6:
                             player1 = new Player(false, 64,
@@ -165,15 +215,14 @@ public class Game implements Drawable
 				GamePanel.HEIGHT-150);
 
                     switch (p2Avatar) {                                         //sets the projectile if the Avatar has a selected one.
-                        case 4:
+                        case 7:
                             player2 = new Player(true,GamePanel.WIDTH-64,
                                     GamePanel.HEIGHT-150, p2Name, p2Avatar,
-                                    Projectile.Type.BATTERANG);
+                                    Projectile.Type.SABOR);
                             break;
                         case 6:
-                            player1 = new Player(false, 64,
-                                    GamePanel.HEIGHT-150,
-                                    p1Name, p1Avatar,
+                            player2 = new Player(true,GamePanel.WIDTH-64,
+                                    GamePanel.HEIGHT-150, p2Name, p2Avatar,
                                     Projectile.Type.BOLT);
                             break;
                         default:
@@ -187,15 +236,23 @@ public class Game implements Drawable
 				GamePanel.HEIGHT-150);
 
 		}
+                
+                
 		else 
 		{
 			backdrop = new Sprite(settings.getBackground(), 0, 0);
-
+                        
 			if (p1Avatar == 4)
 			{
 				player1 = new Player(false, 64,
 					GamePanel.HEIGHT-150, p1Name, p1Avatar, 
 					Projectile.Type.values()[4]);						
+			}
+                         else if (p1Avatar == 5)                                 //if stormtrooper is selected set the weapon
+			{
+				player1 = new Player(false,64,
+					GamePanel.HEIGHT-150, p1Name, p1Avatar,
+					Projectile.Type.HEATRAY);
 			}
                         else if (p1Avatar == 6)                                 //if stormtrooper is selected set the weapon
 			{
@@ -203,6 +260,12 @@ public class Game implements Drawable
 					GamePanel.HEIGHT-150, p1Name, p1Avatar,
 					Projectile.Type.values()[5]);
 			}
+                        else if(p1Avatar==7)
+                        {
+                            player1 = new Player(false,64,
+					GamePanel.HEIGHT-150, p1Name, p1Avatar,
+					Projectile.Type.values()[6]);
+                        }
 			else
 			{
 				player1 = new Player(false, 64,
@@ -212,19 +275,31 @@ public class Game implements Drawable
 			platform1 = new Sprite("/platform.png", 0,
 				GamePanel.HEIGHT-150);
                         
-
 			if (p2Avatar == 4)
 			{
 				player2 = new Player(true,GamePanel.WIDTH-64,
 					GamePanel.HEIGHT-150, p2Name, p2Avatar,
 					Projectile.Type.values()[4]);
 			}
+                        else if (p2Avatar == 5)                                 //if stormtrooper is selected set the weapon
+			{
+				player2 = new Player(true,GamePanel.WIDTH-64,
+					GamePanel.HEIGHT-150, p2Name, p2Avatar,
+					Projectile.Type.HEATRAY);
+			}
+                        
                         else if (p2Avatar == 6)                                 //if stormtrooper is selected set the weapon
 			{
 				player2 = new Player(true,GamePanel.WIDTH-64,
 					GamePanel.HEIGHT-150, p2Name, p2Avatar,
 					Projectile.Type.values()[5]);
 			}
+                         else if(p2Avatar==7)
+                        {
+                            player2 = new Player(true,GamePanel.WIDTH-64,
+					GamePanel.HEIGHT-150, p2Name, p2Avatar,
+					Projectile.Type.values()[6]);
+                        }
 			else
 			{		
 				player2 = new Player(true, GamePanel.WIDTH-64,
