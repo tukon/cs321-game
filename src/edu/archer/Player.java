@@ -127,12 +127,19 @@ public class Player extends Sprite
 			armsRelaxed = ResourceLoader.loadImage(
 				"/weapons/saber_thrown.png");
 			break;
-                case HEATRAY:
-                        armsReady = ResourceLoader.loadImage(
+		case HEATRAY:
+			armsReady = ResourceLoader.loadImage(
 				"/weapons/Superman_ready.png");
 			armsRelaxed = ResourceLoader.loadImage(
 				"/weapons/Superman.png");
 			break;
+		case TEXTBOOK:
+			armsReady = ResourceLoader.loadImage(
+				"/weapons/book_ready.png");
+			armsRelaxed = ResourceLoader.loadImage(
+				"/weapons/thrown.png");
+			break;
+                        
 		default:
 			System.err.println("FIXME: no arms set for weapon ID " +
 				weapon);
