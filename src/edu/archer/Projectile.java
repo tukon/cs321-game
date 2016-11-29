@@ -95,7 +95,7 @@ public class Projectile extends Sprite
 			break;
 		case ROCK:
 			name += "rock";
-			damage = 40;
+			damage = 7;
 			tipOffset = new Point(0, 0);
 			velMod = 0.7;
 			gravMod = 1.0;
@@ -110,7 +110,7 @@ public class Projectile extends Sprite
 		case TRIDENT:
 			name += "trident";
 			damage = 4;
-			tipOffset = new Point(41, 0);
+			tipOffset = new Point(21, 0);
 			velMod = 0.8;
 			gravMod = 0.9;
 			break;
@@ -124,30 +124,30 @@ public class Projectile extends Sprite
                 case BOLT:
 			name += "bolt";
 			damage = 1;
-			tipOffset = new Point(20, 0);
+			tipOffset = new Point(14, 0);
 			velMod = 2.0;
 			gravMod = 0.0;
 			break;
                 case SABER:
 			name += "light_saber";
-			damage = 4;
-			tipOffset = new Point(41, 0);
-			velMod = 0.8;
+			damage = 5;
+			tipOffset = new Point(21, 0);
+			velMod = 0.83;
 			gravMod = 0.9;
 			break;
                 case HEATRAY:
                         name+="heat_ray";
-                        damage =3;
-                        tipOffset = new Point(0, 0);
-			velMod = 2;
-			gravMod = 0;
+                        damage = 3;
+                        tipOffset = new Point(14, 0);
+			velMod = 2.0;
+			gravMod = 0.0;
 			break;
                 case TEXTBOOK:
                         name+="book";
 			damage = 40;
 			tipOffset = new Point(0, 0);
-			velMod = 0.7;
-			gravMod = 1.0;
+			velMod = 0.72;
+			gravMod = 0.9;
 			break;
                         
 		default:
