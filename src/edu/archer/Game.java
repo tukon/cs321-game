@@ -129,10 +129,35 @@ public class Game implements Drawable
 				player1 = new Player(false, 64, GamePanel.HEIGHT-150,
 					p1Name, 10, Projectile.Type.TEXTBOOK);
 			}
-                        else
+			else
 			{
-				player1 = new Player(false, 64, GamePanel.HEIGHT-150,
+				switch (p1Avatar)
+				{
+				case 4:
+					player1 = new Player(false, 64,
+					GamePanel.HEIGHT-150, p1Name, p1Avatar, 
+					Projectile.Type.BATTERANG);						
+					break;
+				case 5:
+					player1 = new Player(false, 64,
+					GamePanel.HEIGHT-150, p1Name, p1Avatar, 
+					Projectile.Type.HEATRAY);						
+					break;
+				case 6:
+					player1 = new Player(false, 64,
+					GamePanel.HEIGHT-150, p1Name, p1Avatar, 
+					Projectile.Type.LASER);						
+					break;
+				case 7:
+					player1 = new Player(false, 64,
+					GamePanel.HEIGHT-150, p1Name, p1Avatar, 
+					Projectile.Type.SABER);						
+					break;
+                                default:
+					player1 = new Player(false, 64, GamePanel.HEIGHT-150,
 					p1Name, p1Avatar, weapon1);
+					break;
+                            }
 			}
 			platform1 = new Sprite("/platform.png", 0,
 				GamePanel.HEIGHT-150);
@@ -143,8 +168,34 @@ public class Game implements Drawable
 			}
                         else
 			{
-				player2 = new Player(true, GamePanel.WIDTH-64,
-					GamePanel.HEIGHT-150, p2Name, p2Avatar, weapon2);
+				switch (p2Avatar)
+				{
+				case 4:
+					player2 = new Player(true,GamePanel.WIDTH-64,
+					GamePanel.HEIGHT-150, p2Name, p2Avatar,
+					Projectile.Type.BATTERANG);
+					break;
+				case 5:
+					player2 = new Player(true,GamePanel.WIDTH-64,
+					GamePanel.HEIGHT-150, p2Name, p2Avatar,
+					Projectile.Type.HEATRAY);
+					break;
+				case 6:
+					player2 = new Player(true,GamePanel.WIDTH-64,
+					GamePanel.HEIGHT-150, p2Name, p2Avatar,
+					Projectile.Type.LASER);
+					break;
+				case 7:
+					player2 = new Player(true,GamePanel.WIDTH-64,
+					GamePanel.HEIGHT-150, p2Name, p2Avatar,
+					Projectile.Type.SABER);
+					break;
+                                default:
+					player2 = new Player(true,GamePanel.WIDTH-64,
+					GamePanel.HEIGHT-150, p2Name, p2Avatar,
+					weapon2);
+					break;
+                            }
 			}
 			platform2 = new Sprite("/platform.png",
 				GamePanel.WIDTH-64-64,
@@ -276,7 +327,7 @@ public class Game implements Drawable
 			{
 				player1 = new Player(false, 64,
 					GamePanel.HEIGHT-150, p1Name, p1Avatar, 
-					Projectile.Type.values()[4]);						
+					Projectile.Type.BATTERANG);						
 			}
                          else if (p1Avatar == 5)                                 //if stormtrooper is selected set the weapon
 			{
@@ -288,13 +339,13 @@ public class Game implements Drawable
 			{
 				player1 = new Player(false,64,
 					GamePanel.HEIGHT-150, p1Name, p1Avatar,
-					Projectile.Type.values()[5]);
+					Projectile.Type.LASER);
 			}
                         else if(p1Avatar==7)
                         {
                             player1 = new Player(false,64,
 					GamePanel.HEIGHT-150, p1Name, p1Avatar,
-					Projectile.Type.values()[6]);
+					Projectile.Type.SABER);
                         }
 			else
 			{
@@ -307,9 +358,9 @@ public class Game implements Drawable
                         
 			if (p2Avatar == 4)
 			{
-				player2 = new Player(true,GamePanel.WIDTH-64,
+					player2 = new Player(true,GamePanel.WIDTH-64,
 					GamePanel.HEIGHT-150, p2Name, p2Avatar,
-					Projectile.Type.values()[4]);
+					Projectile.Type.BATTERANG);
 			}
                         else if (p2Avatar == 5)                                 //if stormtrooper is selected set the weapon
 			{
@@ -322,13 +373,13 @@ public class Game implements Drawable
 			{
 				player2 = new Player(true,GamePanel.WIDTH-64,
 					GamePanel.HEIGHT-150, p2Name, p2Avatar,
-					Projectile.Type.values()[5]);
+					Projectile.Type.LASER);
 			}
                          else if(p2Avatar==7)
                         {
                             player2 = new Player(true,GamePanel.WIDTH-64,
 					GamePanel.HEIGHT-150, p2Name, p2Avatar,
-					Projectile.Type.values()[6]);
+					Projectile.Type.SABER);
                         }
 			else
 			{		
