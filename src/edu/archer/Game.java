@@ -129,8 +129,35 @@ public class Game implements Drawable
 				player1 = new Player(false, 64, GamePanel.HEIGHT-150,
 					p1Name, 10, Projectile.Type.TEXTBOOK);
 			}
-                        else
+			else
 			{
+				switch (p1Avatar)
+				{
+				case 4:
+					player1 = new Player(false, 64,
+					GamePanel.HEIGHT-150, p1Name, p1Avatar, 
+					Projectile.Type.values()[4]);						
+					break;
+				case 5:
+					player1 = new Player(false, 64,
+					GamePanel.HEIGHT-150, p1Name, p1Avatar, 
+					Projectile.Type.values()[4]);						
+					break;
+				case 6:
+					player1 = new Player(false, 64,
+					GamePanel.HEIGHT-150, p1Name, p1Avatar, 
+					Projectile.Type.values()[4]);						
+					break;
+				case 7:
+					player1 = new Player(false, 64,
+					GamePanel.HEIGHT-150, p1Name, p1Avatar, 
+					Projectile.Type.values()[4]);						
+					break;
+                                default:
+					player1 = new Player(false, 64, GamePanel.HEIGHT-150,
+					p1Name, p1Avatar, weapon1);
+					break;
+                            }
 				player1 = new Player(false, 64, GamePanel.HEIGHT-150,
 					p1Name, p1Avatar, weapon1);
 			}
@@ -143,8 +170,34 @@ public class Game implements Drawable
 			}
                         else
 			{
-				player2 = new Player(true, GamePanel.WIDTH-64,
-					GamePanel.HEIGHT-150, p2Name, p2Avatar, weapon2);
+				switch (p2Avatar)
+				{
+				case 4:
+					player2 = new Player(true,GamePanel.WIDTH-64,
+					GamePanel.HEIGHT-150, p2Name, p2Avatar,
+					Projectile.Type.values()[4]);
+					break;
+				case 5:
+					player2 = new Player(true,GamePanel.WIDTH-64,
+					GamePanel.HEIGHT-150, p2Name, p2Avatar,
+					Projectile.Type.values()[5]);
+					break;
+				case 6:
+					player2 = new Player(true,GamePanel.WIDTH-64,
+					GamePanel.HEIGHT-150, p2Name, p2Avatar,
+					Projectile.Type.values()[6]);
+					break;
+				case 7:
+					player2 = new Player(true,GamePanel.WIDTH-64,
+					GamePanel.HEIGHT-150, p2Name, p2Avatar,
+					Projectile.Type.values()[7]);
+					break;
+                                default:
+					player2 = new Player(true,GamePanel.WIDTH-64,
+					GamePanel.HEIGHT-150, p2Name, p2Avatar,
+					weapon2);
+					break;
+                            }
 			}
 			platform2 = new Sprite("/platform.png",
 				GamePanel.WIDTH-64-64,
@@ -307,7 +360,7 @@ public class Game implements Drawable
                         
 			if (p2Avatar == 4)
 			{
-				player2 = new Player(true,GamePanel.WIDTH-64,
+					player2 = new Player(true,GamePanel.WIDTH-64,
 					GamePanel.HEIGHT-150, p2Name, p2Avatar,
 					Projectile.Type.values()[4]);
 			}
