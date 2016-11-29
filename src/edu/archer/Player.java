@@ -137,7 +137,7 @@ public class Player extends Sprite
 			armsReady = ResourceLoader.loadImage(
 				"/weapons/book_ready.png");
 			armsRelaxed = ResourceLoader.loadImage(
-				"/weapons/thrown.png");
+				"/weapons/book_thrown.png");
 			break;
                         
 		default:
