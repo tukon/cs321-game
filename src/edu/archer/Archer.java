@@ -299,6 +299,7 @@ public class Archer implements ActionListener, MouseListener,
 	@Override
 	public void keyTyped(KeyEvent ke)
 	{
+		if (state == State.MAIN_MENU)  return;
 		// TODO: do this without using a literal escape character
 		char ESC = '';
 		if (ke.getKeyChar() == ESC)
