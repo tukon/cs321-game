@@ -19,6 +19,7 @@ public class NewGame extends javax.swing.JFrame {
     
     /**
      * Creates new form NewGame2
+     * @param game Reference to the main game object
      */
     public NewGame(Archer game) 
     {

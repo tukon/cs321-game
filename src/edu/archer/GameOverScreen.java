@@ -124,10 +124,10 @@ public class GameOverScreen implements ButtonListener, Drawable
 	 * @param winner Name of the winning player
 	 * @param p1Name Name of player 1
 	 * @param p1Shots Number of shots fired by player 1
-	 * @param p1Accuracy Player 1’s accuracy (double, between 0.0 & 1.0)
+	 * @param p1Accuracy Player 1’s accuracy (double, between 0.0 and 1.0)
 	 * @param p2Name Name of player 2
 	 * @param p2Shots Number of shots fired by player 2
-	 * @param p2Accuracy Player 2’s accuracy (double, between 0.0 & 1.0)
+	 * @param p2Accuracy Player 2’s accuracy (double, between 0.0 and 1.0)
 	 */
 	public void setStats(String winner, String p1Name, int p1Shots,
 		double p1Accuracy, String p2Name, int p2Shots,

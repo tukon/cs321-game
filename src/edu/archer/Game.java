@@ -500,6 +500,7 @@ public class Game implements Drawable
 	/**
 	 * Updates the position of the most recently fired arrow, and the text
 	 * at the bottom of the screen.
+	 * @return False when the game is over, true if it should keep running.
 	 */
 	public boolean update()
 	{		

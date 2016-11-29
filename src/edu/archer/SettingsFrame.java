@@ -16,6 +16,7 @@ public class SettingsFrame extends javax.swing.JFrame {
 	
     /**
      * Creates new form SettingsFrame
+     * @param game Reference to the main game object
      */
     public SettingsFrame(Archer game) {
         

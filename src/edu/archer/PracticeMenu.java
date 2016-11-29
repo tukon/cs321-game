@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
- *
+ * The “Practice mode” window.
  * @author jonsh_000
  */
 public class PracticeMenu extends javax.swing.JFrame {
@@ -19,6 +19,7 @@ public class PracticeMenu extends javax.swing.JFrame {
     
     /**
      * Creates new form PracticeMenu
+     * @param game Reference to the main game object
      */
     public PracticeMenu(Archer game) 
     {
