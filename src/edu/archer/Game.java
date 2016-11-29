@@ -120,7 +120,7 @@ public class Game implements Drawable
 				GamePanel.WIDTH-64-64,
 			GamePanel.HEIGHT-150);
 		}
-		if (("ROCHOWIAK".equals(p1Name.toUpperCase())) || ("ROCHOWIAK".equals(p2Name.toUpperCase())))
+		else if (("ROCHOWIAK".equals(p1Name.toUpperCase())) || ("ROCHOWIAK".equals(p2Name.toUpperCase())))
 		{
 			backdrop = new Sprite(
 				"/backdrops/SecretClassroomBackdrop.png", 0, 0);
