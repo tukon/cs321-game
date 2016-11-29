@@ -121,7 +121,7 @@ public class SettingsMenu {
 			//forcibly revert the file back to the default settings
 			
 			BufferedReader in = new BufferedReader(new FileReader(
-				"Settings.txt"));
+                                "Settings.txt"));
 			String temp = in.readLine();
 			//System.out.println(temp);
 			temp = temp.substring(12); //Starts a substring at the
@@ -195,7 +195,8 @@ public class SettingsMenu {
 		return saveSettings();
 	}
 	public boolean saveSettings()
-	{ 
+	{
+            
                 //Stores the temporary values into the publicly accessible permanent
                 //values, writes changes to Settings.txt
 		s_SettingsBackgroundName = s_SettingsBackgroundNameTemp;
