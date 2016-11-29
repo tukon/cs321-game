@@ -136,30 +136,28 @@ public class Game implements Drawable
 				case 4:
 					player1 = new Player(false, 64,
 					GamePanel.HEIGHT-150, p1Name, p1Avatar, 
-					Projectile.Type.values()[4]);						
+					Projectile.Type.BATTERANG);						
 					break;
 				case 5:
 					player1 = new Player(false, 64,
 					GamePanel.HEIGHT-150, p1Name, p1Avatar, 
-					Projectile.Type.values()[4]);						
+					Projectile.Type.HEATRAY);						
 					break;
 				case 6:
 					player1 = new Player(false, 64,
 					GamePanel.HEIGHT-150, p1Name, p1Avatar, 
-					Projectile.Type.values()[4]);						
+					Projectile.Type.LASER);						
 					break;
 				case 7:
 					player1 = new Player(false, 64,
 					GamePanel.HEIGHT-150, p1Name, p1Avatar, 
-					Projectile.Type.values()[4]);						
+					Projectile.Type.SABER);						
 					break;
                                 default:
 					player1 = new Player(false, 64, GamePanel.HEIGHT-150,
 					p1Name, p1Avatar, weapon1);
 					break;
                             }
-				player1 = new Player(false, 64, GamePanel.HEIGHT-150,
-					p1Name, p1Avatar, weapon1);
 			}
 			platform1 = new Sprite("/platform.png", 0,
 				GamePanel.HEIGHT-150);
@@ -175,22 +173,22 @@ public class Game implements Drawable
 				case 4:
 					player2 = new Player(true,GamePanel.WIDTH-64,
 					GamePanel.HEIGHT-150, p2Name, p2Avatar,
-					Projectile.Type.values()[4]);
+					Projectile.Type.BATTERANG);
 					break;
 				case 5:
 					player2 = new Player(true,GamePanel.WIDTH-64,
 					GamePanel.HEIGHT-150, p2Name, p2Avatar,
-					Projectile.Type.values()[5]);
+					Projectile.Type.HEATRAY);
 					break;
 				case 6:
 					player2 = new Player(true,GamePanel.WIDTH-64,
 					GamePanel.HEIGHT-150, p2Name, p2Avatar,
-					Projectile.Type.values()[6]);
+					Projectile.Type.LASER);
 					break;
 				case 7:
 					player2 = new Player(true,GamePanel.WIDTH-64,
 					GamePanel.HEIGHT-150, p2Name, p2Avatar,
-					Projectile.Type.values()[7]);
+					Projectile.Type.SABER);
 					break;
                                 default:
 					player2 = new Player(true,GamePanel.WIDTH-64,
@@ -329,7 +327,7 @@ public class Game implements Drawable
 			{
 				player1 = new Player(false, 64,
 					GamePanel.HEIGHT-150, p1Name, p1Avatar, 
-					Projectile.Type.values()[4]);						
+					Projectile.Type.BATTERANG);						
 			}
                          else if (p1Avatar == 5)                                 //if stormtrooper is selected set the weapon
 			{
@@ -341,13 +339,13 @@ public class Game implements Drawable
 			{
 				player1 = new Player(false,64,
 					GamePanel.HEIGHT-150, p1Name, p1Avatar,
-					Projectile.Type.values()[5]);
+					Projectile.Type.LASER);
 			}
                         else if(p1Avatar==7)
                         {
                             player1 = new Player(false,64,
 					GamePanel.HEIGHT-150, p1Name, p1Avatar,
-					Projectile.Type.values()[6]);
+					Projectile.Type.SABER);
                         }
 			else
 			{
@@ -362,7 +360,7 @@ public class Game implements Drawable
 			{
 					player2 = new Player(true,GamePanel.WIDTH-64,
 					GamePanel.HEIGHT-150, p2Name, p2Avatar,
-					Projectile.Type.values()[4]);
+					Projectile.Type.BATTERANG);
 			}
                         else if (p2Avatar == 5)                                 //if stormtrooper is selected set the weapon
 			{
@@ -375,13 +373,13 @@ public class Game implements Drawable
 			{
 				player2 = new Player(true,GamePanel.WIDTH-64,
 					GamePanel.HEIGHT-150, p2Name, p2Avatar,
-					Projectile.Type.values()[5]);
+					Projectile.Type.LASER);
 			}
                          else if(p2Avatar==7)
                         {
                             player2 = new Player(true,GamePanel.WIDTH-64,
 					GamePanel.HEIGHT-150, p2Name, p2Avatar,
-					Projectile.Type.values()[6]);
+					Projectile.Type.SABER);
                         }
 			else
 			{		
